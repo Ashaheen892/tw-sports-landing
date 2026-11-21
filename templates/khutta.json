@@ -1,0 +1,2697 @@
+{
+  "id": "234185c0-ee92-44de-87f5-cc8a60b30091",
+  "components": [
+    {
+      "title": "رأس الصفحة",
+      "icon": "sicon-store",
+      "name": "page-bar",
+      "key": "eac17f82-e143-4a43-ace0-54a6aa5cd45d",
+      "image": "",
+      "props": {
+        "min-height": "110px"
+      },
+      "fields": [
+        {
+          "id": "announce",
+          "type": "string",
+          "format": "text",
+          "label": "شريط التنبيه",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "شحن مجاني فوق ٢٠٠ ر.س · تحليل مختبر مستقل مع كل دفعة · استرجاع ١٤ يوم",
+            "en": "Free shipping over SAR 200 · an independent lab report with every batch · 14-day returns"
+          }
+        },
+        {
+          "id": "logo",
+          "type": "string",
+          "format": "image",
+          "label": "شعار",
+          "icon": "sicon-image",
+          "required": false,
+          "description": "اتركه فارغاً ليظهر الاسم مع الشارة. المقاس المقترح 280×80 بكسل.",
+          "value": ""
+        },
+        {
+          "id": "logo_dark",
+          "type": "string",
+          "format": "image",
+          "label": "شعار للوضع الداكن",
+          "icon": "sicon-image",
+          "required": false,
+          "description": "يظهر عندما تكون الصفحة داكنة. بدونه يُستخدم الشعار الأساسي.",
+          "value": ""
+        },
+        {
+          "id": "logo_height",
+          "type": "number",
+          "format": "number",
+          "inputType": "number",
+          "label": "ارتفاع الشعار",
+          "icon": "sicon-calculator",
+          "required": false,
+          "description": "بالبكسل.",
+          "minimum": 28,
+          "maximum": 120,
+          "value": 52
+        },
+        {
+          "id": "align",
+          "type": "items",
+          "format": "dropdown-list",
+          "source": "Manual",
+          "label": "مكان الشعار",
+          "icon": "sicon-list",
+          "required": false,
+          "description": null,
+          "options": [
+            {
+              "label": "الوسط",
+              "value": "center",
+              "key": "36ce7336-a377-409d-b4dd-e7a591343dda"
+            },
+            {
+              "label": "البداية",
+              "value": "start",
+              "key": "8818c046-be2e-4a84-9b64-a0eb33296419"
+            }
+          ],
+          "selected": [
+            {
+              "label": "الوسط",
+              "value": "center",
+              "key": "36ce7336-a377-409d-b4dd-e7a591343dda"
+            }
+          ],
+          "value": [
+            {
+              "label": "الوسط",
+              "value": "center",
+              "key": "36ce7336-a377-409d-b4dd-e7a591343dda"
+            }
+          ]
+        },
+        {
+          "id": "brand",
+          "type": "string",
+          "format": "text",
+          "label": "اسم المتجر",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "قوّة",
+            "en": "Quwa"
+          }
+        },
+        {
+          "id": "badge",
+          "type": "string",
+          "format": "text",
+          "label": "حرف الشارة",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 4,
+          "value": {
+            "ar": "ق",
+            "en": "Q"
+          }
+        },
+        {
+          "id": "home_url",
+          "type": "string",
+          "format": "text",
+          "label": "رابط الشعار",
+          "icon": "sicon-link",
+          "multilanguage": false,
+          "required": false,
+          "description": "رابط داخل الصفحة مثل #plan، أو رابط كامل يبدأ بـ https.",
+          "minLength": 0,
+          "maxLength": 500,
+          "value": "#"
+        },
+        {
+          "id": "link_label",
+          "type": "string",
+          "format": "text",
+          "label": "رابط نصي",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 40,
+          "value": {
+            "ar": "خطتي",
+            "en": "My plan"
+          }
+        },
+        {
+          "id": "link_url",
+          "type": "string",
+          "format": "text",
+          "label": "عنوان الرابط النصي",
+          "icon": "sicon-link",
+          "multilanguage": false,
+          "required": false,
+          "description": "رابط داخل الصفحة مثل #plan، أو رابط كامل يبدأ بـ https.",
+          "minLength": 0,
+          "maxLength": 500,
+          "value": "#plan"
+        },
+        {
+          "id": "pb-brand",
+          "type": "static",
+          "format": "line"
+        },
+        {
+          "id": "sticky",
+          "type": "boolean",
+          "format": "switch",
+          "label": "تثبيت الرأس عند التمرير",
+          "icon": "sicon-toggle-off",
+          "required": false,
+          "description": "يبقى الاسم ظاهراً أثناء نزول الزائر.",
+          "value": true,
+          "selected": true
+        },
+        {
+          "id": "transparent",
+          "type": "boolean",
+          "format": "switch",
+          "label": "رأس شفاف فوق القسم التالي",
+          "icon": "sicon-toggle-off",
+          "required": false,
+          "description": "يناسب صورة افتتاحية داكنة. عند التمرير يمكن إبقاؤه ثابتاً.",
+          "value": false,
+          "selected": false
+        },
+        {
+          "id": "show_mode_toggle",
+          "type": "boolean",
+          "format": "switch",
+          "label": "زر الفاتح والداكن",
+          "icon": "sicon-toggle-off",
+          "required": false,
+          "description": "أيقونة في الرأس تتبدل بين القمر والشمس، وتبدّل الأقسام المضبوطة على حسب الصفحة، وتتذكر اختيار الزائر.",
+          "value": true,
+          "selected": true
+        },
+        {
+          "id": "default_mode",
+          "type": "items",
+          "format": "dropdown-list",
+          "source": "Manual",
+          "label": "وضع الصفحة عند الفتح",
+          "icon": "sicon-list",
+          "required": false,
+          "description": null,
+          "options": [
+            {
+              "label": "داكن",
+              "value": "dark",
+              "key": "5d485d48-f62c-4dee-91dc-1949b7a97b7f"
+            },
+            {
+              "label": "فاتح",
+              "value": "light",
+              "key": "5e44b78b-ba1b-476e-a800-22d306132d7d"
+            },
+            {
+              "label": "حسب جهاز الزائر",
+              "value": "system",
+              "key": "79b97e66-25d4-43c0-b13f-2da78ef9c715"
+            }
+          ],
+          "selected": [
+            {
+              "label": "داكن",
+              "value": "dark",
+              "key": "5d485d48-f62c-4dee-91dc-1949b7a97b7f"
+            }
+          ],
+          "value": [
+            {
+              "label": "داكن",
+              "value": "dark",
+              "key": "5d485d48-f62c-4dee-91dc-1949b7a97b7f"
+            }
+          ]
+        },
+        {
+          "id": "bg_color",
+          "type": "string",
+          "format": "color",
+          "inputType": "color",
+          "label": "لون الخلفية",
+          "icon": "sicon-format-fill",
+          "required": false,
+          "description": null,
+          "value": ""
+        },
+        {
+          "id": "color_scheme",
+          "type": "items",
+          "format": "dropdown-list",
+          "source": "Manual",
+          "label": "وضع الألوان",
+          "icon": "sicon-list",
+          "required": false,
+          "description": "حسب رأس الصفحة يتبع زر الفاتح والداكن. الفاتح أو الداكن يثبت القسم ولا يتأثر بالزر.",
+          "options": [
+            {
+              "label": "حسب رأس الصفحة",
+              "value": "auto",
+              "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+            },
+            {
+              "label": "فاتح دائماً",
+              "value": "light",
+              "key": "46c4c561-9252-43c0-9cb2-ea2cec3f8b9a"
+            },
+            {
+              "label": "داكن دائماً",
+              "value": "dark",
+              "key": "a7c50b53-8c83-47c9-a437-8d4d7746f5d2"
+            }
+          ],
+          "selected": [
+            {
+              "label": "حسب رأس الصفحة",
+              "value": "auto",
+              "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+            }
+          ],
+          "value": [
+            {
+              "label": "حسب رأس الصفحة",
+              "value": "auto",
+              "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "حاسبة الخطة",
+      "icon": "sicon-calculator",
+      "name": "plan-board",
+      "key": "adfef080-b344-476c-b6e9-0f6ef67e8f4d",
+      "image": "",
+      "props": {
+        "min-height": "760px"
+      },
+      "fields": [
+        {
+          "id": "anchor",
+          "type": "string",
+          "format": "text",
+          "label": "معرّف القسم في الرابط",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": false,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 80,
+          "value": "plan"
+        },
+        {
+          "id": "kicker",
+          "type": "string",
+          "format": "text",
+          "label": "سطر صغير",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "٠٣ / خطتي",
+            "en": "03 / my plan"
+          }
+        },
+        {
+          "id": "title",
+          "type": "string",
+          "format": "text",
+          "label": "العنوان",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "احسب خطتك في ثلاثين ثانية",
+            "en": "Calculate your plan in thirty seconds"
+          }
+        },
+        {
+          "id": "text",
+          "type": "string",
+          "format": "textarea",
+          "label": "النص",
+          "icon": "sicon-paragraph",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 1200,
+          "value": {
+            "ar": "معادلة بسيطة: وزنك × هدفك × مستوى تدريبك. النتيجة جرعة بالغرام وستاك محدّد.",
+            "en": "A simple equation: weight × goal × training level. The result is a dose in grams and a named stack."
+          }
+        },
+        {
+          "id": "goal_label",
+          "type": "string",
+          "format": "text",
+          "label": "عنوان الأهداف",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "هدفك الأساسي",
+            "en": "Your main goal"
+          }
+        },
+        {
+          "id": "level_label",
+          "type": "string",
+          "format": "text",
+          "label": "عنوان المستويات",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "مستوى التدريب",
+            "en": "Training level"
+          }
+        },
+        {
+          "id": "weight_label",
+          "type": "string",
+          "format": "text",
+          "label": "عنوان الوزن",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "وزنك الحالي",
+            "en": "Current weight"
+          }
+        },
+        {
+          "id": "weight_unit",
+          "type": "string",
+          "format": "text",
+          "label": "وحدة الوزن",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 12,
+          "value": {
+            "ar": "كغ",
+            "en": "kg"
+          }
+        },
+        {
+          "id": "weight_min",
+          "type": "number",
+          "format": "number",
+          "inputType": "number",
+          "label": "أقل وزن",
+          "icon": "sicon-calculator",
+          "required": false,
+          "description": null,
+          "minimum": 30,
+          "maximum": 80,
+          "value": 45
+        },
+        {
+          "id": "weight_max",
+          "type": "number",
+          "format": "number",
+          "inputType": "number",
+          "label": "أعلى وزن",
+          "icon": "sicon-calculator",
+          "required": false,
+          "description": null,
+          "minimum": 90,
+          "maximum": 220,
+          "value": 140
+        },
+        {
+          "id": "weight_default",
+          "type": "number",
+          "format": "number",
+          "inputType": "number",
+          "label": "الوزن عند الفتح",
+          "icon": "sicon-calculator",
+          "required": false,
+          "description": null,
+          "minimum": 40,
+          "maximum": 160,
+          "value": 82
+        },
+        {
+          "id": "flavor_label",
+          "type": "string",
+          "format": "text",
+          "label": "عنوان النكهة",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "النكهة",
+            "en": "Flavor"
+          }
+        },
+        {
+          "id": "pb-math",
+          "type": "static",
+          "format": "line"
+        },
+        {
+          "id": "base_price",
+          "type": "number",
+          "format": "number",
+          "inputType": "number",
+          "label": "أساس السعر",
+          "icon": "sicon-calculator",
+          "required": false,
+          "description": "يُضرب في معامل الهدف والمستوى، ثم يُقرّب لأقرب ٥.",
+          "minimum": 50,
+          "maximum": 2000,
+          "value": 265
+        },
+        {
+          "id": "scoop_grams",
+          "type": "number",
+          "format": "number",
+          "inputType": "number",
+          "label": "غرام البروتين في السكوب",
+          "icon": "sicon-calculator",
+          "required": false,
+          "description": null,
+          "minimum": 10,
+          "maximum": 50,
+          "value": 27
+        },
+        {
+          "id": "creatine_grams",
+          "type": "number",
+          "format": "number",
+          "inputType": "number",
+          "label": "غرام الكرياتين اليومي",
+          "icon": "sicon-calculator",
+          "required": false,
+          "description": null,
+          "minimum": 1,
+          "maximum": 20,
+          "value": 5
+        },
+        {
+          "id": "currency",
+          "type": "string",
+          "format": "text",
+          "label": "العملة",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": false,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 80,
+          "value": "ر.س"
+        },
+        {
+          "id": "off_label",
+          "type": "string",
+          "format": "text",
+          "label": "كلمة الخصم",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 20,
+          "value": {
+            "ar": "خصم",
+            "en": "off"
+          }
+        },
+        {
+          "id": "result_label",
+          "type": "string",
+          "format": "text",
+          "label": "عنوان النتيجة",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "خطتك المحسوبة",
+            "en": "Your calculated plan"
+          }
+        },
+        {
+          "id": "protein_label",
+          "type": "string",
+          "format": "text",
+          "label": "وصف البروتين",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "غرام بروتين يومياً",
+            "en": "grams of protein a day"
+          }
+        },
+        {
+          "id": "scoop_label",
+          "type": "string",
+          "format": "text",
+          "label": "كلمة السكوب",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 20,
+          "value": {
+            "ar": "سكوب",
+            "en": "scoops"
+          }
+        },
+        {
+          "id": "meals_label",
+          "type": "string",
+          "format": "text",
+          "label": "وصف الوجبات",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 40,
+          "value": {
+            "ar": "وجبات باليوم",
+            "en": "meals a day"
+          }
+        },
+        {
+          "id": "days_label",
+          "type": "string",
+          "format": "text",
+          "label": "وصف أيام التدريب",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 40,
+          "value": {
+            "ar": "أيام تدريب",
+            "en": "training days"
+          }
+        },
+        {
+          "id": "creatine_label",
+          "type": "string",
+          "format": "text",
+          "label": "وصف الكرياتين",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 40,
+          "value": {
+            "ar": "كرياتين يومي",
+            "en": "daily creatine"
+          }
+        },
+        {
+          "id": "gram_label",
+          "type": "string",
+          "format": "text",
+          "label": "اختصار الغرام",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 8,
+          "value": {
+            "ar": "غ",
+            "en": "g"
+          }
+        },
+        {
+          "id": "bar_1",
+          "type": "string",
+          "format": "text",
+          "label": "اسم الشريط الأول",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 40,
+          "value": {
+            "ar": "بروتين",
+            "en": "Protein"
+          }
+        },
+        {
+          "id": "bar_2",
+          "type": "string",
+          "format": "text",
+          "label": "اسم الشريط الثاني",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 40,
+          "value": {
+            "ar": "كرياتين",
+            "en": "Creatine"
+          }
+        },
+        {
+          "id": "bar_3",
+          "type": "string",
+          "format": "text",
+          "label": "اسم الشريط الثالث",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 40,
+          "value": {
+            "ar": "كافيين قبل التمرين",
+            "en": "Pre-workout caffeine"
+          }
+        },
+        {
+          "id": "items_label",
+          "type": "string",
+          "format": "text",
+          "label": "كلمة الأصناف",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 20,
+          "value": {
+            "ar": "أصناف",
+            "en": "items"
+          }
+        },
+        {
+          "id": "pb-goals",
+          "type": "static",
+          "format": "line"
+        },
+        {
+          "id": "goals",
+          "type": "collection",
+          "format": "collection",
+          "required": true,
+          "minLength": 1,
+          "maxLength": 6,
+          "item_label": "هدف",
+          "fields": [
+            {
+              "id": "goals.code",
+              "type": "string",
+              "format": "text",
+              "label": "الرمز",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": false,
+              "required": false,
+              "description": "mass أو cut أو endu أو fit.",
+              "minLength": 0,
+              "maxLength": 80,
+              "value": "mass"
+            },
+            {
+              "id": "goals.label",
+              "type": "string",
+              "format": "text",
+              "label": "زر الهدف",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": true,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 180,
+              "value": {
+                "ar": "بناء عضل",
+                "en": "Build muscle"
+              }
+            },
+            {
+              "id": "goals.name",
+              "type": "string",
+              "format": "text",
+              "label": "اسم الستاك",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": true,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 180,
+              "value": {
+                "ar": "ستاك الضخامة",
+                "en": "Mass stack"
+              }
+            },
+            {
+              "id": "goals.factor",
+              "type": "string",
+              "format": "text",
+              "label": "غرام بروتين لكل كيلو",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": false,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 80,
+              "value": "2"
+            },
+            {
+              "id": "goals.meals",
+              "type": "string",
+              "format": "text",
+              "label": "عدد الوجبات",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": false,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 80,
+              "value": "4"
+            },
+            {
+              "id": "goals.price_factor",
+              "type": "string",
+              "format": "text",
+              "label": "معامل السعر",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": false,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 80,
+              "value": "1.13"
+            },
+            {
+              "id": "goals.food_share",
+              "type": "string",
+              "format": "text",
+              "label": "نسبة البروتين من الطعام",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": false,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 80,
+              "value": "0.55"
+            },
+            {
+              "id": "goals.bars",
+              "type": "string",
+              "format": "text",
+              "label": "نسب الأشرطة",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": false,
+              "required": false,
+              "description": "ثلاثة أرقام مفصولة بفاصلة.",
+              "minLength": 0,
+              "maxLength": 80,
+              "value": "90,85,45"
+            },
+            {
+              "id": "goals.text",
+              "type": "string",
+              "format": "textarea",
+              "label": "وصف الخطة",
+              "icon": "sicon-paragraph",
+              "multilanguage": true,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 1200,
+              "value": {
+                "ar": "هدفك زيادة الكتلة العضلية.",
+                "en": "The goal is more muscle."
+              }
+            },
+            {
+              "id": "goals.note",
+              "type": "string",
+              "format": "textarea",
+              "label": "ملاحظة",
+              "icon": "sicon-paragraph",
+              "multilanguage": true,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 1200,
+              "value": {
+                "ar": "في أيام الراحة خفّض الكمية.",
+                "en": "On rest days, drop one scoop."
+              }
+            },
+            {
+              "id": "goals.lines",
+              "type": "string",
+              "format": "textarea",
+              "label": "أصناف الستاك",
+              "icon": "sicon-paragraph",
+              "multilanguage": true,
+              "required": false,
+              "description": "سطر لكل صنف: الاسم | التفصيل.",
+              "minLength": 0,
+              "maxLength": 1200,
+              "value": {
+                "ar": "واي آيزوليت | ٢٧ غ لكل سكوب",
+                "en": "Whey isolate | 27 g per scoop"
+              }
+            },
+            {
+              "id": "goals.on",
+              "type": "boolean",
+              "format": "switch",
+              "label": "مختار عند الفتح",
+              "icon": "sicon-toggle-off",
+              "required": false,
+              "description": null,
+              "value": false,
+              "selected": false
+            }
+          ],
+          "value": [
+            {
+              "goals.code": "mass",
+              "goals.label": {
+                "ar": "بناء عضل",
+                "en": "Build muscle"
+              },
+              "goals.name": {
+                "ar": "ستاك الضخامة",
+                "en": "Mass stack"
+              },
+              "goals.factor": "2",
+              "goals.meals": "4",
+              "goals.price_factor": "1.13",
+              "goals.food_share": "0.55",
+              "goals.bars": "90,85,45",
+              "goals.on": true,
+              "goals.text": {
+                "ar": "هدفك زيادة الكتلة العضلية مع أقل زيادة دهنية ممكنة. الأساس بروتين مرتفع موزّع على ٤ وجبات، وكرياتين يومي ثابت حتى في أيام الراحة.",
+                "en": "The goal is muscle with as little fat as possible. High protein across 4 meals, and creatine every day including rest days."
+              },
+              "goals.note": {
+                "ar": "في أيام الراحة خفّض الكمية بمقدار سكوب واحد وأبقِ الكرياتين كما هو.",
+                "en": "On rest days drop one scoop and keep the creatine."
+              },
+              "goals.lines": {
+                "ar": "واي آيزوليت ٢ كغ | ٢٧ غ لكل سكوب\nكرياتين مونوهيدرات | ٥ غ يومياً\nقبل التمرين | ١٨٠ ملغ كافيين\nمغنيسيوم جلايسينات | للنوم والاستشفاء\nأوميغا ٣ مركّز | ١٠٠٠ ملغ EPA+DHA",
+                "en": "Whey isolate 2 kg | 27 g per scoop\nCreatine monohydrate | 5 g daily\nPre-workout | 180 mg caffeine\nMagnesium glycinate | sleep and recovery\nOmega-3 | 1,000 mg EPA+DHA"
+              }
+            },
+            {
+              "goals.code": "cut",
+              "goals.label": {
+                "ar": "خسارة دهون",
+                "en": "Lose fat"
+              },
+              "goals.name": {
+                "ar": "ستاك التنشيف",
+                "en": "Cut stack"
+              },
+              "goals.factor": "2.2",
+              "goals.meals": "5",
+              "goals.price_factor": "1.08",
+              "goals.food_share": "0.5",
+              "goals.bars": "100,70,60",
+              "goals.on": false,
+              "goals.text": {
+                "ar": "الهدف الحفاظ على العضل مع نقص سعرات. نرفع البروتين ونوزّعه على ٥ وجبات.",
+                "en": "Keep muscle while calories drop. Protein goes up, spread across 5 meals."
+              },
+              "goals.note": {
+                "ar": "اشرب سكوباً بعد التمرين مباشرة وآخر قبل النوم.",
+                "en": "One scoop right after training and one before sleep."
+              },
+              "goals.lines": {
+                "ar": "واي آيزوليت ٢ كغ | لاكتوز أقل من ١٪\nكرياتين مونوهيدرات | ٥ غ يومياً\nقبل التمرين | ٢٠٠ ملغ كافيين\nأوميغا ٣ مركّز | دعم الاستشفاء\nمغنيسيوم جلايسينات | جودة النوم",
+                "en": "Whey isolate 2 kg | lactose under 1%\nCreatine monohydrate | 5 g daily\nPre-workout | 200 mg caffeine\nOmega-3 | recovery\nMagnesium glycinate | sleep"
+              }
+            },
+            {
+              "goals.code": "endu",
+              "goals.label": {
+                "ar": "قدرة تحمّل",
+                "en": "Endurance"
+              },
+              "goals.name": {
+                "ar": "ستاك التحمّل",
+                "en": "Endurance stack"
+              },
+              "goals.factor": "1.6",
+              "goals.meals": "4",
+              "goals.price_factor": "1.02",
+              "goals.food_share": "0.6",
+              "goals.bars": "72,60,55",
+              "goals.on": false,
+              "goals.text": {
+                "ar": "للجري والدراجة والرياضات الطويلة. التركيز على الكهارل والاستشفاء بين الجلسات.",
+                "en": "For running, cycling, and long sessions. The focus is electrolytes and recovery between sessions."
+              },
+              "goals.note": {
+                "ar": "قسّم الكرياتين إلى جرعتين في الجلسات الأطول من ٩٠ دقيقة.",
+                "en": "Split creatine into two doses on sessions longer than 90 minutes."
+              },
+              "goals.lines": {
+                "ar": "واي آيزوليت ١ كغ | سريع الامتصاص\nكهارل بلا سكر | صوديوم وبوتاسيوم\nكرياتين مونوهيدرات | ٥ غ يومياً\nأوميغا ٣ مركّز | دعم المفاصل\nفيتامين د٣ + ك٢ | للجلسات الداخلية",
+                "en": "Whey isolate 1 kg | fast absorbing\nSugar-free electrolytes | sodium and potassium\nCreatine monohydrate | 5 g daily\nOmega-3 | joints\nVitamin D3 + K2 | indoor sessions"
+              }
+            },
+            {
+              "goals.code": "fit",
+              "goals.label": {
+                "ar": "لياقة عامة",
+                "en": "General fitness"
+              },
+              "goals.name": {
+                "ar": "ستاك اللياقة",
+                "en": "Fitness stack"
+              },
+              "goals.factor": "1.4",
+              "goals.meals": "3",
+              "goals.price_factor": "1",
+              "goals.food_share": "0.65",
+              "goals.bars": "62,55,30",
+              "goals.on": false,
+              "goals.text": {
+                "ar": "لمن يتدرّب ٣ أيام أسبوعياً ويريد الأساسيات فقط: بروتين يكمل نقص الطعام، ومكمّلان يدعمان الاستشفاء.",
+                "en": "For three days a week: protein to cover what food misses, plus two supplements for recovery."
+              },
+              "goals.note": {
+                "ar": "ابدأ بالبروتين والكرياتين فقط لأربعة أسابيع.",
+                "en": "Start with protein and creatine only for four weeks."
+              },
+              "goals.lines": {
+                "ar": "واي آيزوليت ١ كغ | ٢٧ غ لكل سكوب\nكرياتين مونوهيدرات | ٥ غ يومياً\nمغنيسيوم جلايسينات | ٤٠٠ ملغ\nأوميغا ٣ مركّز | ١٠٠٠ ملغ\nشيكر معدني | ٧٠٠ مل",
+                "en": "Whey isolate 1 kg | 27 g per scoop\nCreatine monohydrate | 5 g daily\nMagnesium glycinate | 400 mg\nOmega-3 | 1,000 mg\nMetal shaker | 700 ml"
+              }
+            }
+          ]
+        },
+        {
+          "id": "levels",
+          "type": "collection",
+          "format": "collection",
+          "required": true,
+          "minLength": 1,
+          "maxLength": 4,
+          "item_label": "مستوى",
+          "fields": [
+            {
+              "id": "levels.code",
+              "type": "string",
+              "format": "text",
+              "label": "الرمز",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": false,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 80,
+              "value": "int"
+            },
+            {
+              "id": "levels.label",
+              "type": "string",
+              "format": "text",
+              "label": "الاسم",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": true,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 180,
+              "value": {
+                "ar": "متوسط",
+                "en": "Intermediate"
+              }
+            },
+            {
+              "id": "levels.days",
+              "type": "string",
+              "format": "text",
+              "label": "أيام التدريب",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": false,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 80,
+              "value": "4"
+            },
+            {
+              "id": "levels.take",
+              "type": "string",
+              "format": "text",
+              "label": "عدد أصناف الستاك",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": false,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 80,
+              "value": "4"
+            },
+            {
+              "id": "levels.multiplier",
+              "type": "string",
+              "format": "text",
+              "label": "معامل السعر",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": false,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 80,
+              "value": "1.62"
+            },
+            {
+              "id": "levels.on",
+              "type": "boolean",
+              "format": "switch",
+              "label": "مختار عند الفتح",
+              "icon": "sicon-toggle-off",
+              "required": false,
+              "description": null,
+              "value": false,
+              "selected": false
+            }
+          ],
+          "value": [
+            {
+              "levels.code": "beg",
+              "levels.label": {
+                "ar": "مبتدئ",
+                "en": "Beginner"
+              },
+              "levels.days": "3",
+              "levels.take": "2",
+              "levels.multiplier": "1",
+              "levels.on": false
+            },
+            {
+              "levels.code": "int",
+              "levels.label": {
+                "ar": "متوسط",
+                "en": "Intermediate"
+              },
+              "levels.days": "4",
+              "levels.take": "4",
+              "levels.multiplier": "1.62",
+              "levels.on": true
+            },
+            {
+              "levels.code": "adv",
+              "levels.label": {
+                "ar": "متقدم",
+                "en": "Advanced"
+              },
+              "levels.days": "6",
+              "levels.take": "5",
+              "levels.multiplier": "2.04",
+              "levels.on": false
+            }
+          ]
+        },
+        {
+          "id": "flavors",
+          "type": "collection",
+          "format": "collection",
+          "required": false,
+          "minLength": 0,
+          "maxLength": 6,
+          "item_label": "نكهة",
+          "fields": [
+            {
+              "id": "flavors.label",
+              "type": "string",
+              "format": "text",
+              "label": "الاسم",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": true,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 180,
+              "value": {
+                "ar": "شوكولاتة",
+                "en": "Chocolate"
+              }
+            },
+            {
+              "id": "flavors.available",
+              "type": "boolean",
+              "format": "switch",
+              "label": "متوفرة",
+              "icon": "sicon-toggle-off",
+              "required": false,
+              "description": null,
+              "value": true,
+              "selected": true
+            },
+            {
+              "id": "flavors.on",
+              "type": "boolean",
+              "format": "switch",
+              "label": "مختارة عند الفتح",
+              "icon": "sicon-toggle-off",
+              "required": false,
+              "description": null,
+              "value": false,
+              "selected": false
+            }
+          ],
+          "value": [
+            {
+              "flavors.label": {
+                "ar": "شوكولاتة",
+                "en": "Chocolate"
+              },
+              "flavors.available": true,
+              "flavors.on": true
+            },
+            {
+              "flavors.label": {
+                "ar": "فانيلا",
+                "en": "Vanilla"
+              },
+              "flavors.available": true,
+              "flavors.on": false
+            },
+            {
+              "flavors.label": {
+                "ar": "قهوة",
+                "en": "Coffee"
+              },
+              "flavors.available": true,
+              "flavors.on": false
+            },
+            {
+              "flavors.label": {
+                "ar": "موز — نفد",
+                "en": "Banana — sold out"
+              },
+              "flavors.available": false,
+              "flavors.on": false
+            }
+          ]
+        },
+        {
+          "id": "pb-buy",
+          "type": "static",
+          "format": "line"
+        },
+        {
+          "id": "primary_label",
+          "type": "string",
+          "format": "text",
+          "label": "نص زر السلة",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "أضف الستاك إلى السلة",
+            "en": "Add the stack to the cart"
+          }
+        },
+        {
+          "id": "primary_url",
+          "type": "string",
+          "format": "text",
+          "label": "رابط زر السلة",
+          "icon": "sicon-link",
+          "multilanguage": false,
+          "required": false,
+          "description": "في صفحة منتج يفتح الشراء السريع. في صفحة العروض يتبع رابط زر الصفحة، أو هذا الرابط إن وضعته.",
+          "minLength": 0,
+          "maxLength": 500,
+          "value": ""
+        },
+        {
+          "id": "secondary_label",
+          "type": "string",
+          "format": "text",
+          "label": "نص الزر الثاني",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "أرسل الخطة لي",
+            "en": "Send me the plan"
+          }
+        },
+        {
+          "id": "secondary_url",
+          "type": "string",
+          "format": "text",
+          "label": "رابط الزر الثاني",
+          "icon": "sicon-link",
+          "multilanguage": false,
+          "required": false,
+          "description": "رابط داخل الصفحة مثل #plan، أو رابط كامل يبدأ بـ https.",
+          "minLength": 0,
+          "maxLength": 500,
+          "value": "#faq"
+        },
+        {
+          "id": "disclaimer",
+          "type": "string",
+          "format": "textarea",
+          "label": "تنبيه",
+          "icon": "sicon-paragraph",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 1200,
+          "value": {
+            "ar": "الأرقام تقديرية لأهداف التدريب العام، وليست بديلاً عن استشارة أخصائي تغذية رياضية أو طبيب.",
+            "en": "The numbers are estimates for general training. They are not a substitute for a sports dietitian or a doctor."
+          }
+        },
+        {
+          "id": "bg_color",
+          "type": "string",
+          "format": "color",
+          "inputType": "color",
+          "label": "لون الخلفية",
+          "icon": "sicon-format-fill",
+          "required": false,
+          "description": null,
+          "value": ""
+        },
+        {
+          "id": "color_scheme",
+          "type": "items",
+          "format": "dropdown-list",
+          "source": "Manual",
+          "label": "وضع الألوان",
+          "icon": "sicon-list",
+          "required": false,
+          "description": "حسب رأس الصفحة يتبع زر الفاتح والداكن. الفاتح أو الداكن يثبت القسم ولا يتأثر بالزر.",
+          "options": [
+            {
+              "label": "حسب رأس الصفحة",
+              "value": "auto",
+              "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+            },
+            {
+              "label": "فاتح دائماً",
+              "value": "light",
+              "key": "46c4c561-9252-43c0-9cb2-ea2cec3f8b9a"
+            },
+            {
+              "label": "داكن دائماً",
+              "value": "dark",
+              "key": "a7c50b53-8c83-47c9-a437-8d4d7746f5d2"
+            }
+          ],
+          "selected": [
+            {
+              "label": "حسب رأس الصفحة",
+              "value": "auto",
+              "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+            }
+          ],
+          "value": [
+            {
+              "label": "حسب رأس الصفحة",
+              "value": "auto",
+              "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "عدّاد العرض",
+      "icon": "sicon-timer",
+      "name": "offer-clock",
+      "key": "03cf374c-5038-4a0b-8912-13a3c3118bc3",
+      "image": "",
+      "props": {
+        "min-height": "220px"
+      },
+      "fields": [
+        {
+          "id": "title",
+          "type": "string",
+          "format": "text",
+          "label": "العنوان",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "أسبوع الستاكات",
+            "en": "Stack week"
+          }
+        },
+        {
+          "id": "text",
+          "type": "string",
+          "format": "textarea",
+          "label": "النص",
+          "icon": "sicon-paragraph",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 1200,
+          "value": {
+            "ar": "خصم إضافي ١٥٪ على كل الخطط المحسوبة، مع شيكر معدني وجدول جرعات مطبوع يصل مع الطلب.",
+            "en": "An extra 15% off every calculated plan, with a metal shaker and a printed dose card in the box."
+          }
+        },
+        {
+          "id": "code_label",
+          "type": "string",
+          "format": "text",
+          "label": "عبارة الكود",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 40,
+          "value": {
+            "ar": "كود الخصم",
+            "en": "Discount code"
+          }
+        },
+        {
+          "id": "code",
+          "type": "string",
+          "format": "text",
+          "label": "الكود",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 24,
+          "value": {
+            "ar": "POWER15",
+            "en": "POWER15"
+          }
+        },
+        {
+          "id": "hours",
+          "type": "number",
+          "format": "number",
+          "inputType": "number",
+          "label": "مدة العداد بالساعات",
+          "icon": "sicon-calculator",
+          "required": false,
+          "description": "يبدأ من أول زيارة في المتصفح، ولا يُعاد عند تحديث الصفحة.",
+          "minimum": 1,
+          "maximum": 240,
+          "value": 57
+        },
+        {
+          "id": "day_label",
+          "type": "string",
+          "format": "text",
+          "label": "اليوم",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 20,
+          "value": {
+            "ar": "يوم",
+            "en": "days"
+          }
+        },
+        {
+          "id": "hour_label",
+          "type": "string",
+          "format": "text",
+          "label": "الساعة",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 20,
+          "value": {
+            "ar": "ساعة",
+            "en": "hours"
+          }
+        },
+        {
+          "id": "minute_label",
+          "type": "string",
+          "format": "text",
+          "label": "الدقيقة",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 20,
+          "value": {
+            "ar": "دقيقة",
+            "en": "minutes"
+          }
+        },
+        {
+          "id": "second_label",
+          "type": "string",
+          "format": "text",
+          "label": "الثانية",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 20,
+          "value": {
+            "ar": "ثانية",
+            "en": "seconds"
+          }
+        },
+        {
+          "id": "bg_color",
+          "type": "string",
+          "format": "color",
+          "inputType": "color",
+          "label": "لون الخلفية",
+          "icon": "sicon-format-fill",
+          "required": false,
+          "description": null,
+          "value": ""
+        },
+        {
+          "id": "color_scheme",
+          "type": "items",
+          "format": "dropdown-list",
+          "source": "Manual",
+          "label": "وضع الألوان",
+          "icon": "sicon-list",
+          "required": false,
+          "description": "حسب رأس الصفحة يتبع زر الفاتح والداكن. الفاتح أو الداكن يثبت القسم ولا يتأثر بالزر.",
+          "options": [
+            {
+              "label": "حسب رأس الصفحة",
+              "value": "auto",
+              "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+            },
+            {
+              "label": "فاتح دائماً",
+              "value": "light",
+              "key": "46c4c561-9252-43c0-9cb2-ea2cec3f8b9a"
+            },
+            {
+              "label": "داكن دائماً",
+              "value": "dark",
+              "key": "a7c50b53-8c83-47c9-a437-8d4d7746f5d2"
+            }
+          ],
+          "selected": [
+            {
+              "label": "حسب رأس الصفحة",
+              "value": "auto",
+              "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+            }
+          ],
+          "value": [
+            {
+              "label": "حسب رأس الصفحة",
+              "value": "auto",
+              "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "أسئلة قبل الستاك",
+      "icon": "sicon-help",
+      "name": "ask-list",
+      "key": "191507b1-8464-404e-a222-13fb248429ad",
+      "image": "",
+      "props": {
+        "min-height": "420px"
+      },
+      "fields": [
+        {
+          "id": "anchor",
+          "type": "string",
+          "format": "text",
+          "label": "معرّف القسم في الرابط",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": false,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 80,
+          "value": "faq"
+        },
+        {
+          "id": "kicker",
+          "type": "string",
+          "format": "text",
+          "label": "سطر صغير",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "٠٦ / الأسئلة",
+            "en": "06 / questions"
+          }
+        },
+        {
+          "id": "title",
+          "type": "string",
+          "format": "text",
+          "label": "العنوان",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "أسئلة قبل أول ستاك",
+            "en": "Questions before the first stack"
+          }
+        },
+        {
+          "id": "items",
+          "type": "collection",
+          "format": "collection",
+          "required": true,
+          "minLength": 1,
+          "maxLength": 8,
+          "item_label": "سؤال",
+          "fields": [
+            {
+              "id": "items.q",
+              "type": "string",
+              "format": "text",
+              "label": "السؤال",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": true,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 180,
+              "value": {
+                "ar": "كيف تُحسب كمية البروتين؟",
+                "en": "How is the protein amount calculated?"
+              }
+            },
+            {
+              "id": "items.a",
+              "type": "string",
+              "format": "textarea",
+              "label": "الجواب",
+              "icon": "sicon-paragraph",
+              "multilanguage": true,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 1200,
+              "value": {
+                "ar": "نضرب وزنك بمعامل الهدف ثم نحدد عدد السكوبات.",
+                "en": "We multiply your weight by the goal factor, then set the scoops."
+              }
+            }
+          ],
+          "value": [
+            {
+              "items.q": {
+                "ar": "كيف تُحسب كمية البروتين في الخطة؟",
+                "en": "How is the protein in the plan calculated?"
+              },
+              "items.a": {
+                "ar": "نضرب وزنك بمعامل يختلف حسب الهدف: ٢ غ لكل كيلو لبناء العضل، ٢.٢ غ للتنشيف، ١.٦ غ لقدرة التحمّل، و١.٤ غ للياقة العامة. ثم نطرح تقديراً ما يأتي من الطعام لنحدد عدد السكوبات.",
+                "en": "We multiply your weight by a factor: 2 g per kilo to build muscle, 2.2 g to cut, 1.6 g for endurance, and 1.4 g for general fitness. Then we subtract an estimate of food protein to set the scoops."
+              }
+            },
+            {
+              "items.q": {
+                "ar": "هل الكرياتين آمن ويحتاج فترة تحميل؟",
+                "en": "Is creatine safe, and does it need a loading phase?"
+              },
+              "items.a": {
+                "ar": "الكرياتين مونوهيدرات من أكثر المكملات المدروسة. ٥ غ يومياً تصل للتشبّع خلال ٣–٤ أسابيع دون مرحلة تحميل، وفي أيام الراحة أيضاً.",
+                "en": "Creatine monohydrate is among the most studied supplements. 5 g a day saturates in 3–4 weeks with no loading phase, including rest days."
+              }
+            },
+            {
+              "items.q": {
+                "ar": "كيف أتحقق من تقرير المختبر؟",
+                "en": "How do I check the lab report?"
+              },
+              "items.a": {
+                "ar": "على كل علبة رقم دفعة ورمز. امسحه فيُفتح تقرير يعرض نسبة البروتين المقاسة والرطوبة والمعادن الثقيلة.",
+                "en": "Every tub has a batch number and a code. Scan it and the report opens with measured protein, moisture, and heavy metals."
+              }
+            },
+            {
+              "items.q": {
+                "ar": "هل المنتجات مناسبة للرياضيين المسجّلين؟",
+                "en": "Are the products suitable for registered athletes?"
+              },
+              "items.a": {
+                "ar": "كل دفعة تُفحَص مقابل قائمة المواد المحظورة. يبقى على الرياضي إبلاغ اتحاده والاحتفاظ بتقارير الدفعات.",
+                "en": "Every batch is screened against the banned list. The athlete still tells their federation and keeps the batch reports."
+              }
+            },
+            {
+              "items.q": {
+                "ar": "ماذا لو لم تناسبني النكهة؟",
+                "en": "What if the flavor does not suit me?"
+              },
+              "items.a": {
+                "ar": "خلال ١٤ يوماً نستبدل العلبة بنكهة أخرى حتى لو فُتحت واستُخدم منها جرعتان. هذا الضمان للعلبة الأولى من كل منتج.",
+                "en": "Within 14 days we swap the tub for another flavor even if it is open and two servings are gone. The guarantee is for the first tub of each product."
+              }
+            }
+          ]
+        },
+        {
+          "id": "bg_color",
+          "type": "string",
+          "format": "color",
+          "inputType": "color",
+          "label": "لون الخلفية",
+          "icon": "sicon-format-fill",
+          "required": false,
+          "description": null,
+          "value": ""
+        },
+        {
+          "id": "color_scheme",
+          "type": "items",
+          "format": "dropdown-list",
+          "source": "Manual",
+          "label": "وضع الألوان",
+          "icon": "sicon-list",
+          "required": false,
+          "description": "حسب رأس الصفحة يتبع زر الفاتح والداكن. الفاتح أو الداكن يثبت القسم ولا يتأثر بالزر.",
+          "options": [
+            {
+              "label": "حسب رأس الصفحة",
+              "value": "auto",
+              "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+            },
+            {
+              "label": "فاتح دائماً",
+              "value": "light",
+              "key": "46c4c561-9252-43c0-9cb2-ea2cec3f8b9a"
+            },
+            {
+              "label": "داكن دائماً",
+              "value": "dark",
+              "key": "a7c50b53-8c83-47c9-a437-8d4d7746f5d2"
+            }
+          ],
+          "selected": [
+            {
+              "label": "حسب رأس الصفحة",
+              "value": "auto",
+              "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+            }
+          ],
+          "value": [
+            {
+              "label": "حسب رأس الصفحة",
+              "value": "auto",
+              "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "دعوة الختام",
+      "icon": "sicon-megaphone",
+      "name": "close-invite",
+      "key": "d2e6ab79-092e-4cb5-8757-91100ff0773c",
+      "image": "",
+      "props": {
+        "min-height": "520px"
+      },
+      "fields": [
+        {
+          "id": "cards",
+          "type": "collection",
+          "format": "collection",
+          "required": false,
+          "minLength": 0,
+          "maxLength": 2,
+          "item_label": "بطاقة",
+          "fields": [
+            {
+              "id": "cards.title",
+              "type": "string",
+              "format": "text",
+              "label": "العنوان",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": true,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 180,
+              "value": {
+                "ar": "اشتراك شهري ذكي",
+                "en": "A smarter monthly delivery"
+              }
+            },
+            {
+              "id": "cards.text",
+              "type": "string",
+              "format": "textarea",
+              "label": "النص",
+              "icon": "sicon-paragraph",
+              "multilanguage": true,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 1200,
+              "value": {
+                "ar": "تصلك كميتك المحسوبة قبل نفادها بأسبوع.",
+                "en": "Your calculated amount arrives a week before you run out."
+              }
+            },
+            {
+              "id": "cards.label",
+              "type": "string",
+              "format": "text",
+              "label": "نص الرابط",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": true,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 180,
+              "value": {
+                "ar": "فعّل الاشتراك",
+                "en": "Start the delivery"
+              }
+            },
+            {
+              "id": "cards.url",
+              "type": "string",
+              "format": "text",
+              "label": "الرابط",
+              "icon": "sicon-link",
+              "multilanguage": false,
+              "required": false,
+              "description": "رابط داخل الصفحة مثل #plan، أو رابط كامل يبدأ بـ https.",
+              "minLength": 0,
+              "maxLength": 500,
+              "value": "#plan"
+            }
+          ],
+          "value": [
+            {
+              "cards.title": {
+                "ar": "اشتراك شهري ذكي",
+                "en": "A smarter monthly delivery"
+              },
+              "cards.text": {
+                "ar": "تصلك كميتك المحسوبة تلقائياً قبل نفادها بأسبوع، مع خصم ١٢٪ ثابت وإيقاف فوري في أي وقت.",
+                "en": "Your calculated amount arrives a week before you run out, with a standing 12% off and a stop any time."
+              },
+              "cards.label": {
+                "ar": "فعّل الاشتراك",
+                "en": "Start the delivery"
+              },
+              "cards.url": "#plan"
+            },
+            {
+              "cards.title": {
+                "ar": "جلسة مع مدرّب معتمد",
+                "en": "A session with a certified coach"
+              },
+              "cards.text": {
+                "ar": "٣٠ دقيقة لمراجعة جدولك وجرعاتك، مجانية مع أول طلب فوق ٤٠٠ ر.س.",
+                "en": "30 minutes to review your plan and doses, free with a first order over SAR 400."
+              },
+              "cards.label": {
+                "ar": "احجز الجلسة",
+                "en": "Book the session"
+              },
+              "cards.url": "#faq"
+            }
+          ]
+        },
+        {
+          "id": "perks",
+          "type": "collection",
+          "format": "collection",
+          "required": false,
+          "minLength": 0,
+          "maxLength": 4,
+          "item_label": "ميزة",
+          "fields": [
+            {
+              "id": "perks.mark",
+              "type": "string",
+              "format": "text",
+              "label": "الرمز",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": true,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 8,
+              "value": {
+                "ar": "🚚",
+                "en": "🚚"
+              }
+            },
+            {
+              "id": "perks.title",
+              "type": "string",
+              "format": "text",
+              "label": "العنوان",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": true,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 180,
+              "value": {
+                "ar": "شحن مجاني فوق ٢٠٠ ر.س",
+                "en": "Free shipping over SAR 200"
+              }
+            },
+            {
+              "id": "perks.text",
+              "type": "string",
+              "format": "text",
+              "label": "السطر",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": true,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 60,
+              "value": {
+                "ar": "١–٣ أيام عمل",
+                "en": "1–3 business days"
+              }
+            }
+          ],
+          "value": [
+            {
+              "perks.mark": {
+                "ar": "🚚",
+                "en": "🚚"
+              },
+              "perks.title": {
+                "ar": "شحن مجاني فوق ٢٠٠ ر.س",
+                "en": "Free shipping over SAR 200"
+              },
+              "perks.text": {
+                "ar": "١–٣ أيام عمل",
+                "en": "1–3 business days"
+              }
+            },
+            {
+              "perks.mark": {
+                "ar": "🧪",
+                "en": "🧪"
+              },
+              "perks.title": {
+                "ar": "تقرير مختبر مرفق",
+                "en": "A lab report included"
+              },
+              "perks.text": {
+                "ar": "برقم دفعة قابل للتحقق",
+                "en": "a batch number you can check"
+              }
+            },
+            {
+              "perks.mark": {
+                "ar": "↺",
+                "en": "↺"
+              },
+              "perks.title": {
+                "ar": "استرجاع ١٤ يوم",
+                "en": "14-day returns"
+              },
+              "perks.text": {
+                "ar": "استبدال نكهة مجاني",
+                "en": "a free flavor swap"
+              }
+            },
+            {
+              "perks.mark": {
+                "ar": "🥤",
+                "en": "🥤"
+              },
+              "perks.title": {
+                "ar": "شيكر هدية",
+                "en": "A shaker on us"
+              },
+              "perks.text": {
+                "ar": "مع كل ستاك كامل",
+                "en": "with every full stack"
+              }
+            }
+          ]
+        },
+        {
+          "id": "title",
+          "type": "string",
+          "format": "text",
+          "label": "عنوان الدعوة",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "توقّف عن التخمين. ابنِ خطتك.",
+            "en": "Stop guessing. Build the plan."
+          }
+        },
+        {
+          "id": "text",
+          "type": "string",
+          "format": "textarea",
+          "label": "النص",
+          "icon": "sicon-paragraph",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 1200,
+          "value": {
+            "ar": "ثلاثون ثانية تفصلك عن جرعة محسوبة بوزنك وهدفك، وستاك لا يحتوي صنفاً واحداً بلا دليل.",
+            "en": "Thirty seconds from a dose set by your weight and goal, and a stack with nothing in it that lacks evidence."
+          }
+        },
+        {
+          "id": "primary_label",
+          "type": "string",
+          "format": "text",
+          "label": "نص الزر الأساسي",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "ابنِ خطتي",
+            "en": "Build my plan"
+          }
+        },
+        {
+          "id": "primary_url",
+          "type": "string",
+          "format": "text",
+          "label": "رابط الزر الأساسي",
+          "icon": "sicon-link",
+          "multilanguage": false,
+          "required": false,
+          "description": "في صفحة منتج يفتح الشراء السريع. في صفحة العروض يتبع رابط زر الصفحة، أو هذا الرابط إن وضعته.",
+          "minLength": 0,
+          "maxLength": 500,
+          "value": "#plan"
+        },
+        {
+          "id": "secondary_label",
+          "type": "string",
+          "format": "text",
+          "label": "نص الزر الثاني",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "اقرأ النتائج",
+            "en": "Read the results"
+          }
+        },
+        {
+          "id": "secondary_url",
+          "type": "string",
+          "format": "text",
+          "label": "رابط الزر الثاني",
+          "icon": "sicon-link",
+          "multilanguage": false,
+          "required": false,
+          "description": "رابط داخل الصفحة مثل #plan، أو رابط كامل يبدأ بـ https.",
+          "minLength": 0,
+          "maxLength": 500,
+          "value": "#reviews"
+        },
+        {
+          "id": "bg_color",
+          "type": "string",
+          "format": "color",
+          "inputType": "color",
+          "label": "لون الخلفية",
+          "icon": "sicon-format-fill",
+          "required": false,
+          "description": null,
+          "value": ""
+        },
+        {
+          "id": "color_scheme",
+          "type": "items",
+          "format": "dropdown-list",
+          "source": "Manual",
+          "label": "وضع الألوان",
+          "icon": "sicon-list",
+          "required": false,
+          "description": "حسب رأس الصفحة يتبع زر الفاتح والداكن. الفاتح أو الداكن يثبت القسم ولا يتأثر بالزر.",
+          "options": [
+            {
+              "label": "حسب رأس الصفحة",
+              "value": "auto",
+              "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+            },
+            {
+              "label": "فاتح دائماً",
+              "value": "light",
+              "key": "46c4c561-9252-43c0-9cb2-ea2cec3f8b9a"
+            },
+            {
+              "label": "داكن دائماً",
+              "value": "dark",
+              "key": "a7c50b53-8c83-47c9-a437-8d4d7746f5d2"
+            }
+          ],
+          "selected": [
+            {
+              "label": "حسب رأس الصفحة",
+              "value": "auto",
+              "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+            }
+          ],
+          "value": [
+            {
+              "label": "حسب رأس الصفحة",
+              "value": "auto",
+              "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "فوتر الصفحة",
+      "icon": "sicon-footer",
+      "name": "page-footer",
+      "key": "10e57afc-c780-45b7-9d01-16e0828de04d",
+      "image": "",
+      "props": {
+        "min-height": "280px"
+      },
+      "fields": [
+        {
+          "id": "logo",
+          "type": "string",
+          "format": "image",
+          "label": "شعار",
+          "icon": "sicon-image",
+          "required": false,
+          "description": "المقاس المقترح 280×80 بكسل. اتركه فارغاً ليظهر الاسم.",
+          "value": ""
+        },
+        {
+          "id": "logo_dark",
+          "type": "string",
+          "format": "image",
+          "label": "شعار للوضع الداكن",
+          "icon": "sicon-image",
+          "required": false,
+          "description": "يظهر عندما تكون الصفحة داكنة.",
+          "value": ""
+        },
+        {
+          "id": "brand",
+          "type": "string",
+          "format": "text",
+          "label": "الاسم",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "قوّة",
+            "en": "Quwa"
+          }
+        },
+        {
+          "id": "badge",
+          "type": "string",
+          "format": "text",
+          "label": "حرف الشارة",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 4,
+          "value": {
+            "ar": "ق",
+            "en": "Q"
+          }
+        },
+        {
+          "id": "about",
+          "type": "string",
+          "format": "textarea",
+          "label": "نبذة",
+          "icon": "sicon-paragraph",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 1200,
+          "value": {
+            "ar": "متجر سعودي للمكملات الرياضية يبيع ما له دليل فقط، بجرعات معلنة وتقارير مختبر مستقلة لكل دفعة. مستودعنا في الرياض.",
+            "en": "A Saudi sports-supplement store that sells only what has evidence, with declared doses and an independent lab report for every batch. The warehouse is in Riyadh."
+          }
+        },
+        {
+          "id": "payments",
+          "type": "collection",
+          "format": "collection",
+          "required": false,
+          "minLength": 0,
+          "maxLength": 8,
+          "item_label": "وسيلة دفع",
+          "fields": [
+            {
+              "id": "payments.label",
+              "type": "string",
+              "format": "text",
+              "label": "الاسم",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": true,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 40,
+              "value": {
+                "ar": "مدى",
+                "en": "mada"
+              }
+            }
+          ],
+          "value": [
+            {
+              "payments.label": {
+                "ar": "مدى",
+                "en": "mada"
+              }
+            },
+            {
+              "payments.label": {
+                "ar": "Visa",
+                "en": "Visa"
+              }
+            },
+            {
+              "payments.label": {
+                "ar": "Mastercard",
+                "en": "Mastercard"
+              }
+            },
+            {
+              "payments.label": {
+                "ar": "Apple Pay",
+                "en": "Apple Pay"
+              }
+            },
+            {
+              "payments.label": {
+                "ar": "تابي",
+                "en": "Tabby"
+              }
+            },
+            {
+              "payments.label": {
+                "ar": "تمارا",
+                "en": "Tamara"
+              }
+            },
+            {
+              "payments.label": {
+                "ar": "الدفع عند الاستلام",
+                "en": "Cash on delivery"
+              }
+            }
+          ]
+        },
+        {
+          "id": "ft-cols",
+          "type": "static",
+          "format": "line"
+        },
+        {
+          "id": "col1_title",
+          "type": "string",
+          "format": "text",
+          "label": "عنوان العمود الأول",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "المنتجات",
+            "en": "Products"
+          }
+        },
+        {
+          "id": "col1",
+          "type": "collection",
+          "format": "collection",
+          "required": false,
+          "minLength": 0,
+          "maxLength": 6,
+          "item_label": "رابط",
+          "fields": [
+            {
+              "id": "col1.label",
+              "type": "string",
+              "format": "text",
+              "label": "النص",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": true,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 180,
+              "value": {
+                "ar": "واي آيزوليت",
+                "en": "Whey isolate"
+              }
+            },
+            {
+              "id": "col1.url",
+              "type": "string",
+              "format": "text",
+              "label": "الرابط",
+              "icon": "sicon-link",
+              "multilanguage": false,
+              "required": false,
+              "description": "رابط داخل الصفحة مثل #plan، أو رابط كامل يبدأ بـ https.",
+              "minLength": 0,
+              "maxLength": 500,
+              "value": "#stacks"
+            }
+          ],
+          "value": [
+            {
+              "col1.label": {
+                "ar": "واي آيزوليت",
+                "en": "Whey isolate"
+              },
+              "col1.url": "#stacks"
+            },
+            {
+              "col1.label": {
+                "ar": "كرياتين",
+                "en": "Creatine"
+              },
+              "col1.url": "#stacks"
+            },
+            {
+              "col1.label": {
+                "ar": "قبل التمرين",
+                "en": "Pre-workout"
+              },
+              "col1.url": "#stacks"
+            },
+            {
+              "col1.label": {
+                "ar": "أوميغا ٣",
+                "en": "Omega-3"
+              },
+              "col1.url": "#stacks"
+            }
+          ]
+        },
+        {
+          "id": "col2_title",
+          "type": "string",
+          "format": "text",
+          "label": "عنوان العمود الثاني",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "المساعدة",
+            "en": "Help"
+          }
+        },
+        {
+          "id": "col2",
+          "type": "collection",
+          "format": "collection",
+          "required": false,
+          "minLength": 0,
+          "maxLength": 6,
+          "item_label": "رابط",
+          "fields": [
+            {
+              "id": "col2.label",
+              "type": "string",
+              "format": "text",
+              "label": "النص",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": true,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 180,
+              "value": {
+                "ar": "احسب خطتي",
+                "en": "Calculate my plan"
+              }
+            },
+            {
+              "id": "col2.url",
+              "type": "string",
+              "format": "text",
+              "label": "الرابط",
+              "icon": "sicon-link",
+              "multilanguage": false,
+              "required": false,
+              "description": "رابط داخل الصفحة مثل #plan، أو رابط كامل يبدأ بـ https.",
+              "minLength": 0,
+              "maxLength": 500,
+              "value": "#plan"
+            }
+          ],
+          "value": [
+            {
+              "col2.label": {
+                "ar": "احسب خطتي",
+                "en": "Calculate my plan"
+              },
+              "col2.url": "#plan"
+            },
+            {
+              "col2.label": {
+                "ar": "تقارير المختبر",
+                "en": "Lab reports"
+              },
+              "col2.url": "#labs"
+            },
+            {
+              "col2.label": {
+                "ar": "سياسة الاسترجاع",
+                "en": "Returns"
+              },
+              "col2.url": "#faq"
+            },
+            {
+              "col2.label": {
+                "ar": "الأسئلة",
+                "en": "Questions"
+              },
+              "col2.url": "#faq"
+            }
+          ]
+        },
+        {
+          "id": "col3_title",
+          "type": "string",
+          "format": "text",
+          "label": "عنوان العمود الثالث",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "تواصل",
+            "en": "Contact"
+          }
+        },
+        {
+          "id": "col3",
+          "type": "collection",
+          "format": "collection",
+          "required": false,
+          "minLength": 0,
+          "maxLength": 6,
+          "item_label": "رابط",
+          "fields": [
+            {
+              "id": "col3.label",
+              "type": "string",
+              "format": "text",
+              "label": "النص",
+              "icon": "sicon-format-text-alt",
+              "multilanguage": true,
+              "required": false,
+              "description": null,
+              "minLength": 0,
+              "maxLength": 180,
+              "value": {
+                "ar": "واتساب المتجر",
+                "en": "Store WhatsApp"
+              }
+            },
+            {
+              "id": "col3.url",
+              "type": "string",
+              "format": "text",
+              "label": "الرابط",
+              "icon": "sicon-link",
+              "multilanguage": false,
+              "required": false,
+              "description": "رابط داخل الصفحة مثل #plan، أو رابط كامل يبدأ بـ https.",
+              "minLength": 0,
+              "maxLength": 500,
+              "value": "#"
+            }
+          ],
+          "value": [
+            {
+              "col3.label": {
+                "ar": "واتساب المتجر",
+                "en": "Store WhatsApp"
+              },
+              "col3.url": "#"
+            },
+            {
+              "col3.label": {
+                "ar": "حجز جلسة مدرّب",
+                "en": "Book a coach"
+              },
+              "col3.url": "#faq"
+            },
+            {
+              "col3.label": {
+                "ar": "الاشتراك الشهري",
+                "en": "Monthly delivery"
+              },
+              "col3.url": "#plan"
+            }
+          ]
+        },
+        {
+          "id": "ft-base",
+          "type": "static",
+          "format": "line"
+        },
+        {
+          "id": "show_top",
+          "type": "boolean",
+          "format": "switch",
+          "label": "زر العودة للأعلى",
+          "icon": "sicon-toggle-off",
+          "required": false,
+          "description": null,
+          "value": true,
+          "selected": true
+        },
+        {
+          "id": "top_label",
+          "type": "string",
+          "format": "text",
+          "label": "نص زر العودة",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 40,
+          "value": {
+            "ar": "للأعلى",
+            "en": "Back to top"
+          }
+        },
+        {
+          "id": "copyright",
+          "type": "string",
+          "format": "text",
+          "label": "سطر الحقوق",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "© ٢٠٢٦ قوّة · جميع الحقوق محفوظة",
+            "en": "© 2026 Quwa"
+          }
+        },
+        {
+          "id": "legal",
+          "type": "string",
+          "format": "text",
+          "label": "السجل والرقم الضريبي",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": null,
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "س.ت ١٠١٠٥٥٩٣٠٤ · الرقم الضريبي ٣١٠٥٥٩٣٠٤٠٠٠٠٣",
+            "en": "CR 1010559304 · VAT 310559304000003"
+          }
+        },
+        {
+          "id": "bg_color",
+          "type": "string",
+          "format": "color",
+          "inputType": "color",
+          "label": "لون الخلفية",
+          "icon": "sicon-format-fill",
+          "required": false,
+          "description": null,
+          "value": ""
+        },
+        {
+          "id": "color_scheme",
+          "type": "items",
+          "format": "dropdown-list",
+          "source": "Manual",
+          "label": "وضع الألوان",
+          "icon": "sicon-list",
+          "required": false,
+          "description": "حسب رأس الصفحة يتبع زر الفاتح والداكن. الفاتح أو الداكن يثبت القسم ولا يتأثر بالزر.",
+          "options": [
+            {
+              "label": "حسب رأس الصفحة",
+              "value": "auto",
+              "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+            },
+            {
+              "label": "فاتح دائماً",
+              "value": "light",
+              "key": "46c4c561-9252-43c0-9cb2-ea2cec3f8b9a"
+            },
+            {
+              "label": "داكن دائماً",
+              "value": "dark",
+              "key": "a7c50b53-8c83-47c9-a437-8d4d7746f5d2"
+            }
+          ],
+          "selected": [
+            {
+              "label": "حسب رأس الصفحة",
+              "value": "auto",
+              "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+            }
+          ],
+          "value": [
+            {
+              "label": "حسب رأس الصفحة",
+              "value": "auto",
+              "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

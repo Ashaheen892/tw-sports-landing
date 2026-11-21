@@ -1,0 +1,28 @@
+{
+  "name": "tw-sports-landing",
+  "version": "1.0.0",
+  "description": "Sports landing pages for Salla",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "node scripts/build-manifest.mjs && python3 scripts/normalize_uuid_keys.py",
+    "build": "vite build && node scripts/sync-bundle.mjs",
+    "preview": "vite preview",
+    "audit:salla": "node scripts/audit.mjs"
+  },
+  "dependencies": {
+    "@salla.sa/twilight-bundles": "0.1.64",
+    "lit": "^3.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0"
+  },
+  "author": "sajispprt@gmail.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ashaheen892/tw-sports-landing"
+  },
+  "private": true
+}

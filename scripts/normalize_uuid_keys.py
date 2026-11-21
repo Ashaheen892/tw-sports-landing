@@ -1,0 +1,59 @@
+#!/usr/bin/env python3
+"""Ensure every Twilight schema `key` is an RFC 4122 UUID v4."""
+
+from __future__ import annotations
+
+import json
+import uuid
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+TARGETS = (
+    ROOT / "twilight-bundle.json",
+    ROOT / "public" / "twilight-bundle.json",
+    ROOT / "dist" / "twilight-bundle.json",
+)
+
+
+def is_uuid_v4(value: object) -> bool:
+    if not isinstance(value, str):
+        return False
+    try:
+        parsed = uuid.UUID(value)
+    except (ValueError, AttributeError):
+        return False
+    return parsed.version == 4 and str(parsed) == value.lower()
+
+
+def normalize(node: object) -> int:
+    changed = 0
+    if isinstance(node, dict):
+        key = node.get("key")
+        if isinstance(key, str) and not is_uuid_v4(key):
+            node["key"] = str(uuid.uuid4())
+            changed += 1
+        for value in node.values():
+            changed += normalize(value)
+    elif isinstance(node, list):
+        for value in node:
+            changed += normalize(value)
+    return changed
+
+
+def main() -> None:
+    source = ROOT / "twilight-bundle.json"
+    bundle = json.loads(source.read_text(encoding="utf-8"))
+    changed = normalize(bundle)
+    text = json.dumps(bundle, ensure_ascii=False, indent=4) + "\n"
+    for target in TARGETS:
+        if target == source or target.parent.exists():
+            target.write_text(text, encoding="utf-8")
+    for path in (ROOT / "templates").glob("*.json"):
+        data = json.loads(path.read_text(encoding="utf-8"))
+        normalize(data)
+        path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"UUID v4 keys normalized: {changed}")
+
+
+if __name__ == "__main__":
+    main()
