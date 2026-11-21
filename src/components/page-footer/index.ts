@@ -2,6 +2,7 @@ import { html, LitElement, nothing } from "lit";
 import { property, state } from "lit/decorators.js";
 import { flag, getCollectionItems, getConfig, linkHref, localizedString, t, watchLocale } from "../../utils/config.js";
 import { announceBar, announceCss } from "../../utils/announce.js";
+import { clearDocks, syncDocks, type DockNodes } from "../../utils/dock.js";
 import { currentTone, schemeOf } from "../../utils/landing.js";
 import { baseCss, injectFonts, injectStyles, sectionStyle } from "../../utils/styles.js";
 
@@ -23,6 +24,10 @@ const css = `
 .sp-foot .sp-totop { margin: 8px auto 22px; }
 .sp-top { position: fixed; z-index: 70; inset-inline-end: 18px; bottom: 22px; opacity: 0; pointer-events: none; transform: translateY(10px); }
 .sp-top.show { opacity: 1; pointer-events: auto; transform: none; }
+.sp-dock { position: fixed; z-index: 80; display: inline-grid; place-items: center; width: 3.4rem; height: 3.3rem; padding: 0; border: 0; border-radius: .15rem; background: #d4ff3f; color: #121500; font-family: var(--font-main, inherit); font-weight: 800; cursor: pointer; text-decoration: none; transform: skewX(-10deg); box-shadow: 0 10px 24px rgb(0 0 0 / 22%); }
+.sp-dock[hidden] { display: none; }
+.sp-dock svg { width: 1.35rem; height: 1.35rem; display: block; transform: skewX(10deg); }
+.sp-dock--wa { background: #121500; color: #d4ff3f; }
 @container (min-width: 760px) { .sp-fg { grid-template-columns: 1.3fr 1fr 1fr 1fr; } }
 `;
 
@@ -34,6 +39,7 @@ export default class PageFooter extends LitElement {
   @state() private atFooter = false;
   private stop = () => {};
   private floater: HTMLButtonElement | null = null;
+  private docks: DockNodes = { wa: null, top: null };
   private seen?: IntersectionObserver;
 
   protected createRenderRoot() {
@@ -69,11 +75,14 @@ export default class PageFooter extends LitElement {
     this.seen?.disconnect();
     this.floater?.remove();
     this.floater = null;
+    clearDocks(this.docks);
     super.disconnectedCallback();
   }
 
   protected updated() {
-    this.syncFloater();
+    this.floater?.remove();
+    this.floater = null;
+    this.docks = syncDocks(getConfig(this.config), "sp", this.docks, this.toTop, { hideTop: this.atFooter });
     const button = this.querySelector(".sp-totop");
     this.seen?.disconnect();
     if (!button) {

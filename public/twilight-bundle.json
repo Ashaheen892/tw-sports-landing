@@ -4009,6 +4009,871 @@
             ]
         },
         {
+            "title": "إحصائيات",
+            "icon": "sicon-calculator",
+            "name": "stat-strip",
+            "key": "df8ae246-37d1-4efc-8d0d-0bc5e713c5d4",
+            "image": "",
+            "props": {
+                "min-height": "180px"
+            },
+            "fields": [
+                {
+                    "id": "kicker",
+                    "type": "string",
+                    "format": "text",
+                    "label": "السطر الصغير",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "المختبر",
+                        "en": "The lab"
+                    }
+                },
+                {
+                    "id": "title",
+                    "type": "string",
+                    "format": "text",
+                    "label": "العنوان",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "أرقام الدفعة",
+                        "en": "Batch numbers"
+                    }
+                },
+                {
+                    "id": "subtitle",
+                    "type": "string",
+                    "format": "text",
+                    "label": "السطر تحت العنوان",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "items",
+                    "type": "collection",
+                    "format": "collection",
+                    "required": true,
+                    "minLength": 1,
+                    "maxLength": 4,
+                    "item_label": "رقم",
+                    "fields": [
+                        {
+                            "id": "items.value",
+                            "type": "string",
+                            "format": "text",
+                            "label": "الرقم",
+                            "icon": "sicon-format-text-alt",
+                            "multilanguage": true,
+                            "required": false,
+                            "description": null,
+                            "minLength": 0,
+                            "maxLength": 180,
+                            "value": {
+                                "ar": "١٢",
+                                "en": "12"
+                            }
+                        },
+                        {
+                            "id": "items.label",
+                            "type": "string",
+                            "format": "text",
+                            "label": "الوصف",
+                            "icon": "sicon-format-text-alt",
+                            "multilanguage": true,
+                            "required": false,
+                            "description": null,
+                            "minLength": 0,
+                            "maxLength": 180,
+                            "value": {
+                                "ar": "وصف الرقم",
+                                "en": "What the number means"
+                            }
+                        }
+                    ],
+                    "value": [
+                        {
+                            "items.value": {
+                                "ar": "١٠٠٪",
+                                "en": "100%"
+                            },
+                            "items.label": {
+                                "ar": "دفعات مفحوصة",
+                                "en": "Tested batches"
+                            }
+                        },
+                        {
+                            "items.value": {
+                                "ar": "١٤ يوم",
+                                "en": "14 days"
+                            },
+                            "items.label": {
+                                "ar": "استرجاع",
+                                "en": "Returns"
+                            }
+                        },
+                        {
+                            "items.value": {
+                                "ar": "٣ نكهات",
+                                "en": "3 flavors"
+                            },
+                            "items.label": {
+                                "ar": "في الخطة",
+                                "en": "In the plan"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "bg_color",
+                    "type": "string",
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "لون الخلفية",
+                    "icon": "sicon-format-fill",
+                    "required": false,
+                    "description": null,
+                    "value": ""
+                },
+                {
+                    "id": "color_scheme",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "source": "Manual",
+                    "label": "وضع الألوان",
+                    "icon": "sicon-list",
+                    "required": false,
+                    "description": "حسب رأس الصفحة يتبع زر الفاتح والداكن. الفاتح أو الداكن يثبت القسم ولا يتأثر بالزر.",
+                    "options": [
+                        {
+                            "label": "حسب رأس الصفحة",
+                            "value": "auto",
+                            "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+                        },
+                        {
+                            "label": "فاتح دائماً",
+                            "value": "light",
+                            "key": "46c4c561-9252-43c0-9cb2-ea2cec3f8b9a"
+                        },
+                        {
+                            "label": "داكن دائماً",
+                            "value": "dark",
+                            "key": "a7c50b53-8c83-47c9-a437-8d4d7746f5d2"
+                        }
+                    ],
+                    "selected": [
+                        {
+                            "label": "حسب رأس الصفحة",
+                            "value": "auto",
+                            "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+                        }
+                    ],
+                    "value": [
+                        {
+                            "label": "حسب رأس الصفحة",
+                            "value": "auto",
+                            "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "الماركات التجارية",
+            "icon": "sicon-star2",
+            "name": "brand-row",
+            "key": "e09bf357-48e2-4f0d-9e1e-1cd6f824d6e5",
+            "image": "",
+            "props": {
+                "min-height": "160px"
+            },
+            "fields": [
+                {
+                    "id": "kicker",
+                    "type": "string",
+                    "format": "text",
+                    "label": "السطر الصغير",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "الفحص",
+                        "en": "Testing"
+                    }
+                },
+                {
+                    "id": "title",
+                    "type": "string",
+                    "format": "text",
+                    "label": "العنوان",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "اعتمادات الدفعة",
+                        "en": "Batch marks"
+                    }
+                },
+                {
+                    "id": "subtitle",
+                    "type": "string",
+                    "format": "text",
+                    "label": "السطر تحت العنوان",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "items",
+                    "type": "collection",
+                    "format": "collection",
+                    "required": true,
+                    "minLength": 1,
+                    "maxLength": 8,
+                    "item_label": "ماركة",
+                    "fields": [
+                        {
+                            "id": "items.image",
+                            "type": "string",
+                            "format": "image",
+                            "label": "الشعار",
+                            "icon": "sicon-image",
+                            "required": false,
+                            "description": "اختياري. المقاس المقترح 240×80 بكسل بخلفية شفافة.",
+                            "value": ""
+                        },
+                        {
+                            "id": "items.name",
+                            "type": "string",
+                            "format": "text",
+                            "label": "الاسم",
+                            "icon": "sicon-format-text-alt",
+                            "multilanguage": true,
+                            "required": false,
+                            "description": null,
+                            "minLength": 0,
+                            "maxLength": 180,
+                            "value": {
+                                "ar": "الماركة",
+                                "en": "Brand"
+                            }
+                        },
+                        {
+                            "id": "items.note",
+                            "type": "string",
+                            "format": "text",
+                            "label": "السطر",
+                            "icon": "sicon-format-text-alt",
+                            "multilanguage": true,
+                            "required": false,
+                            "description": null,
+                            "minLength": 0,
+                            "maxLength": 180,
+                            "value": {
+                                "ar": "الخامة",
+                                "en": "Material"
+                            }
+                        },
+                        {
+                            "id": "items.url",
+                            "type": "string",
+                            "format": "text",
+                            "label": "الرابط",
+                            "icon": "sicon-link",
+                            "multilanguage": false,
+                            "required": false,
+                            "description": "رابط داخل الصفحة مثل #plan، أو رابط كامل يبدأ بـ https.",
+                            "minLength": 0,
+                            "maxLength": 500,
+                            "value": ""
+                        }
+                    ],
+                    "value": [
+                        {
+                            "items.image": "",
+                            "items.name": {
+                                "ar": "آيزو ١٧٠٢٥",
+                                "en": "ISO 17025"
+                            },
+                            "items.note": {
+                                "ar": "مختبر معتمد",
+                                "en": "Accredited lab"
+                            },
+                            "items.url": ""
+                        },
+                        {
+                            "items.image": "",
+                            "items.name": {
+                                "ar": "فحص المعادن",
+                                "en": "Heavy metals"
+                            },
+                            "items.note": {
+                                "ar": "كل دفعة",
+                                "en": "Every batch"
+                            },
+                            "items.url": ""
+                        },
+                        {
+                            "items.image": "",
+                            "items.name": {
+                                "ar": "خالٍ من المنشطات",
+                                "en": "Banned-substance free"
+                            },
+                            "items.note": {
+                                "ar": "تقرير معلن",
+                                "en": "Published report"
+                            },
+                            "items.url": ""
+                        },
+                        {
+                            "items.image": "",
+                            "items.name": {
+                                "ar": "تحليل الدفعة",
+                                "en": "Batch analysis"
+                            },
+                            "items.note": {
+                                "ar": "رقم ظاهر",
+                                "en": "A visible number"
+                            },
+                            "items.url": ""
+                        }
+                    ]
+                },
+                {
+                    "id": "bg_color",
+                    "type": "string",
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "لون الخلفية",
+                    "icon": "sicon-format-fill",
+                    "required": false,
+                    "description": null,
+                    "value": ""
+                },
+                {
+                    "id": "color_scheme",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "source": "Manual",
+                    "label": "وضع الألوان",
+                    "icon": "sicon-list",
+                    "required": false,
+                    "description": "حسب رأس الصفحة يتبع زر الفاتح والداكن. الفاتح أو الداكن يثبت القسم ولا يتأثر بالزر.",
+                    "options": [
+                        {
+                            "label": "حسب رأس الصفحة",
+                            "value": "auto",
+                            "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+                        },
+                        {
+                            "label": "فاتح دائماً",
+                            "value": "light",
+                            "key": "46c4c561-9252-43c0-9cb2-ea2cec3f8b9a"
+                        },
+                        {
+                            "label": "داكن دائماً",
+                            "value": "dark",
+                            "key": "a7c50b53-8c83-47c9-a437-8d4d7746f5d2"
+                        }
+                    ],
+                    "selected": [
+                        {
+                            "label": "حسب رأس الصفحة",
+                            "value": "auto",
+                            "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+                        }
+                    ],
+                    "value": [
+                        {
+                            "label": "حسب رأس الصفحة",
+                            "value": "auto",
+                            "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "شركاء النجاح",
+            "icon": "sicon-store",
+            "name": "partner-row",
+            "key": "f1ac0468-59f3-4a1e-8f2f-2de7a935e7f6",
+            "image": "",
+            "props": {
+                "min-height": "180px"
+            },
+            "fields": [
+                {
+                    "id": "kicker",
+                    "type": "string",
+                    "format": "text",
+                    "label": "السطر الصغير",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "الخطة",
+                        "en": "The plan"
+                    }
+                },
+                {
+                    "id": "title",
+                    "type": "string",
+                    "format": "text",
+                    "label": "العنوان",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "شركاء النجاح",
+                        "en": "Partners"
+                    }
+                },
+                {
+                    "id": "subtitle",
+                    "type": "string",
+                    "format": "text",
+                    "label": "السطر تحت العنوان",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "items",
+                    "type": "collection",
+                    "format": "collection",
+                    "required": true,
+                    "minLength": 1,
+                    "maxLength": 8,
+                    "item_label": "شريك",
+                    "fields": [
+                        {
+                            "id": "items.name",
+                            "type": "string",
+                            "format": "text",
+                            "label": "الاسم",
+                            "icon": "sicon-format-text-alt",
+                            "multilanguage": true,
+                            "required": false,
+                            "description": null,
+                            "minLength": 0,
+                            "maxLength": 180,
+                            "value": {
+                                "ar": "الشريك",
+                                "en": "Partner"
+                            }
+                        },
+                        {
+                            "id": "items.note",
+                            "type": "string",
+                            "format": "text",
+                            "label": "السطر",
+                            "icon": "sicon-format-text-alt",
+                            "multilanguage": true,
+                            "required": false,
+                            "description": null,
+                            "minLength": 0,
+                            "maxLength": 180,
+                            "value": {
+                                "ar": "الدور",
+                                "en": "Role"
+                            }
+                        }
+                    ],
+                    "value": [
+                        {
+                            "items.name": {
+                                "ar": "نادي القوة",
+                                "en": "Quwa club"
+                            },
+                            "items.note": {
+                                "ar": "برامج التمرين",
+                                "en": "Training programs"
+                            }
+                        },
+                        {
+                            "items.name": {
+                                "ar": "مختبر الدفعة",
+                                "en": "Batch lab"
+                            },
+                            "items.note": {
+                                "ar": "تقارير التحليل",
+                                "en": "Analysis reports"
+                            }
+                        },
+                        {
+                            "items.name": {
+                                "ar": "مدرب الخطة",
+                                "en": "Plan coach"
+                            },
+                            "items.note": {
+                                "ar": "حساب الجرعة",
+                                "en": "Dose calculation"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "bg_color",
+                    "type": "string",
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "لون الخلفية",
+                    "icon": "sicon-format-fill",
+                    "required": false,
+                    "description": null,
+                    "value": ""
+                },
+                {
+                    "id": "color_scheme",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "source": "Manual",
+                    "label": "وضع الألوان",
+                    "icon": "sicon-list",
+                    "required": false,
+                    "description": "حسب رأس الصفحة يتبع زر الفاتح والداكن. الفاتح أو الداكن يثبت القسم ولا يتأثر بالزر.",
+                    "options": [
+                        {
+                            "label": "حسب رأس الصفحة",
+                            "value": "auto",
+                            "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+                        },
+                        {
+                            "label": "فاتح دائماً",
+                            "value": "light",
+                            "key": "46c4c561-9252-43c0-9cb2-ea2cec3f8b9a"
+                        },
+                        {
+                            "label": "داكن دائماً",
+                            "value": "dark",
+                            "key": "a7c50b53-8c83-47c9-a437-8d4d7746f5d2"
+                        }
+                    ],
+                    "selected": [
+                        {
+                            "label": "حسب رأس الصفحة",
+                            "value": "auto",
+                            "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+                        }
+                    ],
+                    "value": [
+                        {
+                            "label": "حسب رأس الصفحة",
+                            "value": "auto",
+                            "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "التواصل السريع",
+            "icon": "sicon-link",
+            "name": "quick-contact",
+            "key": "02bd1579-6a04-4b2f-9a30-3ef8ba46f807",
+            "image": "",
+            "props": {
+                "min-height": "160px"
+            },
+            "fields": [
+                {
+                    "id": "kicker",
+                    "type": "string",
+                    "format": "text",
+                    "label": "السطر الصغير",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "الجرعة",
+                        "en": "The dose"
+                    }
+                },
+                {
+                    "id": "title",
+                    "type": "string",
+                    "format": "text",
+                    "label": "العنوان",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "تواصل سريع",
+                        "en": "Quick contact"
+                    }
+                },
+                {
+                    "id": "subtitle",
+                    "type": "string",
+                    "format": "text",
+                    "label": "السطر تحت العنوان",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "اسأل عن الجرعة أو تقرير المختبر قبل الاشتراك.",
+                        "en": "Ask about the dose or the lab report before you subscribe."
+                    }
+                },
+                {
+                    "id": "text",
+                    "type": "string",
+                    "format": "text",
+                    "label": "جملة القسم",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "اسأل عن الجرعة أو تقرير المختبر قبل الاشتراك.",
+                        "en": "Ask about the dose or the lab report before you subscribe."
+                    }
+                },
+                {
+                    "id": "phone_label",
+                    "type": "string",
+                    "format": "text",
+                    "label": "عنوان الاتصال",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "اتصال",
+                        "en": "Call"
+                    }
+                },
+                {
+                    "id": "phone",
+                    "type": "string",
+                    "format": "text",
+                    "label": "رقم الاتصال",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": false,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": "01153958512"
+                },
+                {
+                    "id": "phone_text",
+                    "type": "string",
+                    "format": "text",
+                    "label": "نص الاتصال",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "اتصل بالمختبر",
+                        "en": "Call the lab"
+                    }
+                },
+                {
+                    "id": "whatsapp_label",
+                    "type": "string",
+                    "format": "text",
+                    "label": "عنوان واتساب",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "واتساب",
+                        "en": "WhatsApp"
+                    }
+                },
+                {
+                    "id": "whatsapp",
+                    "type": "string",
+                    "format": "text",
+                    "label": "رقم واتساب",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": false,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": "201153958512"
+                },
+                {
+                    "id": "whatsapp_text",
+                    "type": "string",
+                    "format": "text",
+                    "label": "نص واتساب",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "اسأل عن الجرعة",
+                        "en": "Ask about the dose"
+                    }
+                },
+                {
+                    "id": "whatsapp_message",
+                    "type": "string",
+                    "format": "text",
+                    "label": "الرسالة الجاهزة",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "أبي أسأل عن الجرعة وتقرير المختبر",
+                        "en": "I want to ask about the dose and the lab report"
+                    }
+                },
+                {
+                    "id": "email_label",
+                    "type": "string",
+                    "format": "text",
+                    "label": "عنوان البريد",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "البريد",
+                        "en": "Email"
+                    }
+                },
+                {
+                    "id": "email",
+                    "type": "string",
+                    "format": "text",
+                    "label": "البريد",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": false,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": "hello@saji-tech.com"
+                },
+                {
+                    "id": "bg_color",
+                    "type": "string",
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "لون الخلفية",
+                    "icon": "sicon-format-fill",
+                    "required": false,
+                    "description": null,
+                    "value": ""
+                },
+                {
+                    "id": "color_scheme",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "source": "Manual",
+                    "label": "وضع الألوان",
+                    "icon": "sicon-list",
+                    "required": false,
+                    "description": "حسب رأس الصفحة يتبع زر الفاتح والداكن. الفاتح أو الداكن يثبت القسم ولا يتأثر بالزر.",
+                    "options": [
+                        {
+                            "label": "حسب رأس الصفحة",
+                            "value": "auto",
+                            "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+                        },
+                        {
+                            "label": "فاتح دائماً",
+                            "value": "light",
+                            "key": "46c4c561-9252-43c0-9cb2-ea2cec3f8b9a"
+                        },
+                        {
+                            "label": "داكن دائماً",
+                            "value": "dark",
+                            "key": "a7c50b53-8c83-47c9-a437-8d4d7746f5d2"
+                        }
+                    ],
+                    "selected": [
+                        {
+                            "label": "حسب رأس الصفحة",
+                            "value": "auto",
+                            "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+                        }
+                    ],
+                    "value": [
+                        {
+                            "label": "حسب رأس الصفحة",
+                            "value": "auto",
+                            "key": "b5be2661-56fa-4e98-acd8-9d25e4671994"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "title": "فوتر الصفحة",
             "icon": "sicon-footer",
             "name": "page-footer",
@@ -4535,6 +5400,167 @@
                     }
                 },
                 {
+                    "id": "dock-line",
+                    "type": "static",
+                    "format": "line"
+                },
+                {
+                    "id": "show_whatsapp",
+                    "type": "boolean",
+                    "format": "switch",
+                    "label": "زر واتساب ثابت",
+                    "icon": "sicon-toggle-off",
+                    "required": false,
+                    "description": "يبقى ظاهراً أثناء تمرير الصفحة.",
+                    "value": true,
+                    "selected": true
+                },
+                {
+                    "id": "whatsapp_number",
+                    "type": "string",
+                    "format": "text",
+                    "label": "رقم واتساب",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": false,
+                    "required": false,
+                    "description": "بالصيغة الدولية بدون + أو مسافات.",
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": "201153958512"
+                },
+                {
+                    "id": "whatsapp_message",
+                    "type": "string",
+                    "format": "text",
+                    "label": "رسالة واتساب الجاهزة",
+                    "icon": "sicon-format-text-alt",
+                    "multilanguage": true,
+                    "required": false,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 180,
+                    "value": {
+                        "ar": "أبي أسأل عن الجرعة وتقرير المختبر",
+                        "en": "I want to ask about the dose and the lab report"
+                    }
+                },
+                {
+                    "id": "whatsapp_bg",
+                    "type": "string",
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "خلفية زر واتساب",
+                    "icon": "sicon-format-fill",
+                    "required": false,
+                    "description": null,
+                    "value": "#121500"
+                },
+                {
+                    "id": "whatsapp_ink",
+                    "type": "string",
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "لون أيقونة واتساب",
+                    "icon": "sicon-format-fill",
+                    "required": false,
+                    "description": null,
+                    "value": "#d4ff3f"
+                },
+                {
+                    "id": "whatsapp_side",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "source": "Manual",
+                    "label": "جهة زر واتساب",
+                    "icon": "sicon-list",
+                    "required": false,
+                    "description": "إذا اخترت الجهة نفسها لزر الرجوع، يُرفع واتساب فوقه حتى لا يتداخلا.",
+                    "options": [
+                        {
+                            "label": "بداية السطر",
+                            "value": "start",
+                            "key": "0ac4e718-93b2-4fd4-9a67-8192a3b4c5d6"
+                        },
+                        {
+                            "label": "نهاية السطر",
+                            "value": "end",
+                            "key": "1bd5f829-a4c3-4ae5-8b78-92a3b4c5d6e7"
+                        }
+                    ],
+                    "selected": [
+                        {
+                            "label": "بداية السطر",
+                            "value": "start",
+                            "key": "0ac4e718-93b2-4fd4-9a67-8192a3b4c5d6"
+                        }
+                    ],
+                    "value": [
+                        {
+                            "label": "بداية السطر",
+                            "value": "start",
+                            "key": "0ac4e718-93b2-4fd4-9a67-8192a3b4c5d6"
+                        }
+                    ]
+                },
+                {
+                    "id": "top_bg",
+                    "type": "string",
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "خلفية زر العودة",
+                    "icon": "sicon-format-fill",
+                    "required": false,
+                    "description": null,
+                    "value": "#d4ff3f"
+                },
+                {
+                    "id": "top_ink",
+                    "type": "string",
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "لون زر العودة",
+                    "icon": "sicon-format-fill",
+                    "required": false,
+                    "description": null,
+                    "value": "#121500"
+                },
+                {
+                    "id": "top_side",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "source": "Manual",
+                    "label": "جهة زر العودة",
+                    "icon": "sicon-list",
+                    "required": false,
+                    "description": "الافتراضي نهاية السطر، مقابل زر واتساب.",
+                    "options": [
+                        {
+                            "label": "بداية السطر",
+                            "value": "start",
+                            "key": "0ac4e718-93b2-4fd4-9a67-8192a3b4c5d6"
+                        },
+                        {
+                            "label": "نهاية السطر",
+                            "value": "end",
+                            "key": "1bd5f829-a4c3-4ae5-8b78-92a3b4c5d6e7"
+                        }
+                    ],
+                    "selected": [
+                        {
+                            "label": "نهاية السطر",
+                            "value": "end",
+                            "key": "1bd5f829-a4c3-4ae5-8b78-92a3b4c5d6e7"
+                        }
+                    ],
+                    "value": [
+                        {
+                            "label": "نهاية السطر",
+                            "value": "end",
+                            "key": "1bd5f829-a4c3-4ae5-8b78-92a3b4c5d6e7"
+                        }
+                    ]
+                },
+                {
                     "id": "bg_color",
                     "type": "string",
                     "format": "color",
@@ -4606,5 +5632,10 @@
             "thumbnail": "",
             "is_default": false
         }
-    ]
+    ],
+    "author": {
+        "name": "Saji",
+        "email": "sajispprt@gmail.com",
+        "url": "https://saji-tech.com/"
+    }
 }

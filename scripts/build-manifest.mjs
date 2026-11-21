@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { applyLandingExtras } from "./landing-extras.mjs";
 
 const L = (ar, en) => ({ ar, en });
 const px = (id, width = 1400) => `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${width}`;
@@ -56,6 +57,8 @@ const KEY = {
   modeSystem: "79b97e66-25d4-43c0-b13f-2da78ef9c715",
   annMove: "c9a57e36-a184-4f20-9d71-8e4b3c6a0f27",
   annStill: "d0b68f47-b295-4a31-8e82-9f5c4d7b1a38",
+  dockStart: "0ac4e718-93b2-4fd4-9a67-8192a3b4c5d6",
+  dockEnd: "1bd5f829-a4c3-4ae5-8b78-92a3b4c5d6e7",
 };
 const opt = (value, label, key) => ({ label, value, key });
 const drop = (id, label, options, selected, desc = null) => {
@@ -529,6 +532,8 @@ const templates = [
   },
 ];
 
+applyLandingExtras({ components, catalog: null, templates, L, text, color, sw, drop, line, collection, image, url, scheme, KEY });
+
 const bundlePath = new URL("../twilight-bundle.json", import.meta.url);
 let previous = { templates: [] };
 if (fs.existsSync(bundlePath)) previous = JSON.parse(fs.readFileSync(bundlePath, "utf8"));
@@ -539,6 +544,11 @@ const bundle = {
   description: {
     ar: "صفحتان لمكملات رياضية. قوّة تعرض الخطة والمنتجات والتحاليل، وخطة تختصر الطريق إلى الحاسبة والعرض.",
     en: "Two landing pages for sports supplements. Quwa shows the plan, the products, and the lab steps. Khutta goes straight to the calculator and the offer.",
+  },
+  author: {
+    name: "Saji",
+    email: "sajispprt@gmail.com",
+    url: "https://saji-tech.com/",
   },
   author_email: "sajispprt@gmail.com",
   support_url: "https://github.com/Ashaheen892/tw-sports-landing",
