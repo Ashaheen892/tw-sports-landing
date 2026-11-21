@@ -6,7 +6,7 @@ const COPIES = 12;
 /** Full-width announcement bar. `move` slides the sentence; `still` centers it. */
 export function announceCss(prefix: string): string {
   return `
-.${prefix}-ann { overflow: hidden; font-family: var(--font-main, inherit); background: var(--ann-bg, var(--color-primary, #1a1d21)); color: var(--ann-ink, var(--color-primary-reverse, #fff)); }
+.${prefix}-ann.${prefix}-ann { overflow: hidden; border: 0; font-family: var(--font-main, inherit); background: var(--ann-bg, var(--color-primary, #1a1d21)); color: var(--ann-ink, var(--color-primary-reverse, #fff)); }
 .${prefix}-ann__still { padding: .55rem 1rem; text-align: center; font-size: .92rem; font-weight: 700; line-height: 1.55; }
 .${prefix}-ann__list { display: flex; margin: 0; padding: .5rem 0; list-style: none; white-space: nowrap; }
 .${prefix}-ann__item { flex: none; display: flex; align-items: center; font-size: .92rem; font-weight: 700; line-height: 1.5; animation: ${prefix}-ann-ltr var(--ann-speed, 12s) linear infinite; }

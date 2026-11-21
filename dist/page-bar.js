@@ -1,6 +1,6 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: !0 });
-import { LitElement, nothing, html } from "lit";
+import { nothing, html, LitElement } from "lit";
 import { property, state } from "lit/decorators.js";
 function getConfig(raw) {
   return raw ? raw.component && typeof raw.component == "object" ? raw.component : raw : {};
@@ -12,6 +12,10 @@ function getLocale() {
   return String(lang).toLowerCase().startsWith("en") ? "en" : "ar";
 }
 __name(getLocale, "getLocale");
+function isRtl() {
+  return (document.documentElement.dir || (getLocale() === "ar" ? "rtl" : "ltr")) === "rtl";
+}
+__name(isRtl, "isRtl");
 function localizedString(value) {
   if (value == null || value === "") return "";
   if (typeof value == "string") return value;
@@ -59,6 +63,39 @@ function watchLocale(host) {
   return window.addEventListener("language-changed", update), () => window.removeEventListener("language-changed", update);
 }
 __name(watchLocale, "watchLocale");
+const COPIES = 12;
+function announceCss(prefix) {
+  return `
+.${prefix}-ann.${prefix}-ann { overflow: hidden; border: 0; font-family: var(--font-main, inherit); background: var(--ann-bg, var(--color-primary, #1a1d21)); color: var(--ann-ink, var(--color-primary-reverse, #fff)); }
+.${prefix}-ann__still { padding: .55rem 1rem; text-align: center; font-size: .92rem; font-weight: 700; line-height: 1.55; }
+.${prefix}-ann__list { display: flex; margin: 0; padding: .5rem 0; list-style: none; white-space: nowrap; }
+.${prefix}-ann__item { flex: none; display: flex; align-items: center; font-size: .92rem; font-weight: 700; line-height: 1.5; animation: ${prefix}-ann-ltr var(--ann-speed, 12s) linear infinite; }
+.${prefix}-ann.is-rtl .${prefix}-ann__item { animation-name: ${prefix}-ann-rtl; }
+.${prefix}-ann__list:hover .${prefix}-ann__item { animation-play-state: paused; }
+.${prefix}-ann__text { padding-inline: 1rem; }
+@keyframes ${prefix}-ann-ltr { to { transform: translateX(-100%); } }
+@keyframes ${prefix}-ann-rtl { to { transform: translateX(100%); } }
+@media (prefers-reduced-motion: reduce) {
+  .${prefix}-ann__item { animation: none; }
+  .${prefix}-ann__item[aria-hidden="true"] { display: none; }
+  .${prefix}-ann__list { justify-content: center; }
+}
+`;
+}
+__name(announceCss, "announceCss");
+function announceBar(cfg, prefix, extraClass = "", tone = "") {
+  const text = localizedString(cfg.announce).trim();
+  if (!text) return nothing;
+  if (!(String(unwrapValue(cfg.announce_mode) || "move") !== "still"))
+    return html`<div class="${prefix}-ann ${prefix}-ann__still ${extraClass}" style=${tone}>${text}</div>`;
+  const rtl = isRtl() ? " is-rtl" : "";
+  return html`<div class="${prefix}-ann${rtl} ${extraClass}" style=${tone}>
+    <ul class="${prefix}-ann__list">
+      ${Array.from({ length: COPIES }, (_, index) => html`<li class="${prefix}-ann__item" aria-hidden=${index ? "true" : "false"}><span class="${prefix}-ann__text">${text}</span></li>`)}
+    </ul>
+  </div>`;
+}
+__name(announceBar, "announceBar");
 const TONE_KEY = "sp-landing-tone";
 function applyTone(mode) {
   document.documentElement.classList.remove("sp-mode-light", "sp-mode-dark"), document.documentElement.classList.add(mode === "dark" ? "sp-mode-dark" : "sp-mode-light");
@@ -166,7 +203,6 @@ var __defProp2 = Object.defineProperty, __decorateClass = /* @__PURE__ */ __name
   return result && __defProp2(target, key, result), result;
 }, "__decorateClass");
 const css = `
-.sp-ann { background: var(--volt); color: #121500; font-weight: 700; font-size: .8rem; padding: 9px 1rem; text-align: center; letter-spacing: .02em; background-image: var(--diag); }
 .sp-bar { position: relative; background: var(--sp-section-bg, color-mix(in srgb, var(--page) 92%, transparent)); border-bottom: 1px solid var(--line); }
 .sp-bar.is-clear { background: transparent; border-bottom-color: transparent; }
 .sp-nav { position: relative; display: flex; align-items: center; justify-content: center; min-height: calc(var(--sp-logo, 52px) + 1.5rem); padding-block: .75rem; }
@@ -188,7 +224,7 @@ const css = `
     return this;
   }
   connectedCallback() {
-    super.connectedCallback(), this.classList.add("sp-host"), injectStyles("sp-base", baseCss), injectStyles("sp-page-bar", css);
+    super.connectedCallback(), this.classList.add("sp-host"), injectStyles("sp-base", baseCss), injectStyles("sp-announce", announceCss("sp")), injectStyles("sp-page-bar", css);
     const stopLocale = watchLocale(this), stopReveal = watchReveal(this), onTone = /* @__PURE__ */ __name(() => {
       this.dark = currentTone() === "dark";
     }, "onTone");
@@ -263,9 +299,9 @@ const css = `
     }), this.opened = [];
   }
   render() {
-    const cfg = getConfig(this.config), brand = localizedString(cfg.brand) || t({ ar: "قوّة", en: "Quwa" }), badge = localizedString(cfg.badge) || "ق", announce = localizedString(cfg.announce), linkLabel = localizedString(cfg.link_label), linkUrl = linkHref(cfg.link_url), logo = this.dark && cfg.logo_dark || cfg.logo, height = Math.min(Math.max(Number(cfg.logo_height) || 52, 28), 120), start = String(unwrapValue(cfg.align) || "center") === "start", clear = flag(cfg.transparent);
+    const cfg = getConfig(this.config), brand = localizedString(cfg.brand) || t({ ar: "قوّة", en: "Quwa" }), badge = localizedString(cfg.badge) || "ق", linkLabel = localizedString(cfg.link_label), linkUrl = linkHref(cfg.link_url), logo = this.dark && cfg.logo_dark || cfg.logo, height = Math.min(Math.max(Number(cfg.logo_height) || 52, 28), 120), start = String(unwrapValue(cfg.align) || "center") === "start", clear = flag(cfg.transparent);
     return html`
-      ${announce ? html`<div class="sp-root sp-ann">${announce}</div>` : nothing}
+      ${announceBar(cfg, "sp", `sp-root ${schemeOf(cfg)}`, "--ann-bg:var(--volt);--ann-ink:#121500;--ann-speed:16s")}
       <header class=${`sp-root sp-bar ${schemeOf(cfg)} ${clear ? "is-clear" : ""}`} style=${`${sectionStyle(cfg)};--sp-logo:${height}px`}>
         <div class="sp-nav sp-wrap ${start ? "is-start" : ""}">
           ${linkLabel && linkUrl ? html`<a class="sp-text-link" href=${linkUrl}>${linkLabel}</a>` : nothing}

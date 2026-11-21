@@ -15,17 +15,53 @@
           "id": "announce",
           "type": "string",
           "format": "text",
-          "label": "شريط التنبيه",
+          "label": "الشريط الإعلاني",
           "icon": "sicon-format-text-alt",
           "multilanguage": true,
           "required": false,
-          "description": null,
+          "description": "يظهر فوق الشعار. اتركه فارغاً لإخفاء الشريط.",
           "minLength": 0,
           "maxLength": 180,
           "value": {
             "ar": "شحن مجاني فوق ٢٠٠ ر.س · تحليل مختبر مستقل مع كل دفعة · استرجاع ١٤ يوم",
             "en": "Free shipping over SAR 200 · an independent lab report with every batch · 14-day returns"
           }
+        },
+        {
+          "id": "announce_mode",
+          "type": "items",
+          "format": "dropdown-list",
+          "source": "Manual",
+          "label": "حركة الشريط",
+          "icon": "sicon-list",
+          "required": false,
+          "description": "المتحرك يمرّ الجملة باستمرار. الثابت يُبقيها في الوسط.",
+          "options": [
+            {
+              "label": "متحرك",
+              "value": "move",
+              "key": "c9a57e36-a184-4f20-9d71-8e4b3c6a0f27"
+            },
+            {
+              "label": "ثابت",
+              "value": "still",
+              "key": "d0b68f47-b295-4a31-8e82-9f5c4d7b1a38"
+            }
+          ],
+          "selected": [
+            {
+              "label": "متحرك",
+              "value": "move",
+              "key": "c9a57e36-a184-4f20-9d71-8e4b3c6a0f27"
+            }
+          ],
+          "value": [
+            {
+              "label": "متحرك",
+              "value": "move",
+              "key": "c9a57e36-a184-4f20-9d71-8e4b3c6a0f27"
+            }
+          ]
         },
         {
           "id": "logo",
@@ -3969,6 +4005,63 @@
         "min-height": "280px"
       },
       "fields": [
+        {
+          "id": "announce",
+          "type": "string",
+          "format": "text",
+          "label": "الشريط الإعلاني",
+          "icon": "sicon-format-text-alt",
+          "multilanguage": true,
+          "required": false,
+          "description": "يظهر فوق الفوتر. اتركه فارغاً لإخفاء الشريط.",
+          "minLength": 0,
+          "maxLength": 180,
+          "value": {
+            "ar": "جرعات معلنة · تقرير مختبر مع كل دفعة · استرجاع ١٤ يوم",
+            "en": "Declared doses · a lab report with every batch · 14-day returns"
+          }
+        },
+        {
+          "id": "announce_mode",
+          "type": "items",
+          "format": "dropdown-list",
+          "source": "Manual",
+          "label": "حركة الشريط",
+          "icon": "sicon-list",
+          "required": false,
+          "description": "المتحرك يمرّ الجملة باستمرار. الثابت يُبقيها في الوسط.",
+          "options": [
+            {
+              "label": "متحرك",
+              "value": "move",
+              "key": "c9a57e36-a184-4f20-9d71-8e4b3c6a0f27"
+            },
+            {
+              "label": "ثابت",
+              "value": "still",
+              "key": "d0b68f47-b295-4a31-8e82-9f5c4d7b1a38"
+            }
+          ],
+          "selected": [
+            {
+              "label": "متحرك",
+              "value": "move",
+              "key": "c9a57e36-a184-4f20-9d71-8e4b3c6a0f27"
+            }
+          ],
+          "value": [
+            {
+              "label": "متحرك",
+              "value": "move",
+              "key": "c9a57e36-a184-4f20-9d71-8e4b3c6a0f27"
+            }
+          ]
+        },
+        {
+          "id": "ft-announce",
+          "type": "static",
+          "format": "line"
+        },
         {
           "id": "logo",
           "type": "string",
