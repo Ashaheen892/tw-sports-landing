@@ -15,7 +15,9 @@
     "author_email": "sajispprt@gmail.com",
     "support_url": "https://saji-tech.com/",
     "repository": "https://github.com/Ashaheen892/tw-sports-landing",
-    "features": [],
+    "features": [
+        "landing-page-templates"
+    ],
     "components": [
         {
             "title": "شريط المختبر (الرأس)",
