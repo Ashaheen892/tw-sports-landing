@@ -540,16 +540,16 @@
           ],
           "selected": [
             {
-              "label": "داكن",
-              "value": "dark",
-              "key": "5d485d48-f62c-4dee-91dc-1949b7a97b7f"
+              "label": "فاتح",
+              "value": "light",
+              "key": "5e44b78b-ba1b-476e-a800-22d306132d7d"
             }
           ],
           "value": [
             {
-              "label": "داكن",
-              "value": "dark",
-              "key": "5d485d48-f62c-4dee-91dc-1949b7a97b7f"
+              "label": "فاتح",
+              "value": "light",
+              "key": "5e44b78b-ba1b-476e-a800-22d306132d7d"
             }
           ]
         },
@@ -848,7 +848,7 @@
           "icon": "sicon-image",
           "required": false,
           "description": "المقاس المقترح 900×900 بكسل. اتركها فارغة ليظهر رسم الدمبل.",
-          "value": "https://images.pexels.com/photos/36429456/pexels-photo-36429456.jpeg?auto=compress&cs=tinysrgb&w=1200"
+          "value": "https://images.pexels.com/photos/36085102/pexels-photo-36085102.jpeg?auto=compress&cs=tinysrgb&w=1200"
         },
         {
           "id": "chip_a_value",

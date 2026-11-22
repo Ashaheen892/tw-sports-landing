@@ -53,7 +53,7 @@ export default class PageBar extends LitElement {
 
   protected willUpdate() {
     const cfg = getConfig(this.config);
-    const key = `${unwrapValue(cfg.default_mode) || "dark"}|${this.showMode(cfg)}`;
+    const key = `${unwrapValue(cfg.default_mode) || "light"}|${this.showMode(cfg)}`;
     if (key === this.modeKey) return;
     this.modeKey = key;
     applyTone(this.openingMode(cfg));
@@ -77,7 +77,7 @@ export default class PageBar extends LitElement {
   }
 
   private openingMode(cfg: Record<string, any>): "light" | "dark" {
-    const base = String(unwrapValue(cfg.default_mode) || "dark");
+    const base = String(unwrapValue(cfg.default_mode) || "light");
     if (this.showMode(cfg)) {
       const saved = savedTone();
       if (saved) return saved;

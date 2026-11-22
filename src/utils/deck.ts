@@ -1,4 +1,4 @@
-import type { ReactiveController, ReactiveControllerHost } from "lit";
+import type { ReactiveControllerHost } from "lit";
 import { isRtl } from "./config.js";
 import { isFileClip } from "./video.js";
 
@@ -9,7 +9,9 @@ export type SlideKind = "image" | "file" | "frame";
  * Images stay `imageMs`, embeds `frameMs`, and a video file moves on when it ends.
  * Hover, focus and a press pause it; reduced motion turns autoplay off.
  */
-export class Deck implements ReactiveController {
+// Written as an expression: Salla's dev transform treats the first `class <Name>` in any module loaded for
+// a section as that section and calls <Name>.registerSallaComponent on it, which would throw here.
+export const Deck = class {
   index = 0;
   sound = false;
   paused = false;
@@ -161,4 +163,6 @@ export class Deck implements ReactiveController {
     const bar = (this.host as HTMLElement).querySelector("[data-deck-fill]") as HTMLElement | null;
     if (bar && video.duration) bar.style.transform = `scaleX(${video.currentTime / video.duration})`;
   };
-}
+};
+
+export type Deck = InstanceType<typeof Deck>;

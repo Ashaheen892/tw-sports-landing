@@ -69,7 +69,7 @@ const num = (id, label, value, min, max, desc = null) => ({
   required: false, description: desc, minimum: min, maximum: max, value,
 });
 const icon = (id, label, value) => ({
-  id, type: "string", format: "icon", label, icon: "sicon-star2", required: false, class: "form--inline", value,
+  id, type: "string", format: "icon", label, icon: "sicon-star2", required: false, value,
 });
 const collection = (id, itemLabel, fields, value, min, max) => ({
   id, type: "collection", format: "collection", required: min > 0, minLength: min, maxLength: max,
@@ -123,7 +123,7 @@ const components = [
       collection("bars", "شريط", [
         text("text", "نص الشريط", L("", ""), { max: 140 }),
         drop("media", "بجانب النص", [["none", "بدون", "82cde965-d77a-4d72-b5f2-0b1de5d76ddf"], ["icon", "أيقونة", "8cf120b8-2de4-4780-9a89-ad6c237b6712"], ["image", "صورة مصغرة", "67ecef6b-87eb-43b4-bda8-bffb447012d7"]], "icon", "اختر أيقونة من مكتبة سلة أو صورة صغيرة لمنتج أو شعار."),
-        { ...icon("icon", "الأيقونة", "sicon-megaphone"), class: undefined },
+        icon("icon", "الأيقونة", "sicon-megaphone"),
         image("image", "الصورة المصغرة", "المقاس المقترح 160×104 بكسل، أفقية، تُقص بحواف مائلة، PNG أو WebP بخلفية شفافة أو صورة منتج. تظهر بحجم ٤٠×٢٦ بكسل بحواف مائلة، فلا تضع كتابة قرب الطرفين. تُستخدم عند اختيار «صورة مصغرة» في «بجانب النص»."),
         drop("motion", "حركة الشريط", [["right", "متحرك لليمين →", "03421810-d8b2-4aae-b758-458f69d99840"], ["left", "متحرك لليسار ←", "23d52797-1536-46bc-9180-3e376838376e"], ["still", "ثابت", "c8be20e2-bd89-44f2-af19-e790c10354fc"]], "right", "المتحرك يمرّ الجملة باستمرار في الاتجاه المختار ويتوقف عند مرور المؤشر. الثابت يُبقيها في الوسط."),
         url("link", "رابط الشريط", "", "اختياري. يفتح عند الضغط على الشريط."),
@@ -152,7 +152,7 @@ const components = [
       sw("sticky", "تثبيت الرأس عند التمرير", true, "يبقى الاسم ظاهراً أثناء نزول الزائر."),
       sw("transparent", "رأس شفاف فوق القسم التالي", false, "يناسب صورة افتتاحية داكنة. عند التمرير يمكن إبقاؤه ثابتاً."),
       sw("show_mode_toggle", "زر الفاتح والداكن", true, "أيقونة في الرأس تتبدل بين القمر والشمس، وتبدّل الأقسام المضبوطة على حسب الصفحة، وتتذكر اختيار الزائر."),
-      drop("default_mode", "وضع الصفحة عند الفتح", [["dark", "داكن", KEY.modeDark], ["light", "فاتح", KEY.modeLight], ["system", "حسب جهاز الزائر", KEY.modeSystem]], "dark"),
+      drop("default_mode", "وضع الصفحة عند الفتح", [["dark", "داكن", KEY.modeDark], ["light", "فاتح", KEY.modeLight], ["system", "حسب جهاز الزائر", KEY.modeSystem]], "light"),
       color("bg_color", "لون الخلفية"),
     ],
   },
@@ -183,7 +183,7 @@ const components = [
         { value: L("٤٨ س", "48 h"), label: L("توصيل داخل المملكة", "delivery in the Kingdom") },
       ], 0, 3),
       line("vh-scene"),
-      image("scene_image", "صورة الافتتاح", "المقاس المقترح 900×900 بكسل. اتركها فارغة ليظهر رسم الدمبل.", px(36429456, 1200)),
+      image("scene_image", "صورة الافتتاح", "المقاس المقترح 900×900 بكسل. اتركها فارغة ليظهر رسم الدمبل.", px(36085102, 1200)),
       text("chip_a_value", "رقم البطاقة الأولى", L("٩٨.٤٪", "98.4%"), { max: 20 }),
       text("chip_a_label", "وصف البطاقة الأولى", L("نقاء البروتين", "protein purity"), { max: 40 }),
       text("chip_b_value", "رقم البطاقة الثانية", L("١٤٢٠٠", "14,200"), { max: 20 }),
