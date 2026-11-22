@@ -51,7 +51,30 @@ function schemeOf(cfg) {
   return scheme === "dark" ? "sp-dark" : scheme === "light" ? "sp-light" : "sp-auto";
 }
 __name(schemeOf, "schemeOf");
+function markEditing() {
+  var _a, _b;
+  const root = document.documentElement, read = /* @__PURE__ */ __name(() => {
+    var _a2, _b2;
+    let on = !0;
+    try {
+      const salla = window.Salla;
+      on = window.self !== window.top || ((_b2 = (_a2 = salla == null ? void 0 : salla.config) == null ? void 0 : _a2.get) == null ? void 0 : _b2.call(_a2, "page.is_landing_page")) !== !0;
+    } catch {
+      on = !0;
+    }
+    root.dataset.lpEditing = on ? "1" : "0";
+  }, "read");
+  if (!root.dataset.lpEditing) {
+    read();
+    try {
+      (_b = (_a = window.Salla) == null ? void 0 : _a.onReady) == null || _b.call(_a, read);
+    } catch {
+    }
+  }
+}
+__name(markEditing, "markEditing");
 function injectStyles(id, css2) {
+  markEditing();
   let style = document.getElementById(id);
   style || (style = document.createElement("style"), style.id = id, document.head.appendChild(style)), style.textContent !== css2 && (style.textContent = css2);
 }
@@ -75,6 +98,7 @@ function watchReveal(host) {
 }
 __name(watchReveal, "watchReveal");
 const DARK = "--ink:#f4f7f8; --ink-soft:#a8b3ba; --page:#08090a; --paper:#14171a; --paper-2:#1c2024; --line:#242a2f; --line-2:#333b42; --muted:#717d85; --card:#14171a; --volt:#d4ff3f; --accent:var(--color-primary, #d4ff3f); --volt-ink:#121500; --ice:#4fd1ff; --hot:#ff3b47;", LIGHT = "--ink:#14180f; --ink-soft:#3d4636; --page:#f4f6f1; --paper:#ffffff; --paper-2:#eef2e6; --line:#d7dece; --line-2:#c5ceba; --muted:#66705d; --card:#ffffff; --volt:#d4ff3f; --accent:var(--color-primary, #4f6d00); --volt-ink:#121500; --ice:#0b7ea8; --hot:#d21f2b;", baseCss = `
+html[data-lp-editing="0"] .sp-empty, html[data-lp-editing="0"] .sp-hint { display: none !important; }
 .sp-host { display: block; width: 100%; min-width: 0; container-type: inline-size; }
 body:has(.sp-host) { background: #08090a; }
 html.sp-mode-light body:has(.sp-host) { background: #f4f6f1; }
@@ -135,7 +159,7 @@ var __defProp2 = Object.defineProperty, __decorateClass = /* @__PURE__ */ __name
 }, "__decorateClass");
 const css = `
 .sp-notes { background: var(--sp-section-bg, var(--page)); }
-.sp-stats { display: grid; gap: 1px; background: var(--line); border-radius: var(--r); overflow: hidden; margin-block-end: 28px; }
+.sp-tally { display: grid; gap: 1px; background: var(--line); border-radius: var(--r); overflow: hidden; margin-block-end: 28px; }
 .sp-st { background: var(--paper); padding: 28px 16px; text-align: center; }
 .sp-st b { display: block; font-family: var(--disp); font-weight: 900; font-size: 2.2rem; color: var(--accent); line-height: 1.1; }
 .sp-st span { font-size: .79rem; color: var(--ink-soft); }
@@ -149,7 +173,7 @@ const css = `
 .sp-who span { font-size: .74rem; color: var(--muted); }
 @container (max-width: 980px) { .sp-rv { columns: 2; } }
 @container (max-width: 640px) { .sp-rv { columns: 1; } }
-@container (min-width: 620px) { .sp-stats { grid-template-columns: repeat(4, 1fr); } }
+@container (min-width: 620px) { .sp-tally { grid-template-columns: repeat(4, 1fr); } }
 `, _ResultNotes = class _ResultNotes extends LitElement {
   constructor() {
     super(...arguments), this.stop = () => {
@@ -178,7 +202,7 @@ const css = `
     })).filter((item) => item.quote), id = String(cfg.anchor || "reviews");
     return html`<section class=${`sp-root sp-sec sp-notes ${schemeOf(cfg)}`} id=${id} style=${sectionStyle(cfg)} aria-label=${title || "reviews"}>
       <div class="sp-wrap">
-        ${stats.length ? html`<div class="sp-stats">${stats.map((item, index) => html`<div class="sp-st sp-rev" style=${`transition-delay:${index * 0.06}s`}><b>${item.value}</b><span>${item.label}</span></div>`)}</div>` : nothing}
+        ${stats.length ? html`<div class="sp-tally">${stats.map((item, index) => html`<div class="sp-st sp-rev" style=${`transition-delay:${index * 0.06}s`}><b>${item.value}</b><span>${item.label}</span></div>`)}</div>` : nothing}
         <div class="sp-head sp-rev">
           <div>
             ${localizedString(cfg.kicker) ? html`<span class="sp-no">${localizedString(cfg.kicker)}</span>` : nothing}

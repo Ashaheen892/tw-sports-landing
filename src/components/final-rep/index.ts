@@ -21,7 +21,7 @@ const css = `
 .sp-cta-box { text-align: center; border: 1px solid var(--line-2); border-radius: var(--r); padding: clamp(34px, 6vw, 70px); background: radial-gradient(ellipse at 50% 0, rgba(212,255,63,.14), transparent 65%), var(--paper); }
 .sp-cta-box h2 { font-family: var(--disp); font-weight: 900; font-size: clamp(1.9rem, 4.6vw, 3rem); letter-spacing: -.02em; line-height: 1.18; }
 .sp-cta-box p { color: var(--ink-soft); margin: 14px auto 26px; max-width: 54ch; }
-.sp-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.sp-close-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
 @container (min-width: 760px) { .sp-duo { grid-template-columns: 1fr 1fr; } }
 @container (min-width: 680px) { .sp-ship { grid-template-columns: repeat(4, 1fr); } }
 `;
@@ -80,7 +80,7 @@ export default class CloseInvite extends LitElement {
         <div class="sp-cta-box sp-rev">
           ${title ? html`<h2>${title}</h2>` : nothing}
           ${localizedString(cfg.text) ? html`<p>${localizedString(cfg.text)}</p>` : nothing}
-          <div class="sp-cta">
+          <div class="sp-close-cta">
             ${renderCta(cfg.primary_label, linkHref(cfg.primary_url))}
             ${secondary && secondaryUrl ? html`<a class="sp-btn ghost" href=${secondaryUrl}>${secondary}</a>` : nothing}
           </div>

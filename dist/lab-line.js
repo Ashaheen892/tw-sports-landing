@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: !0 });
-import { LitElement, nothing, html } from "lit";
-import { property, state } from "lit/decorators.js";
+import { html, LitElement, nothing } from "lit";
+import { property } from "lit/decorators.js";
 function getConfig(raw) {
   return raw ? raw.component && typeof raw.component == "object" ? raw.component : raw : {};
 }
@@ -22,6 +22,10 @@ function localizedString(value) {
   return String(value);
 }
 __name(localizedString, "localizedString");
+function t(strings) {
+  return getLocale() === "ar" ? strings.ar : strings.en;
+}
+__name(t, "t");
 function unwrapValue(value) {
   var _a;
   return Array.isArray(value) ? unwrapValue(((_a = value[0]) == null ? void 0 : _a.value) ?? value[0] ?? "") : value && typeof value == "object" && "value" in value ? value.value : value ?? "";
@@ -37,7 +41,30 @@ function schemeOf(cfg) {
   return scheme === "dark" ? "sp-dark" : scheme === "light" ? "sp-light" : "sp-auto";
 }
 __name(schemeOf, "schemeOf");
+function markEditing() {
+  var _a, _b;
+  const root = document.documentElement, read = /* @__PURE__ */ __name(() => {
+    var _a2, _b2;
+    let on = !0;
+    try {
+      const salla = window.Salla;
+      on = window.self !== window.top || ((_b2 = (_a2 = salla == null ? void 0 : salla.config) == null ? void 0 : _a2.get) == null ? void 0 : _b2.call(_a2, "page.is_landing_page")) !== !0;
+    } catch {
+      on = !0;
+    }
+    root.dataset.lpEditing = on ? "1" : "0";
+  }, "read");
+  if (!root.dataset.lpEditing) {
+    read();
+    try {
+      (_b = (_a = window.Salla) == null ? void 0 : _a.onReady) == null || _b.call(_a, read);
+    } catch {
+    }
+  }
+}
+__name(markEditing, "markEditing");
 function injectStyles(id, css2) {
+  markEditing();
   let style = document.getElementById(id);
   style || (style = document.createElement("style"), style.id = id, document.head.appendChild(style)), style.textContent !== css2 && (style.textContent = css2);
 }
@@ -46,21 +73,8 @@ function sectionStyle(cfg) {
   return cfg.bg_color ? `--sp-section-bg:${cfg.bg_color}` : "";
 }
 __name(sectionStyle, "sectionStyle");
-function watchReveal(host) {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
-    return host.querySelectorAll(".sp-rev").forEach((el) => el.classList.add("in")), () => {
-    };
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      entry.isIntersecting && (entry.target.classList.add("in"), io.unobserve(entry.target));
-    });
-  }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }), scan = /* @__PURE__ */ __name(() => host.querySelectorAll(".sp-rev:not(.in)").forEach((el) => io.observe(el)), "scan"), mo = new MutationObserver(scan);
-  return mo.observe(host, { childList: !0, subtree: !0 }), scan(), () => {
-    io.disconnect(), mo.disconnect();
-  };
-}
-__name(watchReveal, "watchReveal");
 const DARK = "--ink:#f4f7f8; --ink-soft:#a8b3ba; --page:#08090a; --paper:#14171a; --paper-2:#1c2024; --line:#242a2f; --line-2:#333b42; --muted:#717d85; --card:#14171a; --volt:#d4ff3f; --accent:var(--color-primary, #d4ff3f); --volt-ink:#121500; --ice:#4fd1ff; --hot:#ff3b47;", LIGHT = "--ink:#14180f; --ink-soft:#3d4636; --page:#f4f6f1; --paper:#ffffff; --paper-2:#eef2e6; --line:#d7dece; --line-2:#c5ceba; --muted:#66705d; --card:#ffffff; --volt:#d4ff3f; --accent:var(--color-primary, #4f6d00); --volt-ink:#121500; --ice:#0b7ea8; --hot:#d21f2b;", baseCss = `
+html[data-lp-editing="0"] .sp-empty, html[data-lp-editing="0"] .sp-hint { display: none !important; }
 .sp-host { display: block; width: 100%; min-width: 0; container-type: inline-size; }
 body:has(.sp-host) { background: #08090a; }
 html.sp-mode-light body:has(.sp-host) { background: #f4f6f1; }
@@ -110,98 +124,71 @@ html.sp-mode-dark .sp-root.sp-auto, .sp-root.sp-dark { ${DARK} }
   .sp-root * { animation: none !important; }
 }
 `;
-function digits(n, pad = !1) {
-  const raw = pad ? String(Math.max(0, Math.floor(n))).padStart(2, "0") : String(Math.round(n));
-  return getLocale() !== "ar" ? raw : raw.replace(/\d/g, (d) => "٠١٢٣٤٥٦٧٨٩"[Number(d)]);
+function emptyCopy() {
+  return html`<p class="sp-empty">${t({ ar: "أضف عناصر هذا القسم من الإعدادات", en: "Add this section's items in the settings" })}</p>`;
 }
-__name(digits, "digits");
+__name(emptyCopy, "emptyCopy");
 var __defProp2 = Object.defineProperty, __decorateClass = /* @__PURE__ */ __name((decorators, target, key, kind) => {
   for (var result = void 0, i = decorators.length - 1, decorator; i >= 0; i--)
     (decorator = decorators[i]) && (result = decorator(target, key, result) || result);
   return result && __defProp2(target, key, result), result;
 }, "__decorateClass");
 const css = `
-.sp-offer { background: var(--volt); color: #121500; background-image: var(--diag); position: relative; }
-.sp-offer-g { display: grid; gap: 26px; align-items: center; }
-.sp-offer h2 { font-family: var(--disp); font-weight: 900; font-size: clamp(1.8rem, 4.2vw, 2.8rem); letter-spacing: -.02em; line-height: 1.18; }
-.sp-offer p { margin-block-start: 10px; font-size: .95rem; font-weight: 400; max-width: 46ch; }
-.sp-code { display: inline-flex; align-items: center; gap: 10px; margin-block-start: 16px; background: #121500; color: var(--volt); border-radius: var(--r); padding: 10px 18px; font-size: .84rem; }
-.sp-code b { font-family: var(--disp); font-weight: 900; letter-spacing: .12em; }
-.sp-clock { display: flex; gap: 8px; flex-wrap: wrap; }
-.sp-cu { flex: 1 1 70px; background: #121500; color: var(--volt); border-radius: var(--r); padding: 14px 8px; text-align: center; }
-.sp-cu b { display: block; font-family: var(--disp); font-weight: 900; font-size: 1.9rem; line-height: 1; font-variant-numeric: tabular-nums; }
-.sp-cu span { font-size: .68rem; opacity: .75; }
-@container (min-width: 900px) { .sp-offer-g { grid-template-columns: 1.2fr .8fr; } }
-`, _OfferClock = class _OfferClock extends LitElement {
+.sp-slab { position: relative; display: grid; gap: 22px; align-items: center; padding: clamp(24px, 4vw, 40px); background: var(--volt); color: #121500; background-image: var(--diag); clip-path: polygon(0 0, 100% 0, 100% calc(100% - 26px), calc(100% - 26px) 100%, 0 100%); }
+@container (min-width: 860px) { .sp-slab { grid-template-columns: minmax(0, 1fr) auto; } }
+.sp-slab .sp-h2 { font-weight: 900; color: #121500; }
+.sp-slab p { margin: 8px 0 0; max-width: 46ch; color: #2b3300; }
+.sp-quick { display: flex; flex-wrap: wrap; gap: 10px; }
+.sp-quick a { display: inline-flex; align-items: center; gap: 8px; min-height: 3.2rem; padding: 0 1.2rem; background: #121500; color: var(--volt); text-decoration: none; font-weight: 800; transform: skewX(-8deg); transition: transform .2s ease; }
+.sp-quick a:hover { transform: skewX(-8deg) translateY(-3px); }
+.sp-quick a span { transform: skewX(8deg); }
+.sp-quick a small { transform: skewX(8deg); color: #f4f7f8; opacity: .7; font-weight: 600; font-size: .72rem; }
+`;
+function telHref(value) {
+  const raw = (typeof value == "string" ? value : localizedString(value)).trim(), num = raw.replace(/\D/g, "");
+  return num ? raw.startsWith("+") ? `tel:+${num}` : num.startsWith("00") ? `tel:+${num.slice(2)}` : `tel:${num}` : "";
+}
+__name(telHref, "telHref");
+function digits(value) {
+  return (typeof value == "string" ? value : localizedString(value)).replace(/\D/g, "");
+}
+__name(digits, "digits");
+const _QuickContact = class _QuickContact extends LitElement {
   constructor() {
-    super(...arguments), this.left = 0, this.stop = () => {
-    }, this.timer = 0, this.end = 0;
+    super(...arguments), this.stop = () => {
+    };
   }
   createRenderRoot() {
     return this;
   }
   connectedCallback() {
-    super.connectedCallback(), this.classList.add("sp-host"), injectStyles("sp-base", baseCss), injectStyles("sp-offer-clock", css);
-    const stopLocale = watchLocale(this), stopReveal = watchReveal(this);
-    this.arm(), this.timer = window.setInterval(() => {
-      this.left = Math.max(0, this.end - Date.now());
-    }, 1e3), this.stop = () => {
-      stopLocale(), stopReveal(), window.clearInterval(this.timer);
-    };
+    super.connectedCallback(), this.classList.add("sp-host"), injectStyles("sp-base", baseCss), injectStyles("sp-quick-contact", css), this.stop = watchLocale(this);
   }
   disconnectedCallback() {
     this.stop(), super.disconnectedCallback();
   }
-  willUpdate() {
-    this.arm();
-  }
-  arm() {
-    const cfg = getConfig(this.config), hours = Math.min(Math.max(Number(cfg.hours) || 57, 1), 240), key = `sp-offer-end-${hours}`;
-    let end = 0;
-    try {
-      end = Number(sessionStorage.getItem(key)) || 0;
-    } catch {
-      end = 0;
-    }
-    if (!end || end < Date.now() - 1e3) {
-      end = Date.now() + hours * 36e5;
-      try {
-        sessionStorage.setItem(key, String(end));
-      } catch {
-      }
-    }
-    this.end = end, this.left = Math.max(0, end - Date.now());
-  }
   render() {
-    const cfg = getConfig(this.config), title = localizedString(cfg.title), code = localizedString(cfg.code), seconds = Math.floor(this.left / 1e3), parts = [
-      [Math.floor(seconds / 86400), localizedString(cfg.day_label) || "يوم"],
-      [Math.floor(seconds % 86400 / 3600), localizedString(cfg.hour_label) || "ساعة"],
-      [Math.floor(seconds % 3600 / 60), localizedString(cfg.minute_label) || "دقيقة"],
-      [seconds % 60, localizedString(cfg.second_label) || "ثانية"]
-    ];
-    return html`<section class=${`sp-root sp-sec sp-offer ${schemeOf(cfg)}`} style=${sectionStyle(cfg)} aria-label=${title || "offer"}>
-      <div class="sp-wrap sp-offer-g">
-        <div class="sp-rev">
-          ${title ? html`<h2>${title}</h2>` : nothing}
-          ${localizedString(cfg.text) ? html`<p>${localizedString(cfg.text)}</p>` : nothing}
-          ${code ? html`<div class="sp-code"><span>${localizedString(cfg.code_label) || "كود الخصم"}</span><b>${code}</b></div>` : nothing}
-        </div>
-        <div class="sp-clock sp-rev" role="timer" aria-label=${title || "timer"}>
-          ${parts.map(([value, label]) => html`<div class="sp-cu"><b>${digits(Number(value), !0)}</b><span>${label}</span></div>`)}
+    const cfg = getConfig(this.config), title = localizedString(cfg.title), phone = digits(cfg.phone), wa = digits(cfg.whatsapp || "201153958512"), email = String(cfg.email || "").trim(), message = localizedString(cfg.whatsapp_message), actions = [
+      phone ? { value: localizedString(cfg.phone_text) || t({ ar: "اتصال", en: "Call" }), href: telHref(cfg.phone) } : null,
+      wa ? { value: localizedString(cfg.whatsapp_text) || t({ ar: "واتساب", en: "WhatsApp" }), href: `https://wa.me/${wa}${message ? `?text=${encodeURIComponent(message)}` : ""}` } : null,
+      email.includes("@") ? { value: email, href: `mailto:${email}` } : null
+    ].filter((item) => item);
+    return html`<section id="sp-contact" class=${`sp-root sp-sec ${schemeOf(cfg)}`} style=${sectionStyle(cfg)} aria-label=${title || "contact"}>
+      <div class="sp-wrap">
+        <div class="sp-slab">
+          <div>${localizedString(cfg.kicker) ? html`<span class="sp-no" style="color:#121500">${localizedString(cfg.kicker)}</span>` : nothing}${title ? html`<h2 class="sp-h2">${title}</h2>` : nothing}${localizedString(cfg.text) ? html`<p>${localizedString(cfg.text)}</p>` : nothing}</div>
+          ${actions.length ? html`<div class="sp-quick">${actions.map((item) => html`<a href=${item.href}><span>${item.value}</span></a>`)}</div>` : emptyCopy()}
         </div>
       </div>
     </section>`;
   }
 };
-__name(_OfferClock, "OfferClock");
-let OfferClock = _OfferClock;
+__name(_QuickContact, "QuickContact");
+let QuickContact = _QuickContact;
 __decorateClass([
   property({ type: Object })
-], OfferClock.prototype, "config");
-__decorateClass([
-  state()
-], OfferClock.prototype, "left");
-typeof OfferClock < "u" && OfferClock.registerSallaComponent("salla-offer-clock");
+], QuickContact.prototype, "config");
+typeof QuickContact < "u" && QuickContact.registerSallaComponent("salla-lab-line");
 export {
-  OfferClock as default
+  QuickContact as default
 };

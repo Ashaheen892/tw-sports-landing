@@ -18,14 +18,45 @@ const text = (id, label, value, o = {}) => ({
 });
 const area = (id, label, value, desc = null) => text(id, label, value, { format: "textarea", icon: "sicon-paragraph", desc, max: 1200 });
 const plain = (id, label, value, desc = null) => text(id, label, value, { multilang: false, desc, max: 80 });
-const color = (id, label, value = "") => ({
-  id, type: "string", format: "color", inputType: "color", label, icon: "sicon-format-fill", required: false, description: null, value,
+const color = (id, label, value = "", desc = null) => ({
+  id, type: "string", format: "color", inputType: "color", label, icon: "sicon-format-fill", required: false, description: desc, value,
 });
 const sw = (id, label, value, desc = null) => ({
   id, type: "boolean", format: "switch", label, icon: "sicon-toggle-off", required: false, description: desc, value, selected: value,
 });
 const image = (id, label, desc, value = "") => ({
   id, type: "string", format: "image", label, icon: "sicon-image", required: false, description: desc, value,
+});
+const icon64 = (inner) => `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#d4ff3f"/>${inner}</svg>`)}`;
+const PAY = {
+  mada: icon64(`<rect x="12" y="20" width="40" height="24" rx="4" fill="none" stroke="#121500" stroke-width="2.5"/><rect x="12" y="26" width="40" height="6" fill="#121500"/>`),
+  card: icon64(`<rect x="10" y="18" width="44" height="28" rx="4" fill="none" stroke="#121500" stroke-width="2.5"/><rect x="16" y="24" width="10" height="8" rx="1" fill="#121500"/>`),
+  wallet: icon64(`<rect x="14" y="20" width="36" height="26" rx="4" fill="none" stroke="#121500" stroke-width="2.5"/><path d="M14 28h36" stroke="#121500" stroke-width="2.5"/>`),
+  split: icon64(`<circle cx="20" cy="32" r="4" fill="#121500"/><circle cx="32" cy="32" r="4" fill="#121500"/><circle cx="44" cy="32" r="4" fill="#121500"/>`),
+};
+const SOCIAL = [
+  ["instagram", "إنستغرام", "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d"],
+  ["snapchat", "سناب شات", "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e"],
+  ["tiktok", "تيك توك", "c3d4e5f6-a7b8-4c9d-8e1f-2a3b4c5d6e7f"],
+  ["whatsapp", "واتساب", "d4e5f6a7-b8c9-4d0e-9f2a-3b4c5d6e7f80"],
+  ["x", "إكس", "e5f6a7b8-c9d0-4e1f-aa3b-4c5d6e7f8091"],
+  ["youtube", "يوتيوب", "f6a7b8c9-d0e1-4f2a-bb4c-5d6e7f8091a2"],
+];
+const socialPick = (value) => {
+  const [network, label, key] = SOCIAL.find((item) => item[0] === value);
+  return [{ label, value: network, key }];
+};
+const faviconImage = (id, value = "") => ({
+  id, type: "string", format: "image", label: "أيقونة 64×64",
+  labelHTML: "المقاس: 64×64 بكسل، حجم فيف أيقون. PNG بخلفية شفافة.",
+  icon: "sicon-image", required: false,
+  description: "يظهر هذا المقاس فوق الصورة: 64×64 بكسل (فيف أيقون)، بصيغة PNG وخلفية شفافة.",
+  value,
+});
+const when = (id, label, value, desc) => ({
+  id, type: "string", format: "text",
+  label, icon: "sicon-calendar-time", multilanguage: false, required: false,
+  description: desc, placeholder: "2026-12-05 23:59", minLength: 0, maxLength: 40, value,
 });
 const url = (id, label, value = "", desc = null) => ({
   id, type: "string", format: "text", label, icon: "sicon-link", multilanguage: false, required: false,
@@ -36,6 +67,9 @@ const line = (id) => ({ id, type: "static", format: "line" });
 const num = (id, label, value, min, max, desc = null) => ({
   id, type: "number", format: "number", inputType: "number", label, icon: "sicon-calculator",
   required: false, description: desc, minimum: min, maximum: max, value,
+});
+const icon = (id, label, value) => ({
+  id, type: "string", format: "icon", label, icon: "sicon-star2", required: false, class: "form--inline", value,
 });
 const collection = (id, itemLabel, fields, value, min, max) => ({
   id, type: "collection", format: "collection", required: min > 0, minLength: min, maxLength: max,
@@ -79,15 +113,32 @@ const scheme = (selected = "auto") => drop(
 
 const components = [
   {
-    title: "رأس الصفحة",
+    title: "شريط المختبر (الرأس)",
     icon: "sicon-store",
-    name: "page-bar",
+    name: "volt-bar",
     key: "eac17f82-e143-4a43-ace0-54a6aa5cd45d",
     image: "",
     props: { "min-height": "110px" },
     fields: [
-      text("announce", "الشريط الإعلاني", L("شحن مجاني فوق ٢٠٠ ر.س · تحليل مختبر مستقل مع كل دفعة · استرجاع ١٤ يوم", "Free shipping over SAR 200 · an independent lab report with every batch · 14-day returns"), { desc: "يظهر فوق الشعار. اتركه فارغاً لإخفاء الشريط." }),
-      drop("announce_mode", "حركة الشريط", [["move", "متحرك", KEY.annMove], ["still", "ثابت", KEY.annStill]], "move", "المتحرك يمرّ الجملة باستمرار. الثابت يُبقيها في الوسط."),
+      collection("bars", "شريط", [
+        text("text", "نص الشريط", L("", ""), { max: 140 }),
+        drop("media", "بجانب النص", [["none", "بدون", "82cde965-d77a-4d72-b5f2-0b1de5d76ddf"], ["icon", "أيقونة", "8cf120b8-2de4-4780-9a89-ad6c237b6712"], ["image", "صورة مصغرة", "67ecef6b-87eb-43b4-bda8-bffb447012d7"]], "icon", "اختر أيقونة من مكتبة سلة أو صورة صغيرة لمنتج أو شعار."),
+        { ...icon("icon", "الأيقونة", "sicon-megaphone"), class: undefined },
+        image("image", "الصورة المصغرة", "المقاس المقترح 160×104 بكسل، أفقية، تُقص بحواف مائلة، PNG أو WebP بخلفية شفافة أو صورة منتج. تظهر بحجم ٤٠×٢٦ بكسل بحواف مائلة، فلا تضع كتابة قرب الطرفين. تُستخدم عند اختيار «صورة مصغرة» في «بجانب النص»."),
+        drop("motion", "حركة الشريط", [["right", "متحرك لليمين →", "03421810-d8b2-4aae-b758-458f69d99840"], ["left", "متحرك لليسار ←", "23d52797-1536-46bc-9180-3e376838376e"], ["still", "ثابت", "c8be20e2-bd89-44f2-af19-e790c10354fc"]], "right", "المتحرك يمرّ الجملة باستمرار في الاتجاه المختار ويتوقف عند مرور المؤشر. الثابت يُبقيها في الوسط."),
+        url("link", "رابط الشريط", "", "اختياري. يفتح عند الضغط على الشريط."),
+        color("bg", "خلفية هذا الشريط", "", "اتركه فارغاً ليأخذ لون الشريط العام."),
+        color("ink", "كتابة هذا الشريط", "", "اتركه فارغاً ليأخذ لون الكتابة العام."),
+      ], [
+        { text: L("شحن مجاني فوق ٢٠٠ ر.س", "Free shipping over SAR 200"), media: [{ label: "أيقونة", value: "icon", key: "8cf120b8-2de4-4780-9a89-ad6c237b6712" }], icon: "sicon-shipping-fast", image: "", motion: [{ label: "متحرك لليمين →", value: "right", key: "03421810-d8b2-4aae-b758-458f69d99840" }], link: "", bg: "", ink: "" },
+        { text: L("دفعة الواي الجديدة وصلت", "The new whey batch is in"), media: [{ label: "صورة مصغرة", value: "image", key: "67ecef6b-87eb-43b4-bda8-bffb447012d7" }], icon: "sicon-megaphone", image: "https://images.pexels.com/photos/13779103/pexels-photo-13779103.jpeg?auto=compress&cs=tinysrgb&w=200", motion: [{ label: "ثابت", value: "still", key: "c8be20e2-bd89-44f2-af19-e790c10354fc" }], link: "", bg: "", ink: "" },
+        { text: L("تقرير مختبر مستقل مع كل دفعة", "An independent lab report with every batch"), media: [{ label: "أيقونة", value: "icon", key: "8cf120b8-2de4-4780-9a89-ad6c237b6712" }], icon: "sicon-shield-check", image: "", motion: [{ label: "متحرك لليسار ←", value: "left", key: "23d52797-1536-46bc-9180-3e376838376e" }], link: "", bg: "", ink: "" },
+      ], 0, 5),
+      drop("bars_layout", "عرض الأشرطة", [["stack", "كل شريط في سطر", "7107e26f-8fec-413f-9432-e729f0f149e1"], ["rotate", "شريط واحد يتبدل", "77414b7f-7e62-4def-bbf7-d0429f5e6192"]], "stack", "كل شريط في سطر يعرض الأشرطة فوق بعضها. شريط واحد يتبدل يعرض شريطاً كل ٤ ثوانٍ ويتوقف عند مرور المؤشر."),
+      color("announce_bg", "خلفية الشريط في الفاتح", "", "اتركه فارغاً ليأخذ لون المتجر الأساسي."),
+      color("announce_ink", "كتابة الشريط في الفاتح", "", "اتركه فارغاً ليأخذ لون الكتابة المقابل للون الأساسي."),
+      color("announce_bg_dark", "خلفية الشريط في الداكن", "", "اتركه فارغاً ليبقى لون المتجر الأساسي في الداكن."),
+      color("announce_ink_dark", "كتابة الشريط في الداكن", "", "اتركه فارغاً ليبقى لون الكتابة المقابل في الداكن."),
       image("logo", "شعار", "اتركه فارغاً ليظهر الاسم مع الشارة. المقاس المقترح 280×80 بكسل."),
       image("logo_dark", "شعار للوضع الداكن", "يظهر عندما تكون الصفحة داكنة. بدونه يُستخدم الشعار الأساسي."),
       num("logo_height", "ارتفاع الشعار", 52, 28, 120, "بالبكسل."),
@@ -132,7 +183,7 @@ const components = [
         { value: L("٤٨ س", "48 h"), label: L("توصيل داخل المملكة", "delivery in the Kingdom") },
       ], 0, 3),
       line("vh-scene"),
-      image("scene_image", "صورة الافتتاح", "المقاس المقترح 900×900 بكسل. اتركها فارغة ليظهر رسم الدمبل.", px(4164761, 1200)),
+      image("scene_image", "صورة الافتتاح", "المقاس المقترح 900×900 بكسل. اتركها فارغة ليظهر رسم الدمبل.", px(36429456, 1200)),
       text("chip_a_value", "رقم البطاقة الأولى", L("٩٨.٤٪", "98.4%"), { max: 20 }),
       text("chip_a_label", "وصف البطاقة الأولى", L("نقاء البروتين", "protein purity"), { max: 40 }),
       text("chip_b_value", "رقم البطاقة الثانية", L("١٤٢٠٠", "14,200"), { max: 20 }),
@@ -183,12 +234,12 @@ const components = [
         text("compare", "السعر قبل الخصم", L("٣١٠ ر.س", "SAR 310"), { max: 30 }),
         url("url", "الرابط", "#plan"),
       ], [
-        { tag: L("الأكثر مبيعاً", "Bestseller"), image: px(3837757), mark: L("🥛", "🥛"), title: L("واي آيزوليت", "Whey isolate"), note: L("٢٧ غ بروتين · ٠ غ سكر · مُرشّح بالتبادل الأيوني ونسبة لاكتوز أقل من ١٪.", "27 g protein · 0 g sugar · ion-exchanged, lactose under 1%."), price: L("٢٤٩ ر.س", "SAR 249"), compare: L("٣١٠ ر.س", "SAR 310"), url: "#plan" },
-        { tag: L("", ""), image: px(6551133), mark: L("⚗️", "⚗️"), title: L("كرياتين مونوهيدرات", "Creatine monohydrate"), note: L("٥ غ لكل جرعة · Creapure مُصنّع في ألمانيا · بلا إضافات ولا محليات.", "5 g a serving · Creapure, made in Germany · no additives or sweeteners."), price: L("١٢٩ ر.س", "SAR 129"), compare: L("١٦٥ ر.س", "SAR 165"), url: "#plan" },
-        { tag: L("", ""), image: px(1552242), mark: L("🔥", "🔥"), title: L("قبل التمرين", "Pre-workout"), note: L("٢٠٠ ملغ كافيين · سيترولين ٦ غ · بيتا ألانين ٣.٢ غ بجرعات معلنة.", "200 mg caffeine · 6 g citrulline · 3.2 g beta-alanine, doses declared."), price: L("١٥٩ ر.س", "SAR 159"), compare: L("١٩٥ ر.س", "SAR 195"), url: "#plan" },
-        { tag: L("", ""), image: px(6456140), mark: L("🐟", "🐟"), title: L("أوميغا ٣ مركّز", "Concentrated omega-3"), note: L("١٠٠٠ ملغ EPA+DHA · زيت سمك مُنقّى من المعادن الثقيلة.", "1,000 mg EPA+DHA · fish oil screened for heavy metals."), price: L("٩٩ ر.س", "SAR 99"), compare: L("١٢٥ ر.س", "SAR 125"), url: "#plan" },
-        { tag: L("", ""), image: px(3768916), mark: L("🧲", "🧲"), title: L("مغنيسيوم جلايسينات", "Magnesium glycinate"), note: L("٤٠٠ ملغ · شكل عالي الامتصاص يدعم النوم والاستشفاء.", "400 mg · a well-absorbed form for sleep and recovery."), price: L("٨٩ ر.س", "SAR 89"), compare: L("١١٠ ر.س", "SAR 110"), url: "#plan" },
-        { tag: L("", ""), image: px(949126), mark: L("🎽", "🎽"), title: L("مستلزمات التدريب", "Training gear"), note: L("أحزمة رفع · ستربس · شيكر معدني · قفازات بقبضة مانعة للانزلاق.", "Lifting belts, straps, a metal shaker, and grip gloves."), price: L("٧٩ ر.س", "SAR 79"), compare: L("١٠٥ ر.س", "SAR 105"), url: "#plan" },
+        { tag: L("الأكثر مبيعاً", "Bestseller"), image: px(13779116), mark: L("🥛", "🥛"), title: L("واي آيزوليت", "Whey isolate"), note: L("٢٧ غ بروتين · ٠ غ سكر · مُرشّح بالتبادل الأيوني ونسبة لاكتوز أقل من ١٪.", "27 g protein · 0 g sugar · ion-exchanged, lactose under 1%."), price: L("٢٤٩ ر.س", "SAR 249"), compare: L("٣١٠ ر.س", "SAR 310"), url: "#plan" },
+        { tag: L("", ""), image: px(12625114), mark: L("⚗️", "⚗️"), title: L("كرياتين مونوهيدرات", "Creatine monohydrate"), note: L("٥ غ لكل جرعة · Creapure مُصنّع في ألمانيا · بلا إضافات ولا محليات.", "5 g a serving · Creapure, made in Germany · no additives or sweeteners."), price: L("١٢٩ ر.س", "SAR 129"), compare: L("١٦٥ ر.س", "SAR 165"), url: "#plan" },
+        { tag: L("", ""), image: px(15120889), mark: L("🔥", "🔥"), title: L("قبل التمرين", "Pre-workout"), note: L("٢٠٠ ملغ كافيين · سيترولين ٦ غ · بيتا ألانين ٣.٢ غ بجرعات معلنة.", "200 mg caffeine · 6 g citrulline · 3.2 g beta-alanine, doses declared."), price: L("١٥٩ ر.س", "SAR 159"), compare: L("١٩٥ ر.س", "SAR 195"), url: "#plan" },
+        { tag: L("", ""), image: px(13534598), mark: L("🐟", "🐟"), title: L("أوميغا ٣ مركّز", "Concentrated omega-3"), note: L("١٠٠٠ ملغ EPA+DHA · زيت سمك مُنقّى من المعادن الثقيلة.", "1,000 mg EPA+DHA · fish oil screened for heavy metals."), price: L("٩٩ ر.س", "SAR 99"), compare: L("١٢٥ ر.س", "SAR 125"), url: "#plan" },
+        { tag: L("", ""), image: px(3850701), mark: L("🧲", "🧲"), title: L("مغنيسيوم جلايسينات", "Magnesium glycinate"), note: L("٤٠٠ ملغ · شكل عالي الامتصاص يدعم النوم والاستشفاء.", "400 mg · a well-absorbed form for sleep and recovery."), price: L("٨٩ ر.س", "SAR 89"), compare: L("١١٠ ر.س", "SAR 110"), url: "#plan" },
+        { tag: L("", ""), image: px(16513595), mark: L("🎽", "🎽"), title: L("مستلزمات التدريب", "Training gear"), note: L("أحزمة رفع · ستربس · شيكر معدني · قفازات بقبضة مانعة للانزلاق.", "Lifting belts, straps, a metal shaker, and grip gloves."), price: L("٧٩ ر.س", "SAR 79"), compare: L("١٠٥ ر.س", "SAR 105"), url: "#plan" },
       ], 1, 6),
       color("bg_color", "لون الخلفية"),
     ],
@@ -330,9 +381,35 @@ const components = [
     ],
   },
   {
-    title: "عدّاد العرض",
+    title: "جلسات الفيديو",
+    icon: "sicon-video",
+    name: "session-reels",
+    key: "3f8a2c61-9d47-4e18-b6a4-1c5e7d9f2a80",
+    image: "",
+    props: { "min-height": "460px" },
+    fields: [
+      text("kicker", "السطر العلوي", L("٠٦ — الجلسات", "06 — Sessions")),
+      text("title", "العنوان", L("تجارب الستاك", "Stack trials")),
+      area("text", "النص", L("ثلاث جلسات حقيقية. اختر التجربة من البطاقات المائلة، ثم شغّل المقطع العريض.", "Three real sessions. Pick a trial from the slanted cards, then play the wide clip.")),
+      text("play_label", "نص زر التشغيل", L("شغّل التجربة", "Play the set"), { max: 40 }),
+      collection("items", "تجربة", [
+        url("video_url", "رابط الفيديو", "", "ملف mp4 أو رابط يوتيوب أو فيميو."),
+        image("poster", "صورة الغلاف", "تظهر قبل التشغيل. المقاس المقترح 1280×720."),
+        text("name", "اسم التجربة", L("جلسة الضخامة", "Mass session")),
+        text("detail", "السطر", L("٤ مجموعات · واي آيزوليت بعد التمرين", "4 sets · whey isolate after training")),
+      ], [
+        { video_url: "https://videos.pexels.com/video-files/5319759/5319759-sd_640_360_25fps.mp4", poster: px(1552242, 1200), name: L("جلسة الضخامة", "Mass session"), detail: L("٤ مجموعات · واي بعد التمرين", "4 sets · whey after training") },
+        { video_url: "https://videos.pexels.com/video-files/4742760/4742760-sd_640_360_25fps.mp4", poster: px(16996376, 1200), name: L("جلسة التنشيف", "Cut session"), detail: L("٥ وجبات · سكوب بعد الحديد", "5 meals · a scoop after the iron") },
+        { video_url: "https://videos.pexels.com/video-files/7187115/7187115-sd_640_360_24fps.mp4", poster: px(3837757, 1200), name: L("جلسة التحمّل", "Endurance session"), detail: L("جري طويل · كهارل بلا سكر", "A long run · sugar-free electrolytes") },
+      ], 0, 6),
+      text("button_label", "نص الزر", L("احسب ستاك هذه الجلسة", "Calculate this session's stack")),
+      color("bg_color", "لون الخلفية"),
+    ],
+  },
+  {
+    title: "ساعة الإطلاق (عدّاد العرض)",
     icon: "sicon-timer",
-    name: "offer-clock",
+    name: "drop-clock",
     key: "03cf374c-5038-4a0b-8912-13a3c3118bc3",
     image: "",
     props: { "min-height": "220px" },
@@ -341,11 +418,7 @@ const components = [
       area("text", "النص", L("خصم إضافي ١٥٪ على كل الخطط المحسوبة، مع شيكر معدني وجدول جرعات مطبوع يصل مع الطلب.", "An extra 15% off every calculated plan, with a metal shaker and a printed dose card in the box.")),
       text("code_label", "عبارة الكود", L("كود الخصم", "Discount code"), { max: 40 }),
       text("code", "الكود", L("POWER15", "POWER15"), { max: 24 }),
-      num("hours", "مدة العداد بالساعات", 57, 1, 240, "يبدأ من أول زيارة في المتصفح، ولا يُعاد عند تحديث الصفحة."),
-      text("day_label", "اليوم", L("يوم", "days"), { max: 20 }),
-      text("hour_label", "الساعة", L("ساعة", "hours"), { max: 20 }),
-      text("minute_label", "الدقيقة", L("دقيقة", "minutes"), { max: 20 }),
-      text("second_label", "الثانية", L("ثانية", "seconds"), { max: 20 }),
+      when("ends_at", "تاريخ انتهاء العرض", "2026-12-31 23:59", "اكتبي الموعد بهذا الشكل: 2026-12-31 23:59 (سنة-شهر-يوم ساعة:دقيقة). العدّاد يحسب الأيام والساعات والدقائق والثواني حتى هذا الموعد."),
       color("bg_color", "لون الخلفية"),
     ],
   },
@@ -387,9 +460,9 @@ const components = [
     ],
   },
   {
-    title: "أسئلة قبل الستاك",
+    title: "أسئلة الستاك",
     icon: "sicon-help",
-    name: "ask-list",
+    name: "stack-faq",
     key: "191507b1-8464-404e-a222-13fb248429ad",
     image: "",
     props: { "min-height": "420px" },
@@ -411,9 +484,9 @@ const components = [
     ],
   },
   {
-    title: "دعوة الختام",
+    title: "التكرار الأخير (دعوة الختام)",
     icon: "sicon-megaphone",
-    name: "close-invite",
+    name: "final-rep",
     key: "d2e6ab79-092e-4cb5-8757-91100ff0773c",
     image: "",
     props: { "min-height": "520px" },
@@ -447,32 +520,41 @@ const components = [
     ],
   },
   {
-    title: "فوتر الصفحة",
+    title: "قاعدة المختبر (الفوتر)",
     icon: "sicon-footer",
-    name: "page-footer",
+    name: "volt-footer",
     key: "10e57afc-c780-45b7-9d01-16e0828de04d",
     image: "",
     props: { "min-height": "280px" },
     fields: [
       text("announce", "الشريط الإعلاني", L("جرعات معلنة · تقرير مختبر مع كل دفعة · استرجاع ١٤ يوم", "Declared doses · a lab report with every batch · 14-day returns"), { desc: "يظهر فوق الفوتر. اتركه فارغاً لإخفاء الشريط." }),
       drop("announce_mode", "حركة الشريط", [["move", "متحرك", KEY.annMove], ["still", "ثابت", KEY.annStill]], "move", "المتحرك يمرّ الجملة باستمرار. الثابت يُبقيها في الوسط."),
+      color("announce_bg", "خلفية الشريط في الفاتح", "", "اتركه فارغاً ليأخذ لون المتجر الأساسي."),
+      color("announce_ink", "كتابة الشريط في الفاتح", "", "اتركه فارغاً ليأخذ لون الكتابة المقابل للون الأساسي."),
+      color("announce_bg_dark", "خلفية الشريط في الداكن", "", "اتركه فارغاً ليبقى لون المتجر الأساسي في الداكن."),
+      color("announce_ink_dark", "كتابة الشريط في الداكن", "", "اتركه فارغاً ليبقى لون الكتابة المقابل في الداكن."),
       line("ft-announce"),
       image("logo", "شعار", "المقاس المقترح 280×80 بكسل. اتركه فارغاً ليظهر الاسم."),
       image("logo_dark", "شعار للوضع الداكن", "يظهر عندما تكون الصفحة داكنة."),
       text("brand", "الاسم", L("قوّة", "Quwa")),
       text("badge", "حرف الشارة", L("ق", "Q"), { max: 4 }),
       area("about", "نبذة", L("متجر سعودي للمكملات الرياضية يبيع ما له دليل فقط، بجرعات معلنة وتقارير مختبر مستقلة لكل دفعة. مستودعنا في الرياض.", "A Saudi sports-supplement store that sells only what has evidence, with declared doses and an independent lab report for every batch. The warehouse is in Riyadh.")),
+      {
+        id: "payments-size",
+        type: "static",
+        format: "description",
+        label: "مقاس أيقونات الدفع",
+        value: "كل وسيلة دفع صورة مربعة 64×64 بكسل بحجم فيف أيقون. ارفع PNG بخلفية شفافة، وهذا التوضيح يظهر فوق الصورة.",
+      },
       collection("payments", "وسيلة دفع", [
-        text("label", "الاسم", L("مدى", "mada"), { max: 40 }),
+        faviconImage("image"),
+        text("label", "الاسم", L("مدى", "mada"), { max: 20 }),
       ], [
-        { label: L("مدى", "mada") },
-        { label: L("Visa", "Visa") },
-        { label: L("Mastercard", "Mastercard") },
-        { label: L("Apple Pay", "Apple Pay") },
-        { label: L("تابي", "Tabby") },
-        { label: L("تمارا", "Tamara") },
-        { label: L("الدفع عند الاستلام", "Cash on delivery") },
-      ], 0, 8),
+        { image: PAY.mada, label: L("مدى", "mada") },
+        { image: PAY.card, label: L("بطاقة", "Card") },
+        { image: PAY.wallet, label: L("محفظة", "Wallet") },
+        { image: PAY.split, label: L("تقسيط", "Split pay") },
+      ], 0, 6),
       line("ft-cols"),
       text("col1_title", "عنوان العمود الأول", L("المنتجات", "Products")),
       collection("col1", "رابط", [
@@ -494,14 +576,15 @@ const components = [
         { label: L("سياسة الاسترجاع", "Returns"), url: "#faq" },
         { label: L("الأسئلة", "Questions"), url: "#faq" },
       ], 0, 6),
-      text("col3_title", "عنوان العمود الثالث", L("تواصل", "Contact")),
-      collection("col3", "رابط", [
-        text("label", "النص", L("واتساب المتجر", "Store WhatsApp")),
-        url("url", "الرابط", "#"),
+      text("col3_title", "عنوان العمود الثالث", L("تابعنا", "Follow")),
+      collection("social", "حساب", [
+        drop("network", "الأيقونة", SOCIAL, "instagram", "تظهر الأيقونة بجانب الرابط."),
+        url("url", "الرابط", "https://instagram.com/"),
       ], [
-        { label: L("واتساب المتجر", "Store WhatsApp"), url: "#" },
-        { label: L("حجز جلسة مدرّب", "Book a coach"), url: "#faq" },
-        { label: L("الاشتراك الشهري", "Monthly delivery"), url: "#plan" },
+        { network: socialPick("instagram"), url: "https://instagram.com/" },
+        { network: socialPick("snapchat"), url: "https://snapchat.com/" },
+        { network: socialPick("tiktok"), url: "https://www.tiktok.com/" },
+        { network: socialPick("whatsapp"), url: "https://wa.me/" },
       ], 0, 6),
       line("ft-base"),
       sw("show_top", "زر العودة للأعلى", true),
@@ -513,6 +596,68 @@ const components = [
   },
 ];
 
+
+// Media sections: stories-style slider with video slides, and a wall of vertical reels.
+const CLIP_MASS = "https://videos.pexels.com/video-files/5319759/5319759-sd_640_360_25fps.mp4";
+const CLIP_CUT = "https://videos.pexels.com/video-files/4742760/4742760-sd_640_360_25fps.mp4";
+const CLIP_RUN = "https://videos.pexels.com/video-files/7187115/7187115-sd_640_360_24fps.mp4";
+const videoHint = "رابط ملف MP4 أو يوتيوب أو فيميو. يعمل بلا صوت، والصورة تظهر قبل تحميله.";
+components.splice(1, 0,
+  {
+    title: "سلايدر الإطلاقات",
+    icon: "sicon-image",
+    name: "drop-slider",
+    key: "21c59cbf-8ca5-4c6d-a2c3-d7e4f327f26e",
+    image: "",
+    props: { "min-height": "560px" },
+    fields: [
+      text("title", "اسم القسم", L("إطلاقات", "Drops")),
+      collection("items", "شريحة", [
+        image("image", "الصورة", "المقاس المقترح 1920×1080 بكسل. مع الفيديو تظهر قبل تحميله."),
+        url("video", "فيديو الشريحة (اختياري)", "", videoHint + " الشريط العلوي يمتلئ مع الفيديو، والشريحة تنتقل عند انتهائه."),
+        text("alt", "وصف الصورة", L("تمرين في النادي", "A workout at the gym")),
+        text("tag", "الوسم", L("جديد", "New"), { max: 24 }),
+        text("title", "العنوان", L("ستاك الضخامة", "The mass stack")),
+        area("text", "النص", L("جملة عن الجرعة أو العرض.", "One line about the dose or the offer.")),
+        text("button", "نص الزر", L("ابنِ خطتي", "Build my plan")),
+        url("url", "رابط الزر", "", buyHint),
+      ], [
+        { image: px(1552242), video: CLIP_MASS, alt: L("تمرين الحبال في النادي", "Battle ropes at the gym"), tag: L("الأسبوع الأول", "Week one"), title: L("ستاك الضخامة: ٢ غ بروتين لكل كيلو", "Mass stack: 2 g of protein per kilo"), text: L("واي آيزوليت وكرياتين بجرعة محسوبة على وزنك، مع تقرير مختبر لكل دفعة.", "Whey isolate and creatine dosed to your weight, with a lab report for every batch."), button: L("احسب ستاكي", "Calculate my stack"), url: "#plan" },
+        { image: px(13779116), alt: L("علبة بروتين ومغرفة", "A protein tub and scoop"), tag: L("الأكثر مبيعاً", "Bestseller"), title: L("واي آيزوليت ٢٧ غ في السكوب", "Whey isolate, 27 g per scoop"), text: L("صفر سكر مضاف، ونكهة الشوكولاتة الأعلى طلباً.", "Zero added sugar, and chocolate is the top flavor."), button: L("أضف للسلة", "Add to cart"), url: "" },
+        { image: px(3837754), video: CLIP_CUT, alt: L("رياضي يستعد لتمرين البنش بريس", "An athlete getting ready for a bench press"), tag: L("خصم ١٥٪", "15% off"), title: L("أسبوع الستاكات: الخطة الثانية بنصف السعر", "Stack week: the second plan at half price"), text: L("ينتهي العرض مع العدّاد في أسفل الصفحة.", "The offer ends with the timer below."), button: L("خذ العرض", "Take the offer"), url: "#plan" },
+      ], 1, 6),
+      color("bg_color", "لون الخلفية"),
+    ],
+  },
+  {
+    title: "جدار الريلز",
+    icon: "sicon-play",
+    name: "reel-wall",
+    key: "472b3ef1-9dbe-409b-b26d-c782a44339ae",
+    image: "",
+    props: { "min-height": "520px" },
+    fields: [
+      text("kicker", "السطر الصغير", L("من النادي", "From the gym")),
+      text("title", "العنوان", L("ريلز المشتركين", "Member reels")),
+      area("text", "النص", L("المقاطع تعمل بلا صوت وأنت تمرّر. اضغط على مقطع ليعمل بالصوت.", "Clips play silently as you scroll. Tap one to hear it.")),
+      collection("items", "مقطع", [
+        url("video", "رابط الفيديو", "", videoHint + " الأفضل مقطع طولي ٩:١٦."),
+        image("poster", "صورة الغلاف", "المقاس المقترح 720×1280 بكسل."),
+        text("name", "العنوان", L("جلسة الضخامة", "Mass session")),
+        text("detail", "التفاصيل (افصل بـ ·)", L("٤ مجموعات · واي بعد التمرين", "4 sets · whey after training")),
+        text("button", "نص الزر", L("احسب ستاك هذه الجلسة", "Calculate this session's stack"), { max: 40 }),
+        url("url", "رابط الزر", "", buyHint),
+      ], [
+        { video: CLIP_MASS, poster: px(1552242, 800), name: L("جلسة الضخامة مع فيصل", "Mass session with Faisal"), detail: L("٤ مجموعات · ١٢ تكرار · واي بعدها", "4 sets · 12 reps · whey after"), button: L("ستاك الضخامة", "Mass stack"), url: "#plan" },
+        { video: CLIP_CUT, poster: px(16996376, 800), name: L("تنشيف ١٢ أسبوع", "A 12-week cut"), detail: L("دمبل · ٥ وجبات · كرياتين", "Dumbbells · 5 meals · creatine"), button: L("ستاك التنشيف", "Cut stack"), url: "#plan" },
+        { video: CLIP_RUN, poster: px(3768916, 800), name: L("تحمّل قبل السباق", "Endurance before the race"), detail: L("كارديو · مغنيسيوم · نوم ٨ ساعات", "Cardio · magnesium · 8 hours of sleep"), button: L("ستاك التحمّل", "Endurance stack"), url: "#plan" },
+        { video: "", poster: px(6551133, 800), name: L("شاركنا مقطعك", "Share your clip"), detail: L("أرسله على الواتساب", "Send it on WhatsApp"), button: L("", ""), url: "" },
+      ], 1, 10),
+      color("bg_color", "لون الخلفية"),
+    ],
+  },
+);
+
 for (const component of components) component.fields.push(scheme());
 
 const templates = [
@@ -521,14 +666,14 @@ const templates = [
     id: "22ffe254-4cb9-4d5a-92e3-444e2115ecae",
     is_default: true,
     primary_color: "#d4ff3f",
-    order: ["page-bar", "volt-hero", "ticker-line", "stack-grid", "lab-steps", "plan-board", "proof-row", "offer-clock", "result-notes", "ask-list", "close-invite", "page-footer"],
+    order: ["volt-bar", "volt-hero", "ticker-line", "stack-grid", "lab-steps", "plan-board", "proof-row", "session-reels", "drop-clock", "result-notes", "stack-faq", "final-rep", "volt-footer"],
   },
   {
     name: "khutta",
     id: "234185c0-ee92-44de-87f5-cc8a60b30091",
     is_default: false,
     primary_color: "#08090a",
-    order: ["page-bar", "plan-board", "offer-clock", "ask-list", "close-invite", "page-footer"],
+    order: ["volt-bar", "drop-slider", "plan-board", "reel-wall", "drop-clock", "stack-faq", "final-rep", "volt-footer"],
   },
 ];
 

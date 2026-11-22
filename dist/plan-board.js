@@ -125,7 +125,30 @@ function schemeOf(cfg) {
   return scheme === "dark" ? "sp-dark" : scheme === "light" ? "sp-light" : "sp-auto";
 }
 __name(schemeOf, "schemeOf");
+function markEditing() {
+  var _a, _b;
+  const root = document.documentElement, read = /* @__PURE__ */ __name(() => {
+    var _a2, _b2;
+    let on = !0;
+    try {
+      const salla2 = window.Salla;
+      on = window.self !== window.top || ((_b2 = (_a2 = salla2 == null ? void 0 : salla2.config) == null ? void 0 : _a2.get) == null ? void 0 : _b2.call(_a2, "page.is_landing_page")) !== !0;
+    } catch {
+      on = !0;
+    }
+    root.dataset.lpEditing = on ? "1" : "0";
+  }, "read");
+  if (!root.dataset.lpEditing) {
+    read();
+    try {
+      (_b = (_a = window.Salla) == null ? void 0 : _a.onReady) == null || _b.call(_a, read);
+    } catch {
+    }
+  }
+}
+__name(markEditing, "markEditing");
 function injectStyles(id, css2) {
+  markEditing();
   let style = document.getElementById(id);
   style || (style = document.createElement("style"), style.id = id, document.head.appendChild(style)), style.textContent !== css2 && (style.textContent = css2);
 }
@@ -149,6 +172,7 @@ function watchReveal(host) {
 }
 __name(watchReveal, "watchReveal");
 const DARK = "--ink:#f4f7f8; --ink-soft:#a8b3ba; --page:#08090a; --paper:#14171a; --paper-2:#1c2024; --line:#242a2f; --line-2:#333b42; --muted:#717d85; --card:#14171a; --volt:#d4ff3f; --accent:var(--color-primary, #d4ff3f); --volt-ink:#121500; --ice:#4fd1ff; --hot:#ff3b47;", LIGHT = "--ink:#14180f; --ink-soft:#3d4636; --page:#f4f6f1; --paper:#ffffff; --paper-2:#eef2e6; --line:#d7dece; --line-2:#c5ceba; --muted:#66705d; --card:#ffffff; --volt:#d4ff3f; --accent:var(--color-primary, #4f6d00); --volt-ink:#121500; --ice:#0b7ea8; --hot:#d21f2b;", baseCss = `
+html[data-lp-editing="0"] .sp-empty, html[data-lp-editing="0"] .sp-hint { display: none !important; }
 .sp-host { display: block; width: 100%; min-width: 0; container-type: inline-size; }
 body:has(.sp-host) { background: #08090a; }
 html.sp-mode-light body:has(.sp-host) { background: #f4f6f1; }
@@ -217,7 +241,7 @@ const css = `
 .sp-sp { display: grid; gap: 1px; background: var(--line); border-radius: var(--r); overflow: hidden; }
 .sp-pane { background: var(--paper); padding: clamp(24px, 3.6vw, 38px); }
 .sp-pane.dk { background: var(--page); }
-.sp-lab { font-size: .74rem; color: var(--muted); font-weight: 500; letter-spacing: .1em; margin-block-end: 11px; }
+.sp-flabel { font-size: .74rem; color: var(--muted); font-weight: 500; letter-spacing: .1em; margin-block-end: 11px; }
 .sp-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-block-end: 22px; }
 .sp-pill { background: var(--page); border: 1px solid var(--line-2); border-radius: var(--r); padding: 11px 17px; font-family: var(--disp); font-weight: 700; font-size: .92rem; cursor: pointer; color: var(--ink); }
 .sp-pill[aria-pressed="true"] { background: var(--volt); border-color: var(--volt); color: #121500; }
@@ -254,14 +278,8 @@ const css = `
 .sp-si b { font-family: var(--disp); font-weight: 700; }
 .sp-si span { margin-inline-start: auto; color: var(--muted); font-size: .78rem; }
 .sp-note { font-size: .82rem; color: var(--ink-soft); margin-block-start: 16px; border-inline-start: 2px solid var(--volt); padding-inline-start: 13px; }
-.sp-buy { position: fixed; inset-inline: 0; inset-block-end: 0; z-index: 50; background: color-mix(in srgb, var(--paper) 97%, transparent); border-top: 1px solid var(--line-2); backdrop-filter: blur(10px); transform: translateY(102%); transition: transform .3s; padding-block-end: env(safe-area-inset-bottom, 0); }
-.sp-buy.on { transform: translateY(0); }
-.sp-buy .in { display: flex; align-items: center; gap: 14px; padding-block: 12px; }
-.sp-buy .nm { font-family: var(--disp); font-weight: 700; font-size: 1.04rem; }
-.sp-buy .nm s { display: block; font-size: .74rem; color: var(--muted); text-decoration: none; font-family: var(--body); font-weight: 300; }
-.sp-buy .pz { margin-inline-start: auto; font-family: var(--disp); font-weight: 900; font-size: 1.26rem; color: var(--accent); }
 @container (min-width: 1020px) { .sp-sp { grid-template-columns: 1fr 1fr; } }
-@container (max-width: 560px) { .sp-buy .nm s { display: none; } .sp-mg { grid-template-columns: 1fr; } }
+@container (max-width: 560px) { .sp-mg { grid-template-columns: 1fr; } }
 `;
 function num(value, fallback) {
   const n = Number(String(value ?? "").replace(",", "."));
@@ -314,23 +332,17 @@ function flavorsOf(cfg) {
 __name(flavorsOf, "flavorsOf");
 const _PlanBoard = class _PlanBoard extends LitElement {
   constructor() {
-    super(...arguments), this.goal = "", this.level = "", this.flavor = "", this.weight = 82, this.showBar = !1, this.touched = !1, this.stop = () => {
-    }, this.queued = !1;
+    super(...arguments), this.goal = "", this.level = "", this.flavor = "", this.weight = 82, this.touched = !1, this.stop = () => {
+    };
   }
   createRenderRoot() {
     return this;
   }
   connectedCallback() {
     super.connectedCallback(), this.classList.add("sp-host"), injectStyles("sp-base", baseCss), injectStyles("sp-plan-board", css);
-    const stopLocale = watchLocale(this), stopReveal = watchReveal(this), onScroll = /* @__PURE__ */ __name(() => {
-      this.queued || (this.queued = !0, requestAnimationFrame(() => {
-        this.queued = !1;
-        const next = this.getBoundingClientRect().top < window.innerHeight * 0.4;
-        next !== this.showBar && (this.showBar = next);
-      }));
-    }, "onScroll");
-    window.addEventListener("scroll", onScroll, { passive: !0 }), requestAnimationFrame(onScroll), this.stop = () => {
-      stopLocale(), stopReveal(), window.removeEventListener("scroll", onScroll);
+    const stopLocale = watchLocale(this), stopReveal = watchReveal(this);
+    this.stop = () => {
+      stopLocale(), stopReveal();
     };
   }
   disconnectedCallback() {
@@ -367,11 +379,11 @@ const _PlanBoard = class _PlanBoard extends LitElement {
         </div>
         <div class="sp-sp sp-rev">
           <div class="sp-pane">
-            <p class="sp-lab">${localizedString(cfg.goal_label) || "هدفك الأساسي"}</p>
+            <p class="sp-flabel">${localizedString(cfg.goal_label) || "هدفك الأساسي"}</p>
             <div class="sp-pills" role="group" aria-label=${localizedString(cfg.goal_label) || "goal"}>
               ${goals.map((item) => html`<button type="button" class="sp-pill" aria-pressed=${item.code === goal.code ? "true" : "false"} @click=${() => this.pick("goal", item.code)}>${item.label}</button>`)}
             </div>
-            <p class="sp-lab">${localizedString(cfg.level_label) || "مستوى التدريب"}</p>
+            <p class="sp-flabel">${localizedString(cfg.level_label) || "مستوى التدريب"}</p>
             <div class="sp-pills" role="group">
               ${levels.map((item) => html`<button type="button" class="sp-pill" aria-pressed=${item.code === level.code ? "true" : "false"} @click=${() => this.pick("level", item.code)}>${item.label}</button>`)}
             </div>
@@ -381,7 +393,7 @@ const _PlanBoard = class _PlanBoard extends LitElement {
       this.touched = !0, this.weight = Number(event.target.value);
     }}>
             </div>
-            ${flavors.length ? html`<p class="sp-lab">${localizedString(cfg.flavor_label) || "النكهة"}</p>
+            ${flavors.length ? html`<p class="sp-flabel">${localizedString(cfg.flavor_label) || "النكهة"}</p>
               <div class="sp-pills" role="group">
                 ${flavors.map((item) => html`<button type="button" class="sp-pill" ?disabled=${!item.available} aria-pressed=${item.label === this.flavor ? "true" : "false"} @click=${() => {
       item.available && this.pick("flavor", item.label);
@@ -400,7 +412,7 @@ const _PlanBoard = class _PlanBoard extends LitElement {
             ${localizedString(cfg.disclaimer) ? html`<p class="sp-terms">${localizedString(cfg.disclaimer)}</p>` : nothing}
           </div>
           <div class="sp-pane dk">
-            <p class="sp-lab">${localizedString(cfg.result_label) || "خطتك المحسوبة"}</p>
+            <p class="sp-flabel">${localizedString(cfg.result_label) || "خطتك المحسوبة"}</p>
             <div class="sp-res" aria-live="polite">
               <div class="sp-big"><b>${digits(need)}</b><span>${localizedString(cfg.protein_label) || "غرام بروتين يومياً"} · ${digits(scoops)} ${localizedString(cfg.scoop_label) || "سكوب"}</span></div>
               <div class="sp-mg">
@@ -415,13 +427,6 @@ const _PlanBoard = class _PlanBoard extends LitElement {
               ${goal.note ? html`<p class="sp-note">${goal.note}</p>` : nothing}
             </div>
           </div>
-        </div>
-      </div>
-      <div class=${`sp-buy ${this.showBar ? "on" : ""}`} aria-live="polite">
-        <div class="sp-wrap in">
-          <div class="sp-nm">${goal.name} — ${level.label} <s>${digits(stack.length)} ${localizedString(cfg.items_label) || "أصناف"} · ${this.flavor}</s></div>
-          <div class="sp-pz">${money(price)}</div>
-          ${renderCta(cfg.primary_label, linkHref(cfg.primary_url))}
         </div>
       </div>
     </section>`;
@@ -444,9 +449,6 @@ __decorateClass([
 __decorateClass([
   state()
 ], PlanBoard.prototype, "weight");
-__decorateClass([
-  state()
-], PlanBoard.prototype, "showBar");
 typeof PlanBoard < "u" && PlanBoard.registerSallaComponent("salla-plan-board");
 export {
   PlanBoard as default

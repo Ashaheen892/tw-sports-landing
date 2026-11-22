@@ -7,7 +7,7 @@ import { emptyCopy } from "../../utils/ui.js";
 
 const css = `
 .sp-notes { background: var(--sp-section-bg, var(--page)); }
-.sp-stats { display: grid; gap: 1px; background: var(--line); border-radius: var(--r); overflow: hidden; margin-block-end: 28px; }
+.sp-tally { display: grid; gap: 1px; background: var(--line); border-radius: var(--r); overflow: hidden; margin-block-end: 28px; }
 .sp-st { background: var(--paper); padding: 28px 16px; text-align: center; }
 .sp-st b { display: block; font-family: var(--disp); font-weight: 900; font-size: 2.2rem; color: var(--accent); line-height: 1.1; }
 .sp-st span { font-size: .79rem; color: var(--ink-soft); }
@@ -21,7 +21,7 @@ const css = `
 .sp-who span { font-size: .74rem; color: var(--muted); }
 @container (max-width: 980px) { .sp-rv { columns: 2; } }
 @container (max-width: 640px) { .sp-rv { columns: 1; } }
-@container (min-width: 620px) { .sp-stats { grid-template-columns: repeat(4, 1fr); } }
+@container (min-width: 620px) { .sp-tally { grid-template-columns: repeat(4, 1fr); } }
 `;
 
 export default class ResultNotes extends LitElement {
@@ -66,7 +66,7 @@ export default class ResultNotes extends LitElement {
     const id = String(cfg.anchor || "reviews");
     return html`<section class=${`sp-root sp-sec sp-notes ${schemeOf(cfg)}`} id=${id} style=${sectionStyle(cfg)} aria-label=${title || "reviews"}>
       <div class="sp-wrap">
-        ${stats.length ? html`<div class="sp-stats">${stats.map((item, index) => html`<div class="sp-st sp-rev" style=${`transition-delay:${index * 0.06}s`}><b>${item.value}</b><span>${item.label}</span></div>`)}</div>` : nothing}
+        ${stats.length ? html`<div class="sp-tally">${stats.map((item, index) => html`<div class="sp-st sp-rev" style=${`transition-delay:${index * 0.06}s`}><b>${item.value}</b><span>${item.label}</span></div>`)}</div>` : nothing}
         <div class="sp-head sp-rev">
           <div>
             ${localizedString(cfg.kicker) ? html`<span class="sp-no">${localizedString(cfg.kicker)}</span>` : nothing}

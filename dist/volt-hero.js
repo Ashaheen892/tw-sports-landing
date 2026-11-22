@@ -111,7 +111,30 @@ function schemeOf(cfg) {
   return scheme === "dark" ? "sp-dark" : scheme === "light" ? "sp-light" : "sp-auto";
 }
 __name(schemeOf, "schemeOf");
+function markEditing() {
+  var _a, _b;
+  const root = document.documentElement, read = /* @__PURE__ */ __name(() => {
+    var _a2, _b2;
+    let on = !0;
+    try {
+      const salla2 = window.Salla;
+      on = window.self !== window.top || ((_b2 = (_a2 = salla2 == null ? void 0 : salla2.config) == null ? void 0 : _a2.get) == null ? void 0 : _b2.call(_a2, "page.is_landing_page")) !== !0;
+    } catch {
+      on = !0;
+    }
+    root.dataset.lpEditing = on ? "1" : "0";
+  }, "read");
+  if (!root.dataset.lpEditing) {
+    read();
+    try {
+      (_b = (_a = window.Salla) == null ? void 0 : _a.onReady) == null || _b.call(_a, read);
+    } catch {
+    }
+  }
+}
+__name(markEditing, "markEditing");
 function injectStyles(id, css2) {
+  markEditing();
   let style = document.getElementById(id);
   style || (style = document.createElement("style"), style.id = id, document.head.appendChild(style)), style.textContent !== css2 && (style.textContent = css2);
 }
@@ -135,6 +158,7 @@ function watchReveal(host) {
 }
 __name(watchReveal, "watchReveal");
 const DARK = "--ink:#f4f7f8; --ink-soft:#a8b3ba; --page:#08090a; --paper:#14171a; --paper-2:#1c2024; --line:#242a2f; --line-2:#333b42; --muted:#717d85; --card:#14171a; --volt:#d4ff3f; --accent:var(--color-primary, #d4ff3f); --volt-ink:#121500; --ice:#4fd1ff; --hot:#ff3b47;", LIGHT = "--ink:#14180f; --ink-soft:#3d4636; --page:#f4f6f1; --paper:#ffffff; --paper-2:#eef2e6; --line:#d7dece; --line-2:#c5ceba; --muted:#66705d; --card:#ffffff; --volt:#d4ff3f; --accent:var(--color-primary, #4f6d00); --volt-ink:#121500; --ice:#0b7ea8; --hot:#d21f2b;", baseCss = `
+html[data-lp-editing="0"] .sp-empty, html[data-lp-editing="0"] .sp-hint { display: none !important; }
 .sp-host { display: block; width: 100%; min-width: 0; container-type: inline-size; }
 body:has(.sp-host) { background: #08090a; }
 html.sp-mode-light body:has(.sp-host) { background: #f4f6f1; }
@@ -211,15 +235,15 @@ const css = `
 @keyframes sp-spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
 .sp-db { position: relative; width: 72%; max-width: 330px; height: 118px; animation: sp-lift 4.6s ease-in-out infinite; }
 @keyframes sp-lift { 0%, 100% { transform: translateY(8px) rotate(-6deg); } 50% { transform: translateY(-10px) rotate(-6deg); } }
-.sp-bar { position: absolute; top: 50%; inset-inline: 17%; height: 15px; transform: translateY(-50%); border-radius: 4px; background: linear-gradient(180deg, #c9d2d8, #6d777e 55%, #434c52); }
+.sp-shaft { position: absolute; top: 50%; inset-inline: 17%; height: 15px; transform: translateY(-50%); border-radius: 4px; background: linear-gradient(180deg, #c9d2d8, #6d777e 55%, #434c52); }
 .sp-pl { position: absolute; inset-block: 0; width: 17%; border-radius: 7px; background: linear-gradient(145deg, #2c3338, #171b1e); border: 1px solid var(--line-2); box-shadow: inset 0 0 0 7px rgba(212,255,63,.12); }
 .sp-pl.a { inset-inline-start: 0; }
 .sp-pl.b { inset-inline-end: 0; }
 .sp-pl::after { content: ""; position: absolute; inset: 22% 28%; border-radius: 4px; background: var(--volt); }
-.sp-stat { position: absolute; background: color-mix(in srgb, var(--paper) 92%, transparent); border: 1px solid var(--line-2); border-radius: var(--r); padding: 11px 15px; font-size: .78rem; z-index: 2; }
-.sp-stat b { display: block; font-family: var(--disp); font-weight: 900; font-size: 1.3rem; color: var(--accent); line-height: 1.1; }
-.sp-stat.s1 { inset-block-start: 22px; inset-inline-start: 22px; }
-.sp-stat.s2 { inset-block-end: 22px; inset-inline-end: 22px; }
+.sp-float { position: absolute; background: color-mix(in srgb, var(--paper) 92%, transparent); border: 1px solid var(--line-2); border-radius: var(--r); padding: 11px 15px; font-size: .78rem; z-index: 2; }
+.sp-float b { display: block; font-family: var(--disp); font-weight: 900; font-size: 1.3rem; color: var(--accent); line-height: 1.1; }
+.sp-float.s1 { inset-block-start: 22px; inset-inline-start: 22px; }
+.sp-float.s2 { inset-block-end: 22px; inset-inline-end: 22px; }
 @container (min-width: 1000px) { .sp-hero-g { grid-template-columns: 1.06fr .94fr; } }
 @container (max-width: 640px) { .sp-micro { grid-template-columns: 1fr; } }
 `, _VoltHero = class _VoltHero extends LitElement {
@@ -259,10 +283,10 @@ const css = `
             ${photo ? html`<img src=${photo} alt="" />` : html`
               <span class="sp-ring a" aria-hidden="true"></span>
               <span class="sp-ring b" aria-hidden="true"></span>
-              <div class="sp-db" aria-hidden="true"><span class="sp-pl a"></span><span class="sp-bar"></span><span class="sp-pl b"></span></div>
+              <div class="sp-db" aria-hidden="true"><span class="sp-pl a"></span><span class="sp-shaft"></span><span class="sp-pl b"></span></div>
             `}
-            ${chipA ? html`<div class="sp-stat s1"><b>${chipA}</b>${localizedString(cfg.chip_a_label)}</div>` : nothing}
-            ${chipB ? html`<div class="sp-stat s2"><b>${chipB}</b>${localizedString(cfg.chip_b_label)}</div>` : nothing}
+            ${chipA ? html`<div class="sp-float s1"><b>${chipA}</b>${localizedString(cfg.chip_a_label)}</div>` : nothing}
+            ${chipB ? html`<div class="sp-float s2"><b>${chipB}</b>${localizedString(cfg.chip_b_label)}</div>` : nothing}
           </div>
         </div>
       </div>

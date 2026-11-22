@@ -1,13 +1,13 @@
 import { html, LitElement, nothing } from "lit";
 import { property, state } from "lit/decorators.js";
 import { flag, getConfig, linkHref, localizedString, t, unwrapValue, watchLocale } from "../../utils/config.js";
-import { announceBar, announceCss } from "../../utils/announce.js";
+import { announceCss, announceStrips, announceTone, rotateStrips, stopStrips } from "../../utils/announce.js";
 import { applyTone, currentTone, savedTone, schemeOf } from "../../utils/landing.js";
 import { baseCss, injectFonts, injectStyles, sectionStyle, watchReveal } from "../../utils/styles.js";
 
 const css = `
-.sp-bar { position: relative; background: var(--sp-section-bg, color-mix(in srgb, var(--page) 92%, transparent)); border-bottom: 1px solid var(--line); }
-.sp-bar.is-clear { background: transparent; border-bottom-color: transparent; }
+header.sp-bar { position: relative; background: var(--sp-section-bg, color-mix(in srgb, var(--page) 92%, transparent)); border-bottom: 1px solid var(--line); }
+header.sp-bar.is-clear { background: transparent; border-bottom-color: transparent; }
 .sp-nav { position: relative; display: flex; align-items: center; justify-content: center; min-height: calc(var(--sp-logo, 52px) + 1.5rem); padding-block: .75rem; }
 .sp-nav.is-start { justify-content: flex-start; }
 .sp-logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.35rem; line-height: 1; color: inherit; text-decoration: none; }
@@ -37,7 +37,7 @@ export default class PageBar extends LitElement {
     this.classList.add("sp-host");
     injectFonts();
     injectStyles("sp-base", baseCss);
-    injectStyles("sp-announce", announceCss("sp"));
+    injectStyles("sp-announce", announceCss("sp", "slant"));
     injectStyles("sp-page-bar", css);
     const stopLocale = watchLocale(this);
     const stopReveal = watchReveal(this);
@@ -61,11 +61,13 @@ export default class PageBar extends LitElement {
   }
 
   disconnectedCallback() {
+    stopStrips(this, "sp");
     this.stop();
     super.disconnectedCallback();
   }
 
   protected updated() {
+    rotateStrips(this, "sp");
     this.pin();
   }
 
@@ -160,7 +162,7 @@ export default class PageBar extends LitElement {
 
   render() {
     const cfg = getConfig(this.config);
-    const brand = localizedString(cfg.brand) || t({ ar: "قوّة", en: "Quwa" });
+    const brand = localizedString(cfg.brand) || ((window as any).Salla?.config?.get?.("store.name") as string) || "";
     const badge = localizedString(cfg.badge) || "ق";
     const linkLabel = localizedString(cfg.link_label);
     const linkUrl = linkHref(cfg.link_url);
@@ -169,7 +171,7 @@ export default class PageBar extends LitElement {
     const start = String(unwrapValue(cfg.align) || "center") === "start";
     const clear = flag(cfg.transparent);
     return html`
-      ${announceBar(cfg, "sp", `sp-root ${schemeOf(cfg)}`, "--ann-bg:var(--volt);--ann-ink:#121500;--ann-speed:16s")}
+      ${announceStrips(cfg, "sp", "slant", `sp-root ${schemeOf(cfg)}`, announceTone(cfg))}
       <header class=${`sp-root sp-bar ${schemeOf(cfg)} ${clear ? "is-clear" : ""}`} style=${`${sectionStyle(cfg)};--sp-logo:${height}px`}>
         <div class="sp-nav sp-wrap ${start ? "is-start" : ""}">
           ${linkLabel && linkUrl ? html`<a class="sp-text-link" href=${linkUrl}>${linkLabel}</a>` : nothing}

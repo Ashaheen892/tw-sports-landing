@@ -51,7 +51,30 @@ function schemeOf(cfg) {
   return scheme === "dark" ? "sp-dark" : scheme === "light" ? "sp-light" : "sp-auto";
 }
 __name(schemeOf, "schemeOf");
+function markEditing() {
+  var _a, _b;
+  const root = document.documentElement, read = /* @__PURE__ */ __name(() => {
+    var _a2, _b2;
+    let on = !0;
+    try {
+      const salla = window.Salla;
+      on = window.self !== window.top || ((_b2 = (_a2 = salla == null ? void 0 : salla.config) == null ? void 0 : _a2.get) == null ? void 0 : _b2.call(_a2, "page.is_landing_page")) !== !0;
+    } catch {
+      on = !0;
+    }
+    root.dataset.lpEditing = on ? "1" : "0";
+  }, "read");
+  if (!root.dataset.lpEditing) {
+    read();
+    try {
+      (_b = (_a = window.Salla) == null ? void 0 : _a.onReady) == null || _b.call(_a, read);
+    } catch {
+    }
+  }
+}
+__name(markEditing, "markEditing");
 function injectStyles(id, css2) {
+  markEditing();
   let style = document.getElementById(id);
   style || (style = document.createElement("style"), style.id = id, document.head.appendChild(style)), style.textContent !== css2 && (style.textContent = css2);
 }
@@ -60,21 +83,8 @@ function sectionStyle(cfg) {
   return cfg.bg_color ? `--sp-section-bg:${cfg.bg_color}` : "";
 }
 __name(sectionStyle, "sectionStyle");
-function watchReveal(host) {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
-    return host.querySelectorAll(".sp-rev").forEach((el) => el.classList.add("in")), () => {
-    };
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      entry.isIntersecting && (entry.target.classList.add("in"), io.unobserve(entry.target));
-    });
-  }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }), scan = /* @__PURE__ */ __name(() => host.querySelectorAll(".sp-rev:not(.in)").forEach((el) => io.observe(el)), "scan"), mo = new MutationObserver(scan);
-  return mo.observe(host, { childList: !0, subtree: !0 }), scan(), () => {
-    io.disconnect(), mo.disconnect();
-  };
-}
-__name(watchReveal, "watchReveal");
 const DARK = "--ink:#f4f7f8; --ink-soft:#a8b3ba; --page:#08090a; --paper:#14171a; --paper-2:#1c2024; --line:#242a2f; --line-2:#333b42; --muted:#717d85; --card:#14171a; --volt:#d4ff3f; --accent:var(--color-primary, #d4ff3f); --volt-ink:#121500; --ice:#4fd1ff; --hot:#ff3b47;", LIGHT = "--ink:#14180f; --ink-soft:#3d4636; --page:#f4f6f1; --paper:#ffffff; --paper-2:#eef2e6; --line:#d7dece; --line-2:#c5ceba; --muted:#66705d; --card:#ffffff; --volt:#d4ff3f; --accent:var(--color-primary, #4f6d00); --volt-ink:#121500; --ice:#0b7ea8; --hot:#d21f2b;", baseCss = `
+html[data-lp-editing="0"] .sp-empty, html[data-lp-editing="0"] .sp-hint { display: none !important; }
 .sp-host { display: block; width: 100%; min-width: 0; container-type: inline-size; }
 body:has(.sp-host) { background: #08090a; }
 html.sp-mode-light body:has(.sp-host) { background: #f4f6f1; }
@@ -124,6 +134,11 @@ html.sp-mode-dark .sp-root.sp-auto, .sp-root.sp-dark { ${DARK} }
   .sp-root * { animation: none !important; }
 }
 `;
+function digits(n, pad = !1) {
+  const raw = pad ? String(Math.max(0, Math.floor(n))).padStart(2, "0") : String(Math.round(n));
+  return getLocale() !== "ar" ? raw : raw.replace(/\d/g, (d) => "٠١٢٣٤٥٦٧٨٩"[Number(d)]);
+}
+__name(digits, "digits");
 function emptyCopy() {
   return html`<p class="sp-empty">${t({ ar: "أضف عناصر هذا القسم من الإعدادات", en: "Add this section's items in the settings" })}</p>`;
 }
@@ -134,15 +149,15 @@ var __defProp2 = Object.defineProperty, __decorateClass = /* @__PURE__ */ __name
   return result && __defProp2(target, key, result), result;
 }, "__decorateClass");
 const css = `
-.sp-faq { background: var(--sp-section-bg, var(--page)); }
-.sp-acc { display: grid; gap: 1px; background: var(--line); border-radius: var(--r); overflow: hidden; }
-.sp-acc details { background: var(--paper); }
-.sp-acc summary { cursor: pointer; list-style: none; padding: 18px 22px; font-family: var(--disp); font-weight: 700; font-size: 1.04rem; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.sp-acc summary::-webkit-details-marker { display: none; }
-.sp-acc summary::after { content: "+"; color: var(--accent); font-size: 1.4rem; line-height: 1; }
-.sp-acc details[open] summary::after { content: "−"; }
-.sp-acc .ans { padding: 0 22px 20px; font-size: .88rem; color: var(--ink-soft); }
-`, _AskList = class _AskList extends LitElement {
+.sp-partners { display: grid; gap: 12px; }
+@container (min-width: 640px) { .sp-partners { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); } }
+.sp-partner { position: relative; display: grid; align-content: space-between; gap: 22px; min-height: 170px; padding: 18px 18px 22px; background: var(--paper); border: 1px solid var(--line); overflow: hidden; }
+.sp-partner::after { content: ""; position: absolute; inset-inline: 0; bottom: 0; height: 6px; background: var(--volt); transform-origin: right; transform: scaleX(.35); transition: transform .35s ease; }
+.sp-partner:hover::after { transform: scaleX(1); }
+.sp-partner i { font-style: normal; font-weight: 900; font-size: 3.2rem; line-height: .9; color: transparent; -webkit-text-stroke: 1.5px var(--accent); font-variant-numeric: tabular-nums; }
+.sp-partner b { display: block; font-weight: 800; font-size: 1.15rem; }
+.sp-partner span { display: inline-block; margin-top: 6px; padding: 2px 10px; background: var(--paper-2); color: var(--ink-soft); font-size: .78rem; transform: skewX(-8deg); }
+`, _PartnerRow = class _PartnerRow extends LitElement {
   constructor() {
     super(...arguments), this.stop = () => {
     };
@@ -151,36 +166,27 @@ const css = `
     return this;
   }
   connectedCallback() {
-    super.connectedCallback(), this.classList.add("sp-host"), injectStyles("sp-base", baseCss), injectStyles("sp-ask-list", css);
-    const stopLocale = watchLocale(this), stopReveal = watchReveal(this);
-    this.stop = () => {
-      stopLocale(), stopReveal();
-    };
+    super.connectedCallback(), this.classList.add("sp-host"), injectStyles("sp-base", baseCss), injectStyles("sp-partner-row", css), this.stop = watchLocale(this);
   }
   disconnectedCallback() {
     this.stop(), super.disconnectedCallback();
   }
   render() {
-    const cfg = getConfig(this.config), title = localizedString(cfg.title), items = getCollectionItems(cfg.items, "items").map((item) => ({ q: localizedString(item.q), a: localizedString(item.a) })).filter((item) => item.q && item.a), id = String(cfg.anchor || "faq");
-    return html`<section class=${`sp-root sp-sec sp-faq ${schemeOf(cfg)}`} id=${id} style=${sectionStyle(cfg)} aria-label=${title || "faq"}>
+    const cfg = getConfig(this.config), title = localizedString(cfg.title), items = getCollectionItems(cfg.items, "items").map((item) => ({ name: localizedString(item.name), note: localizedString(item.note) })).filter((item) => item.name);
+    return html`<section id="sp-partners" class=${`sp-root sp-sec ${schemeOf(cfg)}`} style=${sectionStyle(cfg)} aria-label=${title || "partners"}>
       <div class="sp-wrap">
-        <div class="sp-head sp-rev">
-          <div>
-            ${localizedString(cfg.kicker) ? html`<span class="sp-no">${localizedString(cfg.kicker)}</span>` : nothing}
-            ${title ? html`<h2 class="sp-h2">${title}</h2>` : nothing}
-          </div>
-        </div>
-        ${items.length ? html`<div class="sp-acc sp-rev">${items.map((item, index) => html`<details ?open=${index === 0}><summary>${item.q}</summary><p class="ans">${item.a}</p></details>`)}</div>` : emptyCopy()}
+        <div class="sp-head">${localizedString(cfg.kicker) ? html`<span class="sp-no">${localizedString(cfg.kicker)}</span>` : nothing}${title ? html`<h2 class="sp-h2">${title}</h2>` : nothing}</div>
+        ${items.length ? html`<div class="sp-partners">${items.map((item, index) => html`<article class="sp-partner"><i>${digits(index + 1, !0)}</i><div><b>${item.name}</b>${item.note ? html`<span>${item.note}</span>` : nothing}</div></article>`)}</div>` : emptyCopy()}
       </div>
     </section>`;
   }
 };
-__name(_AskList, "AskList");
-let AskList = _AskList;
+__name(_PartnerRow, "PartnerRow");
+let PartnerRow = _PartnerRow;
 __decorateClass([
   property({ type: Object })
-], AskList.prototype, "config");
-typeof AskList < "u" && AskList.registerSallaComponent("salla-ask-list");
+], PartnerRow.prototype, "config");
+typeof PartnerRow < "u" && PartnerRow.registerSallaComponent("salla-team-board");
 export {
-  AskList as default
+  PartnerRow as default
 };

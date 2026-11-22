@@ -1,4 +1,24 @@
+
+/** Editor hints ("add items in the settings") show in the Salla editor and local preview, never on the live page. */
+function markEditing(): void {
+  const root = document.documentElement;
+  const read = () => {
+    let on = true;
+    try {
+      const salla = (window as any).Salla;
+      on = window.self !== window.top || salla?.config?.get?.("page.is_landing_page") !== true;
+    } catch {
+      on = true;
+    }
+    root.dataset.lpEditing = on ? "1" : "0";
+  };
+  if (root.dataset.lpEditing) return;
+  read();
+  try { (window as any).Salla?.onReady?.(read); } catch { /* Salla is not on the page */ }
+}
+
 export function injectStyles(id: string, css: string): void {
+  markEditing();
   let style = document.getElementById(id) as HTMLStyleElement | null;
   if (!style) {
     style = document.createElement("style");
@@ -44,6 +64,7 @@ const DARK = `--ink:#f4f7f8; --ink-soft:#a8b3ba; --page:#08090a; --paper:#14171a
 const LIGHT = `--ink:#14180f; --ink-soft:#3d4636; --page:#f4f6f1; --paper:#ffffff; --paper-2:#eef2e6; --line:#d7dece; --line-2:#c5ceba; --muted:#66705d; --card:#ffffff; --volt:#d4ff3f; --accent:var(--color-primary, #4f6d00); --volt-ink:#121500; --ice:#0b7ea8; --hot:#d21f2b;`;
 
 export const baseCss = `
+html[data-lp-editing="0"] .sp-empty, html[data-lp-editing="0"] .sp-hint { display: none !important; }
 .sp-host { display: block; width: 100%; min-width: 0; container-type: inline-size; }
 body:has(.sp-host) { background: #08090a; }
 html.sp-mode-light body:has(.sp-host) { background: #f4f6f1; }

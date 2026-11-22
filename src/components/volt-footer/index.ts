@@ -1,7 +1,7 @@
 import { html, LitElement, nothing } from "lit";
 import { property, state } from "lit/decorators.js";
-import { flag, getCollectionItems, getConfig, linkHref, localizedString, t, watchLocale } from "../../utils/config.js";
-import { announceBar, announceCss } from "../../utils/announce.js";
+import { flag, getCollectionItems, getConfig, linkHref, localizedString, t, unwrapValue, watchLocale } from "../../utils/config.js";
+import { announceBar, announceCss, announceTone } from "../../utils/announce.js";
 import { clearDocks, syncDocks, type DockNodes } from "../../utils/dock.js";
 import { currentTone, schemeOf } from "../../utils/landing.js";
 import { baseCss, injectFonts, injectStyles, sectionStyle } from "../../utils/styles.js";
@@ -14,12 +14,16 @@ const css = `
 .sp-foot a:hover { color: var(--accent); }
 .sp-about { max-width: 36ch; }
 .sp-about p { margin-block-start: 10px; }
-.sp-logo { display: inline-flex; align-items: center; gap: 10px; font-family: var(--disp); font-weight: 900; font-size: 1.35rem; color: var(--ink); }
-.sp-logo img { height: 42px; width: auto; object-fit: contain; }
-.sp-mark { width: 34px; height: 34px; border-radius: var(--r); background: var(--volt); color: #121500; display: grid; place-items: center; transform: skewX(-8deg); }
-.sp-pay { display: flex; flex-wrap: wrap; gap: 8px; margin-block-start: 16px; }
-.sp-pay span { border: 1px solid var(--line-2); border-radius: 999px; padding: 6px 12px; font-size: .75rem; color: var(--ink-soft); }
-.sp-copy { border-top: 1px solid var(--line); padding-block: 18px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: .77rem; color: var(--muted); }
+.sp-flogo { display: inline-flex; align-items: center; gap: 10px; font-family: var(--disp); font-weight: 900; font-size: 1.35rem; color: var(--ink); }
+.sp-flogo img { height: 42px; width: auto; object-fit: contain; }
+.sp-fmark { width: 34px; height: 34px; border-radius: var(--r); background: var(--volt); color: #121500; display: grid; place-items: center; transform: skewX(-8deg); }
+.sp-pay-size { margin: 16px 0 8px; font-size: .72rem; font-weight: 700; color: var(--muted); }
+.sp-pay { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.sp-pay img { width: 32px; height: 32px; object-fit: contain; border-radius: .2rem; background: #d4ff3f; }
+.sp-social { display: flex; flex-wrap: wrap; gap: 8px; }
+.sp-social a { width: 40px; height: 36px; display: grid; place-items: center; color: var(--ink); background: var(--volt); text-decoration: none; transform: skewX(-10deg); }
+.sp-social svg { width: 16px; height: 16px; display: block; transform: skewX(10deg); }
+.sp-foot-copy { border-top: 1px solid var(--line); padding-block: 18px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: .77rem; color: var(--muted); }
 .sp-totop, .sp-top { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 42px; padding: 8px 16px; border-radius: var(--r); border: 1px solid var(--line-2); background: var(--paper); color: var(--ink); font-family: var(--disp); font-weight: 700; font-size: .82rem; cursor: pointer; }
 .sp-foot .sp-totop { margin: 8px auto 22px; }
 .sp-top { position: fixed; z-index: 70; inset-inline-end: 18px; bottom: 22px; opacity: 0; pointer-events: none; transform: translateY(10px); }
@@ -30,6 +34,16 @@ const css = `
 .sp-dock--wa { background: #121500; color: #d4ff3f; }
 @container (min-width: 760px) { .sp-fg { grid-template-columns: 1.3fr 1fr 1fr 1fr; } }
 `;
+
+function socialIcon(name: string) {
+  if (name === "instagram") return html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"></rect><circle cx="12" cy="12" r="3.2"></circle><circle cx="17.2" cy="6.8" r=".8" fill="currentColor" stroke="none"></circle></svg>`;
+  if (name === "snapchat") return html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 4c2.4 0 4 1.8 4 4.2 0 1.2-.2 2 .4 2.6.3.3.8.4 1.1.6.4.3.3 1-.2 1.2-.8.3-1.3.2-1.7.6-.3.3-.4.8-.2 1.4.2.5-.2.9-.8.9-.7 0-1.1.4-1.6.7-.4.2-.7.2-1 .2s-.6 0-1-.2c-.5-.3-.9-.7-1.6-.7-.6 0-1-.4-.8-.9.2-.6.1-1.1-.2-1.4-.4-.4-.9-.3-1.7-.6-.5-.2-.6-.9-.2-1.2.3-.2.8-.3 1.1-.6.6-.6.4-1.4.4-2.6C8 5.8 9.6 4 12 4Z"></path></svg>`;
+  if (name === "tiktok") return html`<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 6c.6 2.2 2 3.6 4 4v2.2c-1.4 0-2.7-.4-4-1.2v5.2a5.2 5.2 0 1 1-5.2-5.2c.3 0 .6 0 .8.1v2.3a2.9 2.9 0 1 0 2 2.8V6H14Z"></path></svg>`;
+  if (name === "whatsapp") return html`<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 4.2A7.8 7.8 0 0 0 5.3 16l-.7 3.2 3.3-.7A7.8 7.8 0 1 0 12 4.2Zm3.7 10.3c-.2.5-1 .9-1.4 1-.4.1-.8.1-1.3-.1-.3-.1-.7-.2-1.2-.5-2.1-1.1-3.4-3.2-3.5-3.4-.1-.2-.9-1.2-.9-2.3s.6-1.6.8-1.8c.2-.2.4-.3.6-.3h.4c.2 0 .3 0 .5.4.2.5.6 1.6.7 1.7.1.2 0 .3-.1.5l-.3.4c-.1.1-.2.2 0 .4.2.3.7 1 1.5 1.6.6.5 1.1.6 1.3.5l.4-.3c.2-.1.3-.1.5 0 .2.2 1 .8 1.1 1 .1.1.1.3 0 .5Z"></path></svg>`;
+  if (name === "youtube") return html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3.5" y="7" width="17" height="11" rx="2.5"></rect><path d="m11 10 4 2.2-4 2.2V10Z" fill="currentColor" stroke="none"></path></svg>`;
+  if (name === "x") return html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>`;
+  return html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"></circle></svg>`;
+}
 
 export default class PageFooter extends LitElement {
   @property({ type: Object }) config?: Record<string, any>;
@@ -51,7 +65,7 @@ export default class PageFooter extends LitElement {
     this.classList.add("sp-host");
     injectFonts();
     injectStyles("sp-base", baseCss);
-    injectStyles("sp-announce", announceCss("sp"));
+    injectStyles("sp-announce", announceCss("sp", "slant"));
     injectStyles("sp-page-footer", css);
     const stopLocale = watchLocale(this);
     const onTone = () => { this.dark = currentTone() === "dark"; };
@@ -145,36 +159,57 @@ export default class PageFooter extends LitElement {
 
   render() {
     const cfg = getConfig(this.config);
-    const brand = localizedString(cfg.brand) || this.storeName || t({ ar: "قوّة", en: "Quwa" });
+    const brand = localizedString(cfg.brand) || this.storeName;
     const badge = localizedString(cfg.badge) || "ق";
     const showTop = this.shown(cfg.show_top);
     const topLabel = localizedString(cfg.top_label) || t({ ar: "للأعلى", en: "Back to top" });
-    const columns = [1, 2, 3].map((index) => ({
+    const columns = [1, 2].map((index) => ({
       title: localizedString(cfg[`col${index}_title`]),
       links: getCollectionItems<Record<string, any>>(cfg[`col${index}`], `col${index}`)
         .map((item) => ({ label: localizedString(item.label), url: linkHref(item.url) || "#" }))
         .filter((item) => item.label),
     })).filter((column) => column.title || column.links.length);
+    const socialTitle = localizedString(cfg.col3_title);
+    const socials = getCollectionItems<Record<string, any>>(cfg.social, "social")
+      .map((item) => ({
+        network: String(unwrapValue(item.network) || "instagram"),
+        url: linkHref(item.url) || "#",
+        label: ({
+          instagram: t({ ar: "إنستغرام", en: "Instagram" }),
+          snapchat: t({ ar: "سناب شات", en: "Snapchat" }),
+          tiktok: t({ ar: "تيك توك", en: "TikTok" }),
+          whatsapp: t({ ar: "واتساب", en: "WhatsApp" }),
+          x: t({ ar: "إكس", en: "X" }),
+          youtube: t({ ar: "يوتيوب", en: "YouTube" }),
+        } as Record<string, string>)[String(unwrapValue(item.network) || "instagram")] || t({ ar: "تواصل", en: "Social" }),
+      }))
+      .filter((item) => item.url);
     const pays = getCollectionItems<Record<string, any>>(cfg.payments, "payments")
-      .map((item) => localizedString(item.label))
-      .filter(Boolean);
+      .map((item) => ({ image: String(item.image || ""), label: localizedString(item.label) }))
+      .filter((item) => item.image || item.label);
     const logo = (this.dark && cfg.logo_dark) || cfg.logo;
-    return html`${announceBar(cfg, "sp", `sp-root ${schemeOf(cfg)}`, "--ann-bg:var(--volt);--ann-ink:#121500;--ann-speed:16s")}
+    return html`${announceBar(cfg, "sp", `sp-root ${schemeOf(cfg)}`, announceTone(cfg))}
     <footer class=${`sp-root sp-foot ${schemeOf(cfg)}`} style=${sectionStyle(cfg)}>
       <div class="sp-wrap">
         <div class="sp-fg">
           <div class="sp-about">
-            <a href="#" class="sp-logo">${logo ? html`<img src=${logo} alt=${brand} />` : html`<span class="sp-mark">${badge}</span>${brand}`}</a>
+            <a href="#" class="sp-flogo">${logo ? html`<img src=${logo} alt=${brand} />` : html`<span class="sp-fmark">${badge}</span>${brand}`}</a>
             ${localizedString(cfg.about) ? html`<p>${localizedString(cfg.about)}</p>` : nothing}
-            ${pays.length ? html`<div class="sp-pay">${pays.map((pay) => html`<span>${pay}</span>`)}</div>` : nothing}
+            ${pays.length ? html`<div class="sp-pay">${pays.map((pay) => pay.image
+              ? html`<img src=${pay.image} alt=${pay.label} width="32" height="32" title=${pay.label} />`
+              : nothing)}</div>` : nothing}
           </div>
           ${columns.map((column) => html`<div>
             ${column.title ? html`<h4>${column.title}</h4>` : nothing}
             <div>${column.links.map((link) => html`<a href=${link.url}>${link.label}</a>`)}</div>
           </div>`)}
+          ${socialTitle || socials.length ? html`<div>
+            ${socialTitle ? html`<h4>${socialTitle}</h4>` : nothing}
+            <div class="sp-social">${socials.map((item) => html`<a href=${item.url} aria-label=${item.label} target="_blank" rel="noopener noreferrer">${socialIcon(item.network)}</a>`)}</div>
+          </div>` : nothing}
         </div>
         ${showTop ? html`<button type="button" class="sp-totop" @click=${this.toTop}>${topLabel}</button>` : nothing}
-        <div class="sp-copy">
+        <div class="sp-foot-copy">
           <span>${localizedString(cfg.copyright)}</span>
           <span>${localizedString(cfg.legal)}</span>
         </div>

@@ -6,11 +6,14 @@ import { baseCss, injectFonts, injectStyles, sectionStyle } from "../../utils/st
 import { digits, emptyCopy } from "../../utils/ui.js";
 
 const css = `
-.sp-partners { display: grid; }
-.sp-partner { display: grid; grid-template-columns: auto 1fr; gap: 8px 14px; align-items: center; padding: 14px 0; border-block-end: 2px solid var(--ink); }
-.sp-partner i { font-style: normal; font-weight: 800; color: #121500; background: var(--volt); min-width: 2.4rem; min-height: 2.4rem; display: grid; place-items: center; }
-.sp-partner b { display: block; font-weight: 800; }
-.sp-partner span { display: block; color: var(--ink-soft); font-size: .86rem; }
+.sp-partners { display: grid; gap: 12px; }
+@container (min-width: 640px) { .sp-partners { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); } }
+.sp-partner { position: relative; display: grid; align-content: space-between; gap: 22px; min-height: 170px; padding: 18px 18px 22px; background: var(--paper); border: 1px solid var(--line); overflow: hidden; }
+.sp-partner::after { content: ""; position: absolute; inset-inline: 0; bottom: 0; height: 6px; background: var(--volt); transform-origin: right; transform: scaleX(.35); transition: transform .35s ease; }
+.sp-partner:hover::after { transform: scaleX(1); }
+.sp-partner i { font-style: normal; font-weight: 900; font-size: 3.2rem; line-height: .9; color: transparent; -webkit-text-stroke: 1.5px var(--accent); font-variant-numeric: tabular-nums; }
+.sp-partner b { display: block; font-weight: 800; font-size: 1.15rem; }
+.sp-partner span { display: inline-block; margin-top: 6px; padding: 2px 10px; background: var(--paper-2); color: var(--ink-soft); font-size: .78rem; transform: skewX(-8deg); }
 `;
 
 export default class PartnerRow extends LitElement {

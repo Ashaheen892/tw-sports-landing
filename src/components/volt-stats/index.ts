@@ -1,7 +1,8 @@
 import { html, LitElement } from "lit";
 import { property } from "lit/decorators.js";
-import { getCollectionItems, getConfig, localizedString, watchLocale } from "../../utils/config.js";
+import { flag, getCollectionItems, getConfig, localizedString, watchLocale } from "../../utils/config.js";
 import { schemeOf } from "../../utils/landing.js";
+import { countUp } from "../../utils/count.js";
 import { baseCss, injectFonts, injectStyles, sectionStyle, watchReveal } from "../../utils/styles.js";
 import { emptyCopy } from "../../utils/ui.js";
 
@@ -17,6 +18,7 @@ const css = `
 export default class StatStrip extends LitElement {
   @property({ type: Object }) config?: Record<string, any>;
   private stop = () => {};
+  private stopCount = () => {};
 
   protected createRenderRoot() {
     return this;
@@ -35,7 +37,16 @@ export default class StatStrip extends LitElement {
 
   disconnectedCallback() {
     this.stop();
+    this.stopCount();
     super.disconnectedCallback();
+  }
+
+  protected updated() {
+    const cfg = getConfig(this.config);
+    const on = cfg.count_up === undefined || cfg.count_up === "" || flag(cfg.count_up);
+    if (!on) return;
+    this.stopCount();
+    this.stopCount = countUp(this, ".sp-stat b");
   }
 
   render() {
@@ -48,7 +59,7 @@ export default class StatStrip extends LitElement {
       <div class="sp-wrap">
         <div class="sp-head">${localizedString(cfg.kicker) ? html`<span class="sp-no">${localizedString(cfg.kicker)}</span>` : ""}${title ? html`<h2 class="sp-h2">${title}</h2>` : ""}</div>
         ${items.length
-          ? html`<div class="sp-stats">${items.map((item) => html`<article class="sp-stat"><b>${item.value}</b><span>${item.label}</span></article>`)}</div>`
+          ? html`<div class="sp-stats">${items.map((item) => html`<article class="sp-stat"><b .textContent=${item.value}></b><span>${item.label}</span></article>`)}</div>`
           : emptyCopy()}
       </div>
     </section>`;
